@@ -1,4 +1,4 @@
-# LettuceKnow Support: Data Inventory & Organisation
+# LettuceKnow Data Inventory & Organisation
 
 The LettuceKnow consortium data are stored in the Yoda file management system. Yoda is based on iRODS, and interaction with its backend is possible via the iCommands suite.
 
