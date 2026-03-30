@@ -38,24 +38,24 @@ This script creates a **CSV inventory** of files in a Yoda/iRODS collection usin
 - Saves results to a CSV file
 - Writes a log file with execution details
 
-### Notes
+**Notes**
 
 - iRODS DATA_CREATE_TIME is returned as a Unix timestamp-like integer - requires downstream conversion. E.g. 01727370936 == Thu Sep 26 2024 19:15:36 GMT+0200 (Central European Summer Time)
 - File sizes are reported in **bytes**  
 - Only accessible files can be included
 
-## Step 2: Processing Inventory CSVs & Generating Subcollection Summaries: [Python process raw inventory data to overview csv](https://github.com/melanorian/LK_data-work/blob/main/2_process_inventory_csv.py)
+### Step 2: Processing Inventory CSVs & Generating Subcollection Summaries: [Python process raw inventory data to overview csv](https://github.com/melanorian/LK_data-work/blob/main/2_process_inventory_csv.py)
 
 This Python workflow consolidates, cleans, and summarizes LettuceKnow inventory CSVs into hierarchical subcollection tables with aggregated file sizes.
 
-### Input Variables
+**Input Variables**
 
 - `BASE_DIR` – directory containing inventory CSVs (`inventory_<collection>/inventory.csv`)  
 - `OUT_DIR` – output directory for subcollection summary CSV  
 - `IGNORE_PRE` – path prefix to remove from file paths (optional)  
 - `MAX_LEVEL` – depth of subcollection aggregation  
 
-### Output
+**Output**
 
 - Combined, cleaned inventory table (`full_df` internally)  
 - Subcollection summary CSV: `subcollection_summary_L<MAX_LEVEL>.csv` containing:  
@@ -64,23 +64,23 @@ This Python workflow consolidates, cleans, and summarizes LettuceKnow inventory 
   - `num_files` – total number of files  
   - `collection_size_GB` / `collection_size_TB` – size in convenient units  
 
-### What it does
+**What it does**
 
-1. **Read CSVs & fix headers**  
+1. Read CSVs & fix headers
    - Automatically merge `COLL_NAME` + `DATA_NAME` into `COLL_NAME`.
 
-2. **Validate column consistency**  
+2. Validate column consistency
    - Ensure all CSVs have the same structure before combining.
 
-3. **Combine CSVs**  
+3. Combine CSVs
    - Merge into a single DataFrame and convert `DATA_SIZE` to numeric.
 
-4. **Normalize paths**  
+4. Normalize paths
    - Strip `IGNORE_PRE` prefix and split paths into components.
 
-5. **Define subcollection keys**  
+5. Define subcollection keys
    - Identify subcollections at the specified `MAX_LEVEL`.
 
-6. **Aggregate & summarize data**  
+6. Aggregate & summarize data
    - Compute total size and file count per subcollection, including cumulative sizes for parent directories.  
    - Save the resulting summary CSV to `OUT_DIR` with filename `subcollection_summary_L<MAX_LEVEL>.csv`.
