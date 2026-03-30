@@ -4,7 +4,7 @@ import pandas as pd
 from pathlib import Path
 
 # ----------------- CONFIGURATION VARIABLES -----------------
-BASE_DIR = Path("/home/melanie/Documents/LK_data/test-set_inventory_eGWAS_summary_tables")
+BASE_DIR = Path("/home/melanie/Documents/LK_data/inventory_data")
 IGNORE_PRE = "/nluu6p/home/"  # prefix to ignore in paths
 MAX_LEVEL = 5  # maximum level of subcollection to aggregate
 # -----------------------------------------------------------
@@ -15,12 +15,19 @@ print(f"Found {len(csv_files)} CSV files:")
 for f in csv_files:
     print(f" - {f}")
 
-# Step 2: READ CSVS AND CHECK COLUMNS
+# Step 2: READ CSVs AND FIX HEADER
 df_list = []
 columns_sets = []
 
 for f in csv_files:
-    df = pd.read_csv(f)
+    # Read first line to fix the header
+    with open(f, "r") as fh:
+        header_line = fh.readline().strip()
+        # Replace incorrect comma in the first column name with a slash
+        fixed_header = header_line.replace("COLL_NAME,DATA_NAME", "COLL_NAME/DATA_NAME").split(",")
+
+    # Now read CSV with fixed header
+    df = pd.read_csv(f, header=0, names=fixed_header, skiprows=1)
     df["source_dir"] = f.parent.name
     df_list.append(df)
     columns_sets.append(set(df.columns))

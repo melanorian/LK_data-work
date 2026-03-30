@@ -19,15 +19,16 @@ logfile="$outdir/inventory.log"
 csvfile="$outdir/inventory.csv"
 
 # header, format, query
-# alternative: without creation time
-# header="COLL_NAME/DATA_NAME,DATA_SIZE,DATA_REPL_NUM,DATA_CHECKSUM"
-# format="%s/%s,%s,%s,%s"
-# query="select COLL_NAME, DATA_NAME, DATA_SIZE, DATA_REPL_NUM, DATA_CHECKSUM where COLL_NAME like '${base_collection}%'"
 
-# with creation time (uncomment to use)
+# with creation time (comment to deactivate with "#")
 header="COLL_NAME,DATA_NAME,DATA_SIZE,DATA_REPL_NUM,DATA_CHECKSUM,DATA_CREATE_TIME"
 format="%s/%s,%s,%s,%s,%s"
 query="select COLL_NAME, DATA_NAME, DATA_SIZE, DATA_REPL_NUM, DATA_CHECKSUM, DATA_CREATE_TIME where COLL_NAME like '${base_collection}%'"
+
+# alternative: without creation time (uncomment to activate removing "#")
+# header="COLL_NAME/DATA_NAME,DATA_SIZE,DATA_REPL_NUM,DATA_CHECKSUM"
+# format="%s/%s,%s,%s,%s"
+# query="select COLL_NAME, DATA_NAME, DATA_SIZE, DATA_REPL_NUM, DATA_CHECKSUM where COLL_NAME like '${base_collection}%'"
 
 ## log configuration
 
