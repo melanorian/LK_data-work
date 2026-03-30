@@ -14,14 +14,10 @@ Basic explanations of iRODS, relevant iCommands, and the setup of a virtual mach
 
 This script creates a **CSV inventory** of files in a Yoda/iRODS collection using `iquest`. It queries the iCAT catalog directly, making it efficient for large datasets.
 
-## Configuration (edit only these)
+**Input**
 
 - `base_collection` - path to the iRODS collection you want to inventory
 - Header, format, and query lines - Default with creation time (comment to deactivate with "#"), alternative: without creation time (uncomment to activate removing "#")
-
-**Input**
-
-- iRODS collection path (configured in `base_collection`)
 - Active iRODS session (`iinit`)  
 - Optional: uncomment alternate query to include `DATA_CREATE_TIME`
 
