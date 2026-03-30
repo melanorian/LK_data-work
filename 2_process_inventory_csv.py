@@ -5,8 +5,9 @@ from pathlib import Path
 
 # ----------------- CONFIGURATION VARIABLES -----------------
 BASE_DIR = Path("/home/melanie/Documents/LK_data/inventory_data")
+OUT_DIR = Path("/home/melanie/Documents/LK_data/LK_inventory_report")
 IGNORE_PRE = "/nluu6p/home/"  # prefix to ignore in paths
-MAX_LEVEL = 5  # maximum level of subcollection to aggregate
+MAX_LEVEL = 3  # maximum level of subcollection to aggregate
 # -----------------------------------------------------------
 
 # Step 1: FIND CSV FILES
@@ -89,3 +90,9 @@ df_max = df_max.rename(columns={"subcollection_max": "collection"})
 # Step 10: QUICK CHECK
 print("Summary table for max-level subcollections:")
 print(df_max.head())
+
+# Step 11: SAVE SUMMARY TABLE WITH LEVEL IN FILENAME
+OUT_DIR.mkdir(parents=True, exist_ok=True)  # ensure output dir exists
+out_file = OUT_DIR / f"subcollection_summary_L{MAX_LEVEL}.csv"
+df_max.to_csv(out_file, index=False)
+print(f"Step 11: Saved max-level subcollection summary to: {out_file}")
