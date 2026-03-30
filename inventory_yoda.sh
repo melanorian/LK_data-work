@@ -20,14 +20,14 @@ csvfile="$outdir/inventory.csv"
 
 # header, format, query
 # default: without creation time
-header="COLL_NAME,DATA_NAME,DATA_SIZE,DATA_REPL_NUM,DATA_CHECKSUM"
-format="%s/%s,%s,%s,%s"
-query="select COLL_NAME, DATA_NAME, DATA_SIZE, DATA_REPL_NUM, DATA_CHECKSUM where COLL_NAME like '${base_collection}%'"
+# header="COLL_NAME/DATA_NAME,DATA_SIZE,DATA_REPL_NUM,DATA_CHECKSUM"
+# format="%s/%s,%s,%s,%s"
+# query="select COLL_NAME, DATA_NAME, DATA_SIZE, DATA_REPL_NUM, DATA_CHECKSUM where COLL_NAME like '${base_collection}%'"
 
 # alternative: with creation time (uncomment to use)
-# header="COLL_NAME,DATA_NAME,DATA_SIZE,DATA_REPL_NUM,DATA_CHECKSUM,DATA_CREATE_TIME"
-# format="%s/%s,%s,%s,%s,%s"
-# query="select COLL_NAME, DATA_NAME, DATA_SIZE, DATA_REPL_NUM, DATA_CHECKSUM, ifnull(DATA_CREATE_TIME,'NA') where COLL_NAME like '${base_collection}%'"
+header="COLL_NAME,DATA_NAME,DATA_SIZE,DATA_REPL_NUM,DATA_CHECKSUM,DATA_CREATE_TIME"
+format="%s/%s,%s,%s,%s,%s"
+query="select COLL_NAME, DATA_NAME, DATA_SIZE, DATA_REPL_NUM, DATA_CHECKSUM, DATA_CREATE_TIME where COLL_NAME like '${base_collection}%'"
 
 ## log configuration
 
