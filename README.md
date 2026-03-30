@@ -44,7 +44,7 @@ This script creates a **CSV inventory** of files in a Yoda/iRODS collection usin
 - File sizes are reported in **bytes**  
 - Only accessible files can be included
 
-## Step 2: Processing Inventory CSVs & Generating Subcollection Summaries
+## Step 2: Processing Inventory CSVs & Generating Subcollection Summaries: [Python process raw inventory data to overview csv](https://github.com/melanorian/LK_data-work/blob/main/2_process_inventory_csv.py)
 
 This Python workflow consolidates, cleans, and summarizes LettuceKnow inventory CSVs into hierarchical subcollection tables with aggregated file sizes.
 
