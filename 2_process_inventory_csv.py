@@ -7,7 +7,7 @@ from pathlib import Path
 BASE_DIR = Path("/home/melanie/Documents/LK_data/inventory_data")
 OUT_DIR = Path("/home/melanie/Documents/LK_data/LK_inventory_report")
 IGNORE_PRE = "/nluu6p/home/"  # prefix to ignore in paths
-MAX_LEVEL = 3  # maximum level of subcollection to aggregate
+MAX_LEVEL = 5  # maximum level of subcollection to aggregate
 # -----------------------------------------------------------
 
 # Step 1: FIND CSV FILES
@@ -87,12 +87,50 @@ df_max["collection_size_TB"] = df_max["collection_size_bytes"] / 1_000_000_000_0
 # Step 9: RENAME COLUMNS FOR CLARITY
 df_max = df_max.rename(columns={"subcollection_max": "collection"})
 
-# Step 10: QUICK CHECK
-print("Summary table for max-level subcollections:")
-print(df_max.head())
+# Step 10: CALCULATE CUMULATIVE SIZE FOR PARENT COLLECTIONS
+# Create a copy of df_max to hold cumulative sums
+df_cum = df_max.copy()
 
-# Step 11: SAVE SUMMARY TABLE WITH LEVEL IN FILENAME
-OUT_DIR.mkdir(parents=True, exist_ok=True)  # ensure output dir exists
+# Sort by collection path length descending so we add children to parents
+df_cum["path_depth"] = df_cum["collection"].apply(lambda x: len(Path(x).parts))
+df_cum = df_cum.sort_values("path_depth", ascending=False)
+
+# Dictionary to accumulate sizes
+cumulative_sizes = {}
+cumulative_counts = {}
+
+for _, row in df_cum.iterrows():
+    coll = row["collection"]
+    size = row["collection_size_bytes"]
+    count = row["num_files"]
+
+    # Add own size/count
+    cumulative_sizes[coll] = cumulative_sizes.get(coll, 0) + size
+    cumulative_counts[coll] = cumulative_counts.get(coll, 0) + count
+
+    # Add to parent recursively
+    parts = Path(coll).parts
+    for i in range(len(parts) - 1, 0, -1):
+        parent = "/".join(parts[:i])
+        cumulative_sizes[parent] = cumulative_sizes.get(parent, 0) + size
+        cumulative_counts[parent] = cumulative_counts.get(parent, 0) + count
+
+# Build final DataFrame
+df_final = pd.DataFrame({
+    "collection": list(cumulative_sizes.keys()),
+    "collection_size_bytes": list(cumulative_sizes.values()),
+    "num_files": list(cumulative_counts.values())
+})
+
+# Step 11: CONVERT SIZE TO GB AND TB
+df_final["collection_size_GB"] = df_final["collection_size_bytes"] / 1_000_000_000
+df_final["collection_size_TB"] = df_final["collection_size_bytes"] / 1_000_000_000_000
+
+# Step 12: QUICK CHECK
+print("Summary table with cumulative parent-level sizes:")
+print(df_final.sort_values("collection").head(20))
+
+# Step 13: SAVE SUMMARY TABLE WITH LEVEL IN FILENAME
 out_file = OUT_DIR / f"subcollection_summary_L{MAX_LEVEL}.csv"
-df_max.to_csv(out_file, index=False)
-print(f"Step 11: Saved max-level subcollection summary to: {out_file}")
+df_final.to_csv(out_file, index=False)
+print(f"Saved cumulative subcollection summary to: {out_file}")
