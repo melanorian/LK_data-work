@@ -1,39 +1,69 @@
 #!/bin/bash
 
-# Start timer
+set -o pipefail  # catch failures in pipes
+
+# start timer
 start_time=$(date +%s)
 
-# Create output directory if it doesn’t exist
-mkdir -p ./tiral_YODA_inventory
+## configuration
 
-# Log file
-logfile=./tiral_YODA_inventory/inventory_test.log
+# base collection (edit this only)
+base_collection="/nluu6p/home/research-lettuceknow-releases"
+
+# output directory derived from collection name
+outdir="./inventory_$(basename "$base_collection")"
+mkdir -p "$outdir"
+
+# log and csv files
+logfile="$outdir/inventory.log"
+csvfile="$outdir/inventory.csv"
+
+# header, format, query
+# default: without creation time
+header="COLL_NAME,DATA_NAME,DATA_SIZE,DATA_REPL_NUM,DATA_CHECKSUM"
+format="%s/%s,%s,%s,%s"
+query="select COLL_NAME, DATA_NAME, DATA_SIZE, DATA_REPL_NUM, DATA_CHECKSUM where COLL_NAME like '${base_collection}%'"
+
+# alternative: with creation time (uncomment to use)
+# header="COLL_NAME,DATA_NAME,DATA_SIZE,DATA_REPL_NUM,DATA_CHECKSUM,DATA_CREATE_TIME"
+# format="%s/%s,%s,%s,%s,%s"
+# query="select COLL_NAME, DATA_NAME, DATA_SIZE, DATA_REPL_NUM, DATA_CHECKSUM, ifnull(DATA_CREATE_TIME,'NA') where COLL_NAME like '${base_collection}%'"
+
+## log configuration
+
 echo "Starting inventory script at $(date)" > "$logfile"
+echo "Base collection: $base_collection" >> "$logfile"
+echo "Output directory: $outdir" >> "$logfile"
+echo "Header: $header" >> "$logfile"
+echo "Format: $format" >> "$logfile"
+echo "Query: $query" >> "$logfile"
 
-# Write header to CSV
-echo "COLL_NAME,DATA_NAME,DATA_SIZE,DATA_REPL_NUM,DATA_CHECKSUM" > ./tiral_YODA_inventory/inventory_test.csv
+## write header
+echo "$header" > "$csvfile"
 
-# Append iquest output in CSV format, log stdout/stderr
-iquest --no-page "%s/%s,%s,%s,%s" "select COLL_NAME, DATA_NAME, DATA_SIZE, DATA_REPL_NUM, DATA_CHECKSUM where COLL_NAME like '/nluu6p/home/research-lettuceknow-releases/1_data-releases/data-release_V2_20241031/3_results%'" >
-
-# Check if iquest finished successfully
-if [ $? -eq 0 ]; then
-    echo "iquest command finished successfully." >> "$logfile"
+## run iquest (safe execution)
+if iquest --no-page "$format" "$query" >> "$csvfile" 2>> "$logfile"; then
+    echo "iquest command finished successfully" >> "$logfile"
 else
-    echo "ERROR: iquest command failed!" >> "$logfile"
-    echo "Check $logfile for details."
+    echo "ERROR: iquest command failed" >> "$logfile"
     exit 1
 fi
 
-# Check if CSV is non-empty (after header)
-if [ $(wc -l < ./tiral_YODA_inventory/inventory_test.csv) -le 1 ]; then
-    echo "ERROR: CSV file is empty!" >> "$logfile"
-    echo "Check $logfile for details."
+## count rows
+row_count=$(wc -l < "$csvfile")
+data_rows=$((row_count - 1))
+
+echo "Total rows (incl header): $row_count" >> "$logfile"
+echo "Data rows: $data_rows" >> "$logfile"
+
+if [ "$row_count" -le 1 ]; then
+    echo "ERROR: CSV file is empty" >> "$logfile"
     exit 1
 fi
 
-# End timer and print runtime
+## end timer
 end_time=$(date +%s)
 runtime=$((end_time - start_time))
-echo "Script finished successfully in $runtime seconds." >> "$logfile"
-echo "Inventory CSV saved to ./tiral_YODA_inventory/inventory_test.csv"
+
+echo "Finished in $runtime seconds" >> "$logfile"
+echo "Inventory CSV saved to $csvfile"
