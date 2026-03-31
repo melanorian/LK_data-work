@@ -1,10 +1,11 @@
 import pandas as pd
 from pathlib import Path
 import json
+from collections import Counter, defaultdict
 
 # Configuration
 IGNORE_PRE = "/nluu6p/home/"
-MAX_LEVEL = 5
+MAX_LEVEL = 4
 BASE_DIR = Path("/home/melanie/Documents/LK_data/inventory_data")
 OUT_DIR = Path("/home/melanie/Documents/LK_data/LK_inventory_report")  # Can change if desired
 
@@ -74,3 +75,30 @@ output_file = OUT_DIR / f"file-type_inventory_L{MAX_LEVEL}.csv"
 summary_df.to_csv(output_file, index=False)
 
 print(f"Summary saved to {output_file}")
+
+# --- Step 7: Extract global file type stats ---
+
+type_counter = Counter()
+branch_presence = defaultdict(int)
+
+for _, row in summary_df.iterrows():
+    file_types = json.loads(row["file_types"])
+    
+    for ext, count in file_types.items():
+        type_counter[ext] += count
+        branch_presence[ext] += 1
+
+# Build DataFrame
+type_summary_df = pd.DataFrame({
+    "file_type": list(type_counter.keys()),
+    "total_count": list(type_counter.values()),
+    "num_branches": [branch_presence[ext] for ext in type_counter.keys()]
+})
+
+# Sort by total count
+type_summary_df = type_summary_df.sort_values(by="total_count", ascending=False)
+
+type_output_file = OUT_DIR / f"file-type_summary_L{MAX_LEVEL}.csv"
+type_summary_df.to_csv(type_output_file, index=False)
+
+print(f"Type summary saved to {type_output_file}")
