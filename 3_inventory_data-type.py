@@ -53,27 +53,25 @@ if not inconsistent_files:
     full_df["DATA_SIZE"] = pd.to_numeric(full_df["DATA_SIZE"], errors="coerce").fillna(0).astype(int)
 
     # Normalize paths relative to IGNORE_PRE
-    full_df["rel_path"] = full_df["COLL_NAME"].apply(lambda x: str(x).replace(IGNORE_PRE, "", 1))
+    full_df["rel_path"] = full_df["COLL_NAME"].str.replace(IGNORE_PRE, "", regex=False)
     full_df["path_parts"] = full_df["rel_path"].apply(lambda x: Path(x).parts)
 
     print(f"Total rows imported: {len(full_df)}")
 
     # Step 5: BUILD DIRECTORY TREE
     dir_counts = {}
-    for idx, row in full_df.iterrows():
-        parts = row["path_parts"]
+    for parts in full_df["path_parts"]:
         for level in range(1, len(parts)):
             dir_path = "/".join(parts[:level])
             dir_counts.setdefault(dir_path, {"files": 0, "total": 0})
             dir_counts[dir_path]["total"] += 1
         # last level is the file
-        file_path = "/".join(parts)
         parent_dir = "/".join(parts[:-1])
         dir_counts.setdefault(parent_dir, {"files": 0, "total": 0})
         dir_counts[parent_dir]["files"] += 1
         dir_counts[parent_dir]["total"] += 1
 
-    # Step 6: DETERMINE FIRST MEANINGFUL COLLECTION PER FILE
+    # Step 6: DETERMINE FIRST MEANINGFUL COLLECTION
     def find_first_meaningful(parts):
         for level in range(1, len(parts)):
             dir_path = "/".join(parts[:level])
@@ -81,27 +79,22 @@ if not inconsistent_files:
             fraction = info["files"] / info["total"] if info["total"] > 0 else 0
             if fraction >= MIN_FILE_FRACTION:
                 return dir_path
-        # fallback: top-level
         return "/".join(parts[:-1])
 
-    # assign first meaningful collection per file
+    # assign initial first meaningful collection
     full_df["first_meaningful_collection"] = full_df["path_parts"].apply(find_first_meaningful)
 
-    # Step 6b: ENSURE ALL FILES BELOW THIS COLLECTION ARE ASSIGNED TO IT
-    # This means we replace first_meaningful_collection with the canonical path
-    canonical_map = {}
+    # Step 6b: VECTORIZE CANONICAL COLLECTION ASSIGNMENT
+    unique_collections = sorted(full_df["first_meaningful_collection"].unique(), key=len, reverse=True)
 
-    # build a unique set of first meaningful collections
-    unique_collections = full_df["first_meaningful_collection"].unique()
+    canonical_collection = pd.Series(index=full_df.index, dtype="string")
+    rel_paths = full_df["rel_path"]
 
-    # assign every file to the **topmost collection that is a prefix of its path**
-    def get_canonical_collection(path):
-        for col in unique_collections:
-            if str(path).startswith(col):
-                return col
-        return str(path)  # fallback
+    for col in unique_collections:
+        mask = rel_paths.str.startswith(col)
+        canonical_collection[mask] = col
 
-    full_df["first_meaningful_collection"] = full_df["rel_path"].apply(get_canonical_collection)
+    full_df["first_meaningful_collection"] = canonical_collection
 
     # Step 7: AGGREGATE SUMMARY
     def file_extensions_counter(files):
