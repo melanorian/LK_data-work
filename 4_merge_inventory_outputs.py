@@ -35,19 +35,6 @@ if df_types["collection"].duplicated().any():
 if df_sizes["collection"].duplicated().any():
     print("WARNING: duplicates in size table")
 
-# --- Step 4a: Check whether all collection keys match between the two dataframes ---
-num_mismatches = (~df_types["collection"].isin(df_sizes["collection"])).sum()
-print(f"Number of collections in file-type table missing from sizes table: {num_mismatches}")
-
-num_mismatches_sizes = (~df_sizes["collection"].isin(df_types["collection"])).sum()
-print(f"Number of collections in sizes table missing from file-type table: {num_mismatches_sizes}")
-
-breakpoint()
-
-# --- Step 5: Sort (for sanity, not required for merge) ---
-df_types = df_types.sort_values("collection").reset_index(drop=True)
-df_sizes = df_sizes.sort_values("collection").reset_index(drop=True)
-
 # --- Step 6: Merge ---
 merged_df = pd.merge(
     df_sizes,
@@ -67,10 +54,11 @@ if not mismatch.empty:
     print("\nWARNING: Some rows did not match between files:")
     print(mismatch.head())
 
+# --- Step 7.5: Sort for readability ---
+merged_df = merged_df.sort_values("collection").reset_index(drop=True)
+
 # Drop merge indicator if not needed
 merged_df = merged_df.drop(columns=["_merge"])
 
 # --- Step 8: Save result ---
 merged_df.to_csv(OUT_FILE, index=False)
-
-print(f"\nMerged file saved to: {OUT_FILE}")
