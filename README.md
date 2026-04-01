@@ -44,7 +44,7 @@ This script creates a **CSV inventory** of files in a Yoda/iRODS collection usin
 - File sizes are reported in **bytes**  
 - Only accessible files can be included
 
-### Step 2: [Python Processing Inventory CSVs & Generating Subcollection Summaries](https://github.com/melanorian/LK_data-work/blob/main/2_process_inventory_csv.py)
+### Step 2: [Processing Inventory CSVs & Generating Subcollection Summaries](https://github.com/melanorian/LK_data-work/blob/main/2_process_inventory_csv.py)
 
 This Python script summarizes LettuceKnow inventory CSVs into subcollection table with aggregated file sizes up to a manually defined maximum depth of sub-collections. 
 
@@ -85,9 +85,7 @@ This Python script summarizes LettuceKnow inventory CSVs into subcollection tabl
    - Compute total size and file count per subcollection, including cumulative sizes for parent directories.  
    - Save the resulting summary CSV to `OUT_DIR` with filename `subcollection_summary_L<MAX_LEVEL>.csv`.
 
-### Step 3: [Python Processing Inventory CSVs & Generating Subcollection Summaries](https://github.com/melanorian/LK_data-work/blob/main/3_inventory_data-type.py)
-
-### Step 3: [Python Processing Inventory CSVs & Generating File Type Summaries](https://github.com/melanorian/LK_data-work/blob/main/3_inventory_data-type.py)
+### Step 3: [Processing Inventory CSVs & Generating File Type Summaries](https://github.com/melanorian/LK_data-work/blob/main/3_inventory_data-type.py)
 
 This Python script analyzes LettuceKnow inventory CSVs to summarize **file type distributions** across subcollections and globally. It provides insight into the composition of data (e.g. sequencing files, reports, archives) within the Yoda environment.
 
