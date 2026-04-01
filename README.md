@@ -46,7 +46,7 @@ This script creates a **CSV inventory** of files in a Yoda/iRODS collection usin
 
 ### Step 2: [Python Processing Inventory CSVs & Generating Subcollection Summaries](https://github.com/melanorian/LK_data-work/blob/main/2_process_inventory_csv.py)
 
-This Python workflow consolidates, cleans, and summarizes LettuceKnow inventory CSVs into hierarchical subcollection tables with aggregated file sizes.
+This Python script summarizes LettuceKnow inventory CSVs into subcollection table with aggregated file sizes up to a manually defined maximum depth of sub-collections. 
 
 **Input Variables**
 
@@ -57,7 +57,7 @@ This Python workflow consolidates, cleans, and summarizes LettuceKnow inventory 
 
 **Output**
 
-- Combined, cleaned inventory table (`full_df` internally)  
+- Combined inventory table (`full_df` internally)  
 - Subcollection summary CSV: `subcollection_summary_L<MAX_LEVEL>.csv` containing:  
   - `collection` – subcollection path  
   - `collection_size_bytes` – cumulative size including nested files  
@@ -84,3 +84,61 @@ This Python workflow consolidates, cleans, and summarizes LettuceKnow inventory 
 6. Aggregate & summarize data
    - Compute total size and file count per subcollection, including cumulative sizes for parent directories.  
    - Save the resulting summary CSV to `OUT_DIR` with filename `subcollection_summary_L<MAX_LEVEL>.csv`.
+
+### Step 3: [Python Processing Inventory CSVs & Generating Subcollection Summaries](https://github.com/melanorian/LK_data-work/blob/main/3_inventory_data-type.py)
+
+### Step 3: [Python Processing Inventory CSVs & Generating File Type Summaries](https://github.com/melanorian/LK_data-work/blob/main/3_inventory_data-type.py)
+
+This Python script analyzes LettuceKnow inventory CSVs to summarize **file type distributions** across subcollections and globally. It provides insight into the composition of data (e.g. sequencing files, reports, archives) within the Yoda environment.
+
+**Input Variables**
+
+- `BASE_DIR` – directory containing inventory CSVs (`inventory_<collection>/inventory.csv`)  
+- `OUT_DIR` – output directory for file type summaries  
+- `IGNORE_PRE` – path prefix to remove from file paths (optional)  
+- `MAX_LEVEL` – depth of directory structure used to define aggregation branches  
+
+**Output**
+
+- Branch-level file type summary:  
+  - `file-type_inventory_L<MAX_LEVEL>.csv` containing:  
+    - `BRANCH` – subcollection path up to `MAX_LEVEL`  
+    - `num_files` – total number of files in the branch  
+    - `file_types` – JSON dictionary of file extensions and their respective counts  
+
+- Global file type summary:  
+  - `file-type_summary_L<MAX_LEVEL>.csv` containing:  
+    - `file_type` – detected file extension  
+    - `total_count` – total occurrences across all files  
+    - `num_branches` – number of branches in which the file type appears  
+
+**What it does**
+
+1. Locate and read inventory CSVs  
+   - Recursively searches `BASE_DIR` for `inventory.csv` files.  
+   - Merges all valid CSVs into a single DataFrame for analysis.
+
+2. Extract file types  
+   - Derives file extensions from file names.  
+   - Handling of multi-part extensions (e.g. `.fastq.gz`, `.tsv.gz`).  
+   - Assigns `"no_ext"` where no extension is present, e.g for (sub-)collections
+
+3. Define aggregation branches  
+   - Groups files by directory structure up to `MAX_LEVEL`.
+
+4. Aggregate branch-level summaries  
+   - Counts total files per branch.  
+   - Computes count of file types within each branch.
+
+5. Generate global file type statistics  
+   - Aggregates counts of each file type across all branches.  
+
+6. Save outputs  
+   - Writes both branch-level and global summaries to `OUT_DIR`.
+
+**Notes**
+
+- File types are inferred from filenames and may include artifacts due to naming inconsistencies.  
+- Multi-part extensions are partially normalized but not fully standardized (e.g. `.vcf.gz` vs `.gz`).  
+- The branch-level JSON structure enables flexible downstream parsing and categorization.  
+- The global summary is useful for identifying dominant file types for further data classification.
