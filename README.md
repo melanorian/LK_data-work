@@ -10,7 +10,7 @@ Basic explanations of iRODS, relevant iCommands, and the setup of a virtual mach
 
 ## Workstream A: Inventory of Data on YODA 
 
-### Step 1: [Bash script for collection-inventory](https://github.com/melanorian/LK_data-work/blob/main/inventory_yoda.sh)
+### Step 1: [Generatefull YODA Collection Inventory](https://github.com/melanorian/LK_data-work/blob/main/inventory_yoda.sh)
 
 This script creates a **CSV inventory** of files in a Yoda/iRODS collection using `iquest`. It queries the iCAT catalog directly, making it efficient for large datasets.
 
