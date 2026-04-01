@@ -52,7 +52,7 @@ else:
 if not inconsistent_files:
     full_df = pd.concat(df_list, ignore_index=True)
 
-    # --- FIX: rename column to match the script ---
+    # Rename column to match the script
     full_df.rename(columns={"COLL_NAME/DATA_NAME": "COLL_NAME"}, inplace=True)
     
     # Ensure DATA_SIZE is numeric
