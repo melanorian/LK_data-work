@@ -140,3 +140,45 @@ This Python script analyzes LettuceKnow inventory CSVs to summarize **file type 
 - Multi-part extensions are partially normalized but not fully standardized (e.g. `.vcf.gz` vs `.gz`).  
 - The branch-level JSON structure enables flexible downstream parsing and categorization.  
 - The global summary is useful for identifying dominant file types for further data classification.
+
+### Step 4: [Generate CSV file with Inventory Size and File Types](https://github.com/melanorian/LK_data-work/blob/main/4_merge_inventory_outputs.py)
+
+Branch-level file type summaries and subcollection summaries Steps 2 & 3, are merged to provide a combined view of size and file type composition per branch.
+
+
+**Input Variables**
+
+- `BASE_DIR` – directory containing:
+  - `subcollection_summary_L<MAX_LEVEL>.csv`
+  - `file-type_inventory_L<MAX_LEVEL>.csv`
+  - Optional: `file-type_summary_L4.csv` (file type descriptions annotated by pasting into chatGPT)
+- `MAX_LEVEL` – depth of branch aggregation used in previous scripts  
+- `OUT_FILE` – path to save merged inventory CSV  
+
+**What it does**
+
+1. Loads branch-level file type data and subcollection size data.  
+2. Validates uniqueness of branch keys (`collection`) in both tables.  
+3. Loads optional file type description table to provide human-readable descriptions, this file was annotated manually by copy-paste into chatGPT.  
+4. Merges the two datasets on `collection`, keeping all rows and reporting any mismatches.  
+5. Sorts the merged table by `collection` for readability.  
+6. Adds a column `file_type_description`:
+   - Converts JSON dictionary of file types per branch into an array of **unique descriptions**
+   - Maintains order and removes duplicates
+   - Unknown file types are labeled `"NA"`  
+7. Saves the final merged table to CSV.
+
+**Output**
+
+- `merged_inventory_L<MAX_LEVEL>.csv` containing:
+  - `collection` – branch/subcollection path  
+  - `collection_size_bytes` – cumulative size of files in the branch  
+  - `collection_size_GB` / `collection_size_TB` – convenient units  
+  - `num_files` – total number of files in the branch  
+  - `file_types` – JSON dictionary of file extensions and counts  
+  - `file_type_description` – JSON array of unique descriptions  
+
+**Notes**
+
+- The merge allows quick inspection of both storage footprint and data composition per branch.  
+- If descriptions for some file types are missing, `"NA"` will be shown.  
