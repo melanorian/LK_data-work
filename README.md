@@ -14,9 +14,10 @@ Basic explanations of iRODS, relevant iCommands, and the setup of a virtual mach
 3. [Step 2: Processing Inventory CSVs & Generating Subcollection Summaries](#step-2-processing-inventory-csvs--generating-subcollection-summaries)
 4. [Step 3: Processing Inventory CSVs & Generating File Type Summaries](#step-3-processing-inventory-csvs--generating-file-type-summaries)
 5. [Step 4: Generate CSV file with Inventory Size and File Types](#step-4-generate-csv-file-with-inventory-size-and-file-types)
-6. [Step 5: Document File Detection and Aggregation](#step-5-processing-inventory-with-documentation-indicators)
-7. [Step 6: Summarize Inventory Across Deepest Collections](#step-6-summarized-inventory)
-8. [Step 7: Duplicate File Detection](#step-7-duplicate-file-detection)
+6. [Step 5a Optional – Extract File-Level Inventory for a Specific Collection](https://github.com/melanorian/LK_data-work/blob/main/5a_optional_files_in_target_collection.py)
+7. [Step 5: Document File Detection and Aggregation](#step-5-processing-inventory-with-documentation-indicators)
+8. [Step 6: Summarize Inventory Across Deepest Collections](#step-6-summarized-inventory)
+9. [Step 7: Duplicate File Detection](#step-7-duplicate-file-detection)
 
 ## Workstream A: Inventory of Data on YODA 
 
@@ -237,11 +238,9 @@ This Python script annotates the merged LettuceKnow inventory with the presence 
 **Notes**
 - Only informative files with recognized patterns/extensions are counted.
 
-### Step 5a: Optional – Extract File-Level Inventory for a Specific Collection
+### Step 5a: [Optional – Extract File-Level Inventory for a Specific Collection](https://github.com/melanorian/LK_data-work/blob/main/5a_optional_files_in_target_collection.py)
 
 This Python script generates a **file-level inventory CSV** for a specific subcollection of interest within the LettuceKnow data, e.g., RNA-seq data.
-
-**Script:** [option1_files_in_target_collection.py](https://github.com/melanorian/LK_data-work/blob/main/5a_optional_files_in_target_collection.py)
 
 **Input Variables**
 
