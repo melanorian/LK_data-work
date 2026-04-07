@@ -1,4 +1,4 @@
-# LettuceKnow Data Inventory & Organisation
+A# LettuceKnow Data Inventory & Organisation
 
 The LettuceKnow consortium data are stored in the Yoda file management system. Yoda is based on iRODS, and interaction with its backend is possible via the iCommands suite.
 
@@ -181,4 +181,55 @@ Branch-level file type summaries and subcollection summaries Steps 2 & 3, are me
 **Notes**
 
 - The merge allows quick inspection of both storage footprint and data composition per branch.  
-- If descriptions for some file types are missing, `"NA"` will be shown.  
+- If descriptions for some file types are missing, `"NA"` will be shown.
+
+### Step 5: [Enrich Inventory with Documentation & Informative Files](https://github.com/melanorian/LK_data-work/blob/main/5_add_docs_info.py](https://github.com/melanorian/LK_data-work/blob/main/5_documentation_quality.py)
+
+This Python script annotates the merged LettuceKnow inventory with the presence of **informative files** such as README, log, configuration, and metadata files at the collection level. It combines collection-level summaries with file-level classifications to provide insight into available documentation and supporting files.
+
+**Input Variables**
+
+- `BASE_DIR` – directory containing file-level inventory CSVs (`inventory_<collection>/inventory.csv`)  
+- `REPORT_DIR` – directory containing merged collection-level inventory CSV (`merged_inventory_L<MAX_LEVEL>.csv`)  
+- `MAX_LEVEL` – depth used to define collections consistently with previous steps  
+- `MERGED_FILE` – merged inventory CSV from Step 4  
+- `OUT_FILE` – path to save the enriched collection-level inventory  
+
+**Output**
+
+- CSV file: `merged_inventory_with_docs_L<MAX_LEVEL>.csv` containing:
+  - Original collection-level information (from merged inventory)
+  - Aggregated counts per collection of:
+    - `README` – number of README files present
+    - `log` – number of log files (e.g., `.log`, `.out`, `.err`)
+    - `config` – number of configuration files (e.g., `.cfg`, `.ini`, `.yaml`, `.yml`)
+    - `metadata` – number of metadata files (e.g., `.json`, `.xml`, `.tsv`, `.csv`)  
+
+**What it does**
+
+1. **Load merged collection inventory**
+   - Reads the merged collection-level CSV produced in Step 4.
+
+2. **Load file-level inventories**
+   - Reads all inventory CSVs from the base directory and concatenates them.
+   - Standardizes column naming to match previous steps.
+
+3. **Define collection keys**
+   - Generates consistent collection paths up to `MAX_LEVEL` to match Step 4 aggregation.
+
+4. **Classify informative files**
+   - Examines file names and extensions to detect README, log, config, and metadata files.
+
+5. **Aggregate per collection**
+   - Sums the classified informative files for each collection.
+
+6. **Merge with existing collection data**
+   - Combines aggregated counts with the merged collection-level inventory.
+   - Fills missing values with 0 for collections without any informative files.
+
+7. **Save enriched inventory**
+   - Writes the output CSV to `OUT_FILE` in `REPORT_DIR`.
+
+**Notes**
+- Only informative files with recognized patterns/extensions are counted.
+
