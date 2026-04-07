@@ -27,6 +27,15 @@ for col in required_cols:
 # Step 2: IDENTIFY FILE-LEVEL ROWS
 df["is_file"] = df["collection"].apply(lambda x: Path(str(x)).suffix != "")
 
+# 🔹 NEW: store original parent numeric info BEFORE filtering
+parent_numeric = df[~df["is_file"]].copy()
+parent_numeric = parent_numeric.set_index("collection")[["collection_size_bytes"]]
+
+# 🔹 NEW: count number of child files per collection
+file_counts = df[df["is_file"]].copy()
+file_counts["parent"] = file_counts["collection"].apply(lambda x: str(Path(x).parent))
+file_counts = file_counts.groupby("parent").size().to_dict()
+
 # Step 3: REMOVE PRE-AGGREGATED COLLECTION ROWS
 collections_with_files = set(df[df["is_file"]]["collection"].apply(lambda x: str(Path(x).parent)))
 df = df[~((~df["is_file"]) & (df["collection"].isin(collections_with_files)))].copy()
@@ -71,6 +80,28 @@ agg_df = df.groupby("summarized_collection").agg({
     "file_types_dict": merge_dicts
 }).reset_index()
 
+# 🔹 NEW: FIX SPECIAL CASES
+def fix_special_case(row):
+    collection = row["summarized_collection"]
+
+    # Condition: aggregated size is 0
+    if row["collection_size_bytes"] == 0:
+        # Check if original parent has size info
+        if collection in parent_numeric.index:
+            parent_size = parent_numeric.loc[collection, "collection_size_bytes"]
+
+            if pd.notna(parent_size) and parent_size > 0:
+                # Apply fix
+                row["collection_size_bytes"] = parent_size
+
+                # Count child files
+                if collection in file_counts:
+                    row["num_files"] = file_counts[collection]
+
+    return row
+
+agg_df = agg_df.apply(fix_special_case, axis=1)
+
 # Step 8: RECOMPUTE SIZE METRICS
 agg_df["collection_size_GB"] = agg_df["collection_size_bytes"] / 1e9
 agg_df["collection_size_TB"] = agg_df["collection_size_bytes"] / 1e12
@@ -92,11 +123,16 @@ agg_df = agg_df[
 # Step 11: KEEP ONLY DEEPEST COLLECTIONS
 collections = agg_df["collection"].tolist()
 
-# Keep only collections that are not fully contained in another collection
-to_keep = [col for i, col in enumerate(collections)
+to_keep = [col for col in collections
            if not any(other != col and col in other for other in collections)]
 
 agg_df = agg_df[agg_df["collection"].isin(to_keep)].copy()
+
+trivial_files = [".DS_Store", "Thumbs.db", "Desktop.ini"]
+
+agg_df = agg_df[
+    ~agg_df["collection"].apply(lambda x: any(x.endswith(f) for f in trivial_files))
+].copy()
 
 # Step 12: SAVE OUTPUT
 OUT_FILE.parent.mkdir(parents=True, exist_ok=True)
