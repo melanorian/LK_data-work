@@ -8,6 +8,16 @@ Basic explanations of iRODS, relevant iCommands, and the setup of a virtual mach
 
 2. [iRODS & iCommands](https://github.com/melanorian/bio_methods/blob/main/iCommands-for-YODA_iRODS.md)
 
+## Index
+1. [Workstream A: Inventory of Data on YODA](#workstream-a-inventory-of-data-on-yoda)
+2. [Step 1: Generate full YODA Collection Inventory](#step-1-generatefull-yoda-collection-inventory)
+3. [Step 2: Processing Inventory CSVs & Generating Subcollection Summaries](#step-2-processing-inventory-csvs--generating-subcollection-summaries)
+4. [Step 3: Processing Inventory CSVs & Generating File Type Summaries](#step-3-processing-inventory-csvs--generating-file-type-summaries)
+5. [Step 4: Generate CSV file with Inventory Size and File Types](#step-4-generate-csv-file-with-inventory-size-and-file-types)
+6. [Step 5: Document File Detection and Aggregation](#step-5-processing-inventory-with-documentation-indicators)
+7. [Step 6: Summarize Inventory Across Deepest Collections](#step-6-summarized-inventory)
+8. [Step 7: Duplicate File Detection](#step-7-duplicate-file-detection)
+
 ## Workstream A: Inventory of Data on YODA 
 
 ### Step 1: [Generatefull YODA Collection Inventory](https://github.com/melanorian/LK_data-work/blob/main/inventory_yoda.sh)
