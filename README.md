@@ -183,7 +183,7 @@ Branch-level file type summaries and subcollection summaries Steps 2 & 3, are me
 - The merge allows quick inspection of both storage footprint and data composition per branch.  
 - If descriptions for some file types are missing, `"NA"` will be shown.
 
-### Step 5: [Enrich Inventory with Documentation & Informative Files](https://github.com/melanorian/LK_data-work/blob/main/5_add_docs_info.py](https://github.com/melanorian/LK_data-work/blob/main/5_documentation_quality.py)
+### Step 5: [Enrich Inventory with Documentation & Informative Files](https://github.com/melanorian/LK_data-work/blob/main/5_documentation_quality.py) 
 
 This Python script annotates the merged LettuceKnow inventory with the presence of **informative files** such as README, log, configuration, and metadata files at the collection level. It combines collection-level summaries with file-level classifications to provide insight into available documentation and supporting files.
 
