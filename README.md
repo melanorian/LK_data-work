@@ -209,27 +209,82 @@ This Python script annotates the merged LettuceKnow inventory with the presence 
 
 1. **Load merged collection inventory**
    - Reads the merged collection-level CSV produced in Step 4.
-
 2. **Load file-level inventories**
    - Reads all inventory CSVs from the base directory and concatenates them.
    - Standardizes column naming to match previous steps.
-
 3. **Define collection keys**
    - Generates consistent collection paths up to `MAX_LEVEL` to match Step 4 aggregation.
-
 4. **Classify informative files**
    - Examines file names and extensions to detect README, log, config, and metadata files.
-
 5. **Aggregate per collection**
    - Sums the classified informative files for each collection.
-
 6. **Merge with existing collection data**
    - Combines aggregated counts with the merged collection-level inventory.
    - Fills missing values with 0 for collections without any informative files.
-
 7. **Save enriched inventory**
    - Writes the output CSV to `OUT_FILE` in `REPORT_DIR`.
 
 **Notes**
 - Only informative files with recognized patterns/extensions are counted.
 
+### Step 6: [Summarize Inventory to nearest sub-collection level](https://github.com/melanorian/LK_data-work/blob/main/6_summarise_to_subcollection.py)
+
+This Python script takes the enriched merged inventory from Step 5 and **aggregates file-level to collection-level information** to produce a summarized view of the data. This is neccesary because the depth of sub-collections is very uneven and some sub-collections list all the files. Here, we computes cumulative sizes, file counts, documentation indicators, and file type distributions to the defined collection levels.
+ 
+**Input Variables**
+
+- `BASE_DIR` – directory containing enriched inventory CSV (`merged_inventory_with_docs_L<MAX_LEVEL>.csv`)  
+- `MAX_LEVEL` – depth used in collection aggregation  
+- `INPUT_FILE` – merged inventory with documentation indicators from Step 5  
+- `OUT_FILE` – path to save the summarized collection-level inventory  
+
+**Output**
+
+- CSV file: `summarized_inventory_L<MAX_LEVEL>.csv` containing:
+  - `collection` – deepest collection path
+  - `num_files` – total number of files in the collection (aggregated from file-level inventories)
+  - `collection_size_bytes` – cumulative size in bytes
+  - `collection_size_GB` / `collection_size_TB` – sizes converted to convenient units
+  - `README`, `log`, `config`, `metadata` – counts of informative files per collection
+  - `file_types` – JSON dictionary summarizing file types and counts  
+
+**What it does**
+
+1. **Load enriched inventory**
+   - Reads the CSV produced in Step 5.
+   - Ensures that documentation columns (`README`, `log`, `config`, `metadata`) exist.
+
+2. **Identify file-level rows**
+   - Determines which rows correspond to files vs collections using path suffixes.
+   - Preserves original parent collection size info and counts of child files.
+
+3. **Filter pre-aggregated collection rows**
+   - Removes non-file rows that are already represented in file-level aggregation to avoid double-counting.
+
+4. **Define summarized collection paths**
+   - Sets a consistent collection key for aggregation, corresponding to parent directories for file rows.
+
+5. **Prepare file type dictionaries**
+   - Safely loads JSON dictionaries of file types from the inventory.
+   - Ensures numeric columns are correctly typed for aggregation.
+
+6. **Aggregate file-level and collection-level data**
+   - Uses `groupby` and custom aggregation functions (`sum` for numeric columns, `Counter` merge for file types).
+   - Applies fixes for special cases (e.g., collections with zero size but known parent size).
+
+7. **Compute additional metrics**
+   - Converts collection sizes into GB and TB.
+   - Converts aggregated file type dictionaries back to JSON strings.
+
+8. **Filter to deepest collections**
+   - Keeps only the most granular collection paths to avoid redundancy.
+   - Removes trivial system files like `.DS_Store`, `Thumbs.db`, and `Desktop.ini`.
+
+9. **Save summarized dataset**
+   - Writes the final summarized inventory CSV to `OUT_FILE`.
+
+**Notes**
+
+- This step ensures that both file-level and collection-level information are aggregated for downstream analysis.
+- JSON-formatted `file_types` allow flexible parsing and querying of file compositions per collection.
+- The script ensures numeric consistency and accounts for corner cases where parent collection sizes are required.
