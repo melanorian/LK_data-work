@@ -237,6 +237,42 @@ This Python script annotates the merged LettuceKnow inventory with the presence 
 **Notes**
 - Only informative files with recognized patterns/extensions are counted.
 
+### Step 5a: Optional – Extract File-Level Inventory for a Specific Collection
+
+This Python script generates a **file-level inventory CSV** for a specific subcollection of interest within the LettuceKnow data, e.g., RNA-seq data.
+
+**Script:** [option1_files_in_target_collection.py](https://github.com/melanorian/LK_data-work/blob/main/5a_optional_files_in_target_collection.py)
+
+**Input Variables**
+
+- `BASE_DIR` – directory containing all inventory CSVs (`inventory_<collection>/inventory.csv`)
+- `TARGET_COLLECTION` – relative path of the subcollection to filter (e.g., `research-lettuceknow/processed_data/rnaseq`)
+- `OUT_DIR` – output directory for the resulting CSV  
+
+**Output**
+
+- `optional1_rnaseq_file_level_inventory.csv` – contains all files from the target collection, including:
+  - `COLL_NAME` – full iRODS collection path
+  - `DATA_NAME` – file name
+  - `DATA_SIZE` – size in bytes
+  - `DATA_CHECKSUM` – file checksum
+  - Any other metadata available in the original CSVs
+
+**What it does**
+
+1. Locates all inventory CSV files in `BASE_DIR`.
+2. Reads each CSV and fixes the combined `COLL_NAME/DATA_NAME` header.
+3. Combines all CSVs into a single DataFrame.
+4. Normalizes paths by removing the prefix `/nluu6p/home/`.
+5. Filters rows to keep only files within the `TARGET_COLLECTION`.
+6. Saves the filtered DataFrame to `OUT_DIR` as a CSV for downstream analysis.
+
+**Notes**
+
+- Useful for focusing on a single experiment or data type without processing the entire dataset.
+- Works at **file-level granularity**, not aggregated collections.
+- Optional: can be run multiple times for different target collections.
+
 ### Step 6: [Summarize Inventory to nearest sub-collection level](https://github.com/melanorian/LK_data-work/blob/main/6_summarise_to_subcollection.py)
 
 This Python script takes the enriched merged inventory from Step 5 and **aggregates file-level to collection-level information** to produce a summarized view of the data. This is neccesary because the depth of sub-collections is very uneven and some sub-collections list all the files. Here, we computes cumulative sizes, file counts, documentation indicators, and file type distributions to the defined collection levels.
