@@ -253,38 +253,76 @@ This Python script takes the enriched merged inventory from Step 5 and **aggrega
 1. **Load enriched inventory**
    - Reads the CSV produced in Step 5.
    - Ensures that documentation columns (`README`, `log`, `config`, `metadata`) exist.
-
 2. **Identify file-level rows**
    - Determines which rows correspond to files vs collections using path suffixes.
    - Preserves original parent collection size info and counts of child files.
-
 3. **Filter pre-aggregated collection rows**
    - Removes non-file rows that are already represented in file-level aggregation to avoid double-counting.
-
 4. **Define summarized collection paths**
    - Sets a consistent collection key for aggregation, corresponding to parent directories for file rows.
-
 5. **Prepare file type dictionaries**
    - Safely loads JSON dictionaries of file types from the inventory.
    - Ensures numeric columns are correctly typed for aggregation.
-
 6. **Aggregate file-level and collection-level data**
    - Uses `groupby` and custom aggregation functions (`sum` for numeric columns, `Counter` merge for file types).
    - Applies fixes for special cases (e.g., collections with zero size but known parent size).
-
 7. **Compute additional metrics**
    - Converts collection sizes into GB and TB.
    - Converts aggregated file type dictionaries back to JSON strings.
-
 8. **Filter to deepest collections**
    - Keeps only the most granular collection paths to avoid redundancy.
    - Removes trivial system files like `.DS_Store`, `Thumbs.db`, and `Desktop.ini`.
-
 9. **Save summarized dataset**
    - Writes the final summarized inventory CSV to `OUT_FILE`.
 
 **Notes**
-
-- This step ensures that both file-level and collection-level information are aggregated for downstream analysis.
 - JSON-formatted `file_types` allow flexible parsing and querying of file compositions per collection.
-- The script ensures numeric consistency and accounts for corner cases where parent collection sizes are required.
+
+### Step 7: [Duplicate File Detection](https://github.com/melanorian/LK_data-work/blob/main/7_duplicat_detection.py)
+
+This Python script analyzes all LettuceKnow inventory CSVs to **detect duplicate files** based on file names and checksums. It assigns consistent group IDs to files that are identical or share the same name, enabling downstream auditing and quality control.
+
+**Input Variables**
+
+- `BASE_DIR` – directory containing inventory CSVs (`inventory_<collection>/inventory.csv`)  
+- `OUT_DIR` – directory to save the duplicate detection report  
+- `IGNORE_PRE` – optional path prefix to remove from file paths  
+
+**Output**
+
+- CSV file: `duplicate_detection.csv` containing:
+  - `file_name` – full relative path of the file
+  - `DATA_SIZE` – size in bytes
+  - `checksum` – file checksum (if available)
+  - `dup_checksum` – `True` if the checksum is duplicated across files
+  - `dup_name` – `True` if the file name (including extension) is duplicated
+  - `dup_both` – `True` if both checksum and name are duplicated
+  - `dup_group_id` – numeric ID assigned to each duplicate group (same for files with same name or checksum)  
+
+**What it does**
+
+1. **Locate and read inventory CSVs**
+   - Recursively searches `BASE_DIR` for `inventory.csv` files.
+   - Fixes header inconsistencies (`COLL_NAME,DATA_NAME` → `COLL_NAME/DATA_NAME`) and reads all CSVs into a unified DataFrame.
+2. **Normalize file paths**
+   - Strips optional `IGNORE_PRE` prefix for consistent relative paths.
+3. **Filter file-level rows**
+   - Keeps only actual files, excluding trivial system files like `.DS_Store`, `Thumbs.db`, and `Desktop.ini`.
+4. **Extract file names**
+   - Derives `file_name_only` from the full path for duplicate detection by name.
+5. **Handle checksums**
+   - Fills missing checksums with empty strings.
+   - Detects duplicates by checksum, by file name, and by both.
+6. **Assign duplicate group IDs**
+   - Files with the same checksum get the same group ID.
+   - Files with the same name (if not already grouped by checksum) also get the same group ID.
+   - Ensures each group has a unique numeric ID for easy reference.
+7. **Prepare final output**
+   - Includes relevant duplicate flags, group IDs, file sizes, and checksums.
+   - Sorts the CSV first by duplicate flags and group IDs to simplify inspection.
+8. **Save output**
+   - Writes a structured CSV to `OUT_DIR/duplicate_detection.csv` for auditing and further analysis.
+
+**Notes**
+- Group IDs are **consistent across all files sharing the same name or checksum**, allowing easy identification of duplicates.
+- Sorting by `dup_both`, `dup_checksum`, `dup_name`, and `dup_group_id` ensures that related duplicates appear together in the CSV for rapid manual inspection.
