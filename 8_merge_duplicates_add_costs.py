@@ -43,17 +43,15 @@ dup_df = dup_df[dup_df["parent_collection"].notna()].copy()
 print(f"{len(dup_df)} files mapped to Step 6 collections")
 
 # Step 4: AGGREGATE DUPLICATE INFO PER COLLECTION
-agg_dup = dup_df.groupby("parent_collection").agg({
-    "dup_checksum": "sum",
-    "dup_name": "sum",
-    "dup_both": "sum",
-    "file_name": "count"  # total files considered
-}).rename(columns={
-    "dup_checksum": "num_dup_checksum",
-    "dup_name": "num_dup_name",
-    "dup_both": "num_dup_both",
-    "file_name": "num_files_in_dup_check"
-}).reset_index()
+agg_dup = dup_df.groupby("parent_collection").agg(
+    num_dup_checksum=("dup_checksum", "sum"),
+    num_dup_name=("dup_name", "sum"),
+    num_dup_both=("dup_both", "sum"),
+    num_files_in_dup_check=("file_name", "count"),
+    size_dup_checksum=("DATA_SIZE", lambda x: x[dup_df.loc[x.index, "dup_checksum"]].sum()),
+    size_dup_name=("DATA_SIZE", lambda x: x[dup_df.loc[x.index, "dup_name"]].sum()),
+    size_dup_both=("DATA_SIZE", lambda x: x[dup_df.loc[x.index, "dup_both"]].sum())
+).reset_index()
 
 # Step 5: MERGE WITH SUMMARY
 merged_df = summary_df.merge(agg_dup, how="left", left_on="collection", right_on="parent_collection")
