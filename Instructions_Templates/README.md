@@ -71,3 +71,65 @@ In the following sections, you will find instructions and templates for creating
 Of course, ideally you would share all files—but we live in a messy, constrained reality.
 
 Together with your data, these files will help ensure that your work remains understandable, reusable, and therefore valuable and impactful beyond the lifetime of your project. Alternatively, they can help preserve your grandmother’s apple pie recipe for eternity (as it should be).
+
+
+# Step-by-Step Guide
+
+## File formats
+
+To make these files as accessible as possible, we use simple and widely compatible file formats.
+
+## README files and Knowledge Transfer Files (.md format)
+
+Both README files and Knowledge Transfer Files are written in **Markdown (.md)** format. If you are already familiar with this format, you can skip this section.
+
+Why this format?
+
+- Future-proof: does not depend on proprietary tools (e.g office suite) while still supporting structure (headings, lists, emphasis)
+- Simple to write: just plain text with lightweight formatting
+- Widely readable: supported across many platforms and tools
+
+A plain text file (.txt) would also work, but **Markdown is preferred** because it allows structure (titles, sections, bullet points), which makes documents easier to navigate and reuse.
+
+## Getting started with Markdown files
+
+If you are not familiar with `.md` files, there are several easy ways to get started.
+
+- Create a normal text file on your computer and simply rename the file extension from `.txt` to `.md`. You can then edit it using any basic text editor that supports plain text, for example Notepad (Windows) or TextEdit (Mac). This is simple and sufficient for most use cases.
+- If you want to see the `.md` formatting rendered in a more visual way, you can use an online editor such as: https://dillinger.io/
+- If you prefer a more powerful setup, you can use Visual Studio Code, which is a versatile and widely used tool for working with text, code, and Markdown files: https://code.visualstudio.com/
+
+## Code book (.csv)
+
+The Code book is provided as a **CSV file (.csv)**.
+
+This format is used because it:
+- is simple and widely compatible
+- can be opened in almost any software (Excel, R, Python, etc.)
+- is suitable for structured, tabular (meta)data
+- integrates easily into FAIR workflows and databases
+
+You can open `.csv` files using:
+- Excel or LibreOffice Calc
+- R or Python (pandas)
+- any text editor (it is also human-readable as plain text)
+
+If needed, you can also work in Excel and export the file as `.csv`.
+
+Alternative but equivalent formats include:
+- tab-delimited files (.tsv)
+- text files (.txt) with comma or tab separation
+
+All of these are acceptable as long as:
+- the structure is consistent
+- the columns remain clearly defined
+- the encoding is preserved (preferably UTF-8)
+
+## Creating files from scratch
+
+If you do not want to start from a template:
+- you can create a plain text file
+- copy the template content into it
+- and save it with the correct extension:
+  - `.md` for README and Knowledge Transfer Files
+  - `.csv` for the Code book
