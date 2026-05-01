@@ -1,0 +1,21 @@
+index;code;meaning;represents;unit;ontology
+1;sample_id;Unique identifier for each biological sample;Individual lettuce plant used in RNA-seq experiment;NA;NA
+2;treatment;Nitrogen treatment condition;Experimental growth condition applied to plants;NA;EO:0007359
+3;control;Reference growth condition;Plants grown under optimal nitrogen supply;NA;NA
+4;low_nitrogen;Stress treatment condition;Plants grown under nitrogen-limited conditions;NA;NA
+5;replicate;Biological replicate identifier;Independent plant grown under identical conditions;NA;NA
+6;leaf_tissue;Sample tissue type;Leaf material collected for RNA extraction;NA;NA
+7;rna_concentration;RNA quantity measurement;Concentration of extracted RNA;ng/µL;OBI:0003133
+8;rin_score;RNA quality metric;RNA integrity number indicating RNA quality;NA;NA
+9;read_count_raw;Sequencing output metric;Total raw sequencing reads per sample;reads;NA
+10;read_count_filtered;Quality-controlled reads;Reads remaining after trimming and filtering;reads;NA
+11;gene_id;Gene identifier;Ensembl plant gene ID (e.g. ENSA...);NA;NA
+12;count_matrix;Gene expression table;Raw gene-level read counts per sample;counts;NA
+13;normalized_counts;Normalized gene expression values;Counts corrected for library size and sequencing depth;counts;NA
+14;log2_fold_change;Gene expression change metric;Log2 expression difference between treatments;NA;NA
+15;p_value;Statistical significance value;Probability from differential expression test;NA;NA
+16;adjusted_p_value;Multiple testing corrected significance;False discovery rate adjusted p-value;NA;NA
+17;plant_weight_dry;Dry biomass per plant;Dry mass of individual lettuce plant;g;PO:0009005
+18;leaf_area;Leaf surface measurement;Total leaf surface area per plant;cm²;TO:0000326
+19;timepoint;Sampling time information;Days after treatment start;days;NA
+20;batch_id;Sequencing batch identifier;Library preparation / sequencing batch;NA;NA
