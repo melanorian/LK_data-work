@@ -45,12 +45,14 @@
 
 The following structure shows how datasets and analyses are organised within the project.
 
+```
 project_root/
 ├── [dataset_folder_1]/
 ├── [dataset_folder_2]/
 ├── analysis/
 ├── scripts/
 └── project_README.md
+```
 
 Each dataset folder should ideally contain its own dataset-level README describing its internal structure and content.
 
