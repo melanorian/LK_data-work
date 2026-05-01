@@ -57,6 +57,7 @@ Each dataset is treated as a self-contained unit with its own README and interna
 
 The following structure shows how datasets and analyses are organised within the project.
 
+```
 project_root/
 ├── RNAseq/
 ├── qPCR/
@@ -64,6 +65,7 @@ project_root/
 ├── analysis/
 ├── scripts/
 └── project_README.md
+```
 
 Each dataset folder contains its own dataset-level README describing internal structure and content.
 
