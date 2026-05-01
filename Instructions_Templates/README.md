@@ -156,4 +156,4 @@ The most important part is that users can:
 - find the relevant datasets  
 - see how these datasets are connected  
 
-The goal is not perfection, but usability.
+**The goal is not perfection, but usability.**
