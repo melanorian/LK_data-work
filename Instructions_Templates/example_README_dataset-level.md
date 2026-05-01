@@ -1,121 +1,114 @@
 # General Information
 
-**Dataset name:** [Enter dataset name]  
-**Date:** [YYYY-MM-DD]  
-**Version:** [e.g. v1.0]  
+**Dataset name:** RNA sequencing (RNA-seq) – lettuce nitrogen response  
+**Date:** 2023-05-01  
+**Version:** v1.0  
 
 ## Dataset contributors
 
-**Name:** [First name(s), last name(s)]  
-**ORCID:** [ORCID ID]  
-**Institution:** [Full institution name]  
-**Email:** [Email address]
+**Name:** Jane Doe  
+**ORCID:** 0000-0002-1234-5678  
+**Institution:** Utrecht University  
+**Email:** j.doe@uu.nl  
 
-[Add additional contributors if needed]
+**Name:** John Smith  
+**ORCID:** 0000-0003-9876-5432  
+**Institution:** Wageningen University & Research  
+**Email:** john.smith@wur.nl  
 
 ## Dataset overview
 
 **Description:**  
-[Briefly describe what this dataset contains]
+This dataset contains RNA sequencing data from lettuce (Lactuca sativa) leaf tissue collected under control and nitrogen-limited conditions.
 
 **Purpose:**  
-[Why was this dataset generated? What question does it address?]
+To identify genes differentially expressed under nitrogen limitation and link transcriptional responses to physiological traits.
 
 **Scope:**  
-[What defines this dataset? e.g. experiment, assay, timepoint, cohort]
+Leaf tissue samples from two nitrogen treatments (control vs low nitrogen), three biological replicates per treatment, single sampling time point.
 
 ## Data generation
 
-Brief description of how the dataset was created:
-
-- sample collection or experimental setup  
-- experimental conditions  
-- preprocessing steps prior to analysis  
-
-[Keep concise; refer to protocols or publications for full details]
+- Plants were grown in controlled greenhouse conditions under two nitrogen regimes  
+- Leaf tissue was harvested at a single developmental stage  
+- RNA was extracted and sequenced using Illumina short-read sequencing  
+- Raw reads were processed using a standard RNA-seq pipeline (alignment and quantification)
 
 ## File structure
 
-Describe the internal organisation of the dataset.
-
-Example:
+```
+RNAseq/
+├── raw_data/
+│ ├── FASTQ_files/
+├── processed_data/
+│ ├── gene_counts.csv
+│ ├── normalized_counts.csv
+├── metadata/
+│ ├── sample_metadata.csv
+├── scripts/
+├── README.md
 
 ```
-
-dataset_folder/  
-├── raw_data/  
-├── processed_data/  
-├── metadata/  
-├── scripts/  
-└── README.md  
-
-```
-
-
-[Adapt to actual structure]
 
 ## File descriptions
 
-What are the main files and what do they contain?
-
-- **file_name.ext**: [Description]  
-- **file_name.ext**: [Description]  
-
-[Focus on key files needed for reuse]
+- **FASTQ_files/**: Raw sequencing reads for each sample  
+- **gene_counts.csv**: Raw gene-level count matrix (unfiltered)  
+- **normalized_counts.csv**: Normalised expression values (DESeq2 output)  
+- **sample_metadata.csv**: Sample IDs, treatment groups, and replicate information  
 
 ## Data description
 
-What does the data represent?
+- Rows represent genes (identified by gene IDs)  
+- Columns represent samples  
+- Values represent read counts or normalised expression levels  
+- Units: raw counts (integer), normalised counts (DESeq2-normalised)
 
-- Main variables or measurements  
-- Units of measurement  
-- Structure of rows and columns  
-
-If a code book exists, refer to it here.
+Refer to the code book for full gene annotation and variable definitions:
 
 ## Data processing
 
-What transformations were applied?
+- Adapter trimming and quality filtering of raw reads  
+- Alignment to lettuce reference genome using STAR  
+- Gene-level quantification using featureCounts  
+- Differential expression analysis using DESeq2  
+- Normalisation performed within DESeq2 pipeline  
 
-- cleaning steps  
-- filtering  
-- normalisation  
-
-If applicable:  
-**Pipeline:** [Link or path]  
-**Version:** [Version or commit hash]
+**Pipeline:** https://github.com/example/imaginary-lettuce_rnaseq_pipeline  
+**Version:** v1.2.0  
 
 ## Metadata
 
-Where is metadata stored and how should it be used?
-
-- sample information  
-- experimental design  
-- annotations  
-
-Example:  
-metadata/sample_metadata.csv  
-
-Metadata is required to correctly interpret and reuse this dataset.
+- sample_metadata.csv includes:
+  - sample IDs  
+  - nitrogen treatment group  
+  - replicate number  
+  - sequencing batch  
 
 ## Links and references
 
 ### Related datasets
 
-- [Path or link]
+- qPCR validation dataset: /qPCR/README.md  
+- Phenotyping dataset: /phenotyping/README.md  
 
 ### External repositories
 
-- [Repository name + link or DOI]
+- Raw data: European Nucleotide Archive (ENA) PRJXXXX  
+- Processed data: Zenodo https://doi.org/10.5281/zenodo.XXXXXXX  
 
 ### Publications
 
-- [Author] ([Year]) [Title]. [Journal]. [DOI]
+- Doe, J. et al. (2026) Transcriptomic responses of lettuce to nitrogen limitation. *Plant Journal*. https://doi.org/10.xxxx/xxxxx  
 
 ## Limitations
 
-[Known limitations of this dataset]
+- Single time point sampling limits temporal interpretation  
+- One lettuce cultivar included  
+- Moderate number of biological replicates (n=3 per treatment)
 
 ## Notes
 
-[Any additional information useful for reuse]
+- Sample IDs are consistent across RNA-seq, qPCR, and phenotyping datasets  
+- Gene annotation may differ between reference genome versions  
+
