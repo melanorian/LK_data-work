@@ -136,7 +136,7 @@ If you do not want to start from a template:
 
 ## Filling in the provided templates
 
-### Project-level README.md
+### [Project-level README.md](Instructions_Templates/template_README_project-level.md)
 
 A template for the project-level README is provided in this repository, together with a filled-in example based on a simple, fictional project.
 
