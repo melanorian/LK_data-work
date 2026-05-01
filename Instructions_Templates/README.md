@@ -79,7 +79,7 @@ Together with your data, these files will help ensure that your work remains und
 
 To make these files as accessible as possible, we use simple and widely compatible file formats.
 
-## README files and Knowledge Transfer Files (.md format)
+### README files and Knowledge Transfer Files (.md format)
 
 Both README files and Knowledge Transfer Files are written in **Markdown (.md)** format. If you are already familiar with this format, you can skip this section.
 
@@ -91,7 +91,7 @@ Why this format?
 
 A plain text file (.txt) would also work, but **Markdown is preferred** because it allows structure (titles, sections, bullet points), which makes documents easier to navigate and reuse.
 
-## Getting started with Markdown files
+### Getting started with Markdown files
 
 If you are not familiar with `.md` files, there are several easy ways to get started.
 
@@ -99,7 +99,7 @@ If you are not familiar with `.md` files, there are several easy ways to get sta
 - If you want to see the `.md` formatting rendered in a more visual way, you can use an online editor such as: https://dillinger.io/
 - If you prefer a more powerful setup, you can use Visual Studio Code, which is a versatile and widely used tool for working with text, code, and Markdown files: https://code.visualstudio.com/
 
-## Code book (.csv)
+### Code book (.csv)
 
 The Code book is provided as a **CSV file (.csv)**.
 
@@ -125,7 +125,7 @@ All of these are acceptable as long as:
 - the columns remain clearly defined
 - the encoding is preserved (preferably UTF-8)
 
-## Creating files from scratch
+### Creating files from scratch
 
 If you do not want to start from a template:
 - you can create a plain text file
@@ -133,3 +133,27 @@ If you do not want to start from a template:
 - and save it with the correct extension:
   - `.md` for README and Knowledge Transfer Files
   - `.csv` for the Code book
+
+## Filling in the provided templates
+
+### Project-level README.md
+
+A template for the project-level README is provided in this repository, together with a filled-in example based on a simple, fictional project.
+
+If you are unsure how to complete a section, refer to the example. In most cases, this will be sufficient.
+
+When filling in the template:
+
+- keep descriptions brief and understandable  
+- focus on clarity  
+- if pressed for time, start by listing your main datasets and their paths  
+- avoid unnecessary detail  
+
+There is no need to write a long text. A few clear sentences per section are usually enough.
+
+The most important part is that users can:
+- understand what the project is about  
+- find the relevant datasets  
+- see how these datasets are connected  
+
+The goal is not perfection, but usability.
