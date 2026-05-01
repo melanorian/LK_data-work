@@ -138,7 +138,7 @@ If you do not want to start from a template:
 
 ### [Project-level README.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_project-level.md)
 
-A template for the project-level README is provided in this repository, together with [a filled-in example](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_project-level_example.md) based on a simple, fictional project.
+A template for the project-level README is provided in this repository, together with [a filled-in example](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/example_README_project-level.md) based on a simple, fictional project.
 
 If you are unsure how to complete a section, refer to the example. In most cases, this will be sufficient.
 
