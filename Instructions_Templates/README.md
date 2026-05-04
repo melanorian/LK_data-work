@@ -6,13 +6,13 @@ Have you ever tried baking a cake without following a proper recipe?
 
 Sometimes it works out fine. But often, small missing details make all the difference, and the result literally falls apart. I once ended up with a crumbly pile that did not hold together at all. There was nothing left to do but throw it away.
 
-Now imagine that instead of a cake, we are talking about your PhD or postdoc project. Years of hard work-and at the end, the results cannot be properly understood, reproduced, or reused because of missing detail.
+Now imagine that instead of a cake, we are talking about your PhD or postdoc project. Years of hard work—and at the end, the results cannot be properly understood, reproduced, or reused because of missing detail.
 
 That is the risk when research data is left without clear instructions: the recipe to your work.
 
 # What’s the problem?
 
-We often assume that publications and manuscripts explain everything-the perfect recipe to understand and reproduce our work. 
+We often assume that publications and manuscripts explain everything—the perfect recipe to understand and reproduce our work. 
 
 In reality, there is rarely enough space to describe datasets, variable names, or processing steps in detail. Exactly those details may be the difference between successfully reproducing or reusing your work - the difference between a perfect piece of cake or a crumbly disaster.
 
@@ -28,7 +28,7 @@ So let’s get started.
 
 # How to do it?
 
-This is when a few documentation files can save your work - or your favourite cake.
+This is when a few documentation files can save your work — or your favourite cake.
 
 ## What is a README file
 
@@ -68,7 +68,7 @@ In the following sections, you will find instructions and templates for creating
 
 (importance: project-level README > dataset-level README > code book > knowledge transfer file). 
 
-Of course, ideally you would share all files but we live in a messy, constrained reality.
+Of course, ideally you would share all files—but we live in a messy, constrained reality.
 
 Together with your data, these files will help ensure that your work remains understandable, reusable, and therefore valuable and impactful beyond the lifetime of your project. Alternatively, they can help preserve your grandmother’s apple pie recipe for eternity (as it should be).
 
@@ -136,24 +136,132 @@ If you do not want to start from a template:
 
 ## Filling in the provided templates
 
+## Filling in the provided templates
+
+### General guidance
+
+Don’t let perfection be the enemy of the good.
+
+The goal of these files is simple: make your project understandable and reusable.
+
+The most important outcome is that others (and your future self) can:
+
+* understand what the project is about
+* find the relevant datasets
+* see how these datasets are connected
+* understand the provided data
+
+You do **not** need to write long texts.
+A few clear, well-structured sentences per section are usually enough.
+
+Partial documentation is always better than none.
+If you are pressed for time, it is perfectly fine to leave sections incomplete.
+
+---
+
+### Where to find templates and examples
+
+You can find templates and examples here:
+
+**Templates:**
+
+* [Project-level README template] (https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_project-level.md)
+* [Dataset-level README template](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_dataset-level.md)
+* [Code book template](#)
+* [Knowledge transfer template](#)
+
+**Examples:**
+
+* [Project-level README example](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/example_README_project-level.md)
+* [Dataset-level README example](#)
+
+If you are unsure how to complete a section, refer to the examples.
+
+
+### General advice when filling in templates
+
+* keep descriptions brief and understandable
+* focus on clarity rather than completeness
+* avoid unnecessary detail
+* use bullet points where helpful
+* prioritise key datasets and core information first
+
+If you are unsure what to include, ask yourself:
+
+Would someone unfamiliar with this project and consortium understand how to use the data?
+
+### Minimum viable documentation
+
+Below, you find a second for a **“minimum viable version”** concept for each file.
+
+If time is limited, focus on:
+
+* what the project/dataset is about
+* where the data is located
+* what do the variables mean
+* how datasets relate to each other
+
+This already provides most of the value.
+
+### Need help?
+
+If you need further support or tailored input, do not hesitate to get in touch.
+
+
+### Project-level README.md
+
+
+
+############ OLD ##########
+
+
+As a rule of thum, it should be sufficient information for others (and your future self) to understand and navigate the project and datasets.
+
 ### [Project-level README.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_project-level.md)
 
 A template for the project-level README is provided in this repository, together with [a filled-in example](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/example_README_project-level.md) based on a simple, fictional project.
 
-If you are unsure how to complete a section, refer to the example. In most cases, this will be sufficient.
+If you are unsure how to complete a section, check out the example.
 
-When filling in the template:
-
-- keep descriptions brief and understandable  
-- focus on clarity  
-- if pressed for time, start by listing your main datasets and their paths  
-- avoid unnecessary detail  
 
 There is no need to write a long text. A few clear sentences per section are usually enough.
 
-The most important part is that users can:
+
+**The goal is not perfection, but usability.**
+
+## Filling in the provided templates
+
+### General information
+
+
+
+### [Project-level README.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_project-level.md)
+
+A template for the project-level README is provided in this repository, together with [a filled-in example](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/example_README_project-level.md) based on a simple, fictional project.
+
+### Estimated time to complete
+
+The time required depends on how well your project is already documented:
+
+- 30 min minutes: if you already have structured notes, metadata, or dataset descriptions 
+- longer if you need to collect information, then it very much depends on how well you previously documented. Remember, this is work you'' eventually have to do either way for publisng or your thesis.  
+
+
+
+### Minimum viable version
+
+If time is limited, ensure at least the following are completed:
+
+- project purpose and scope  
+- list of datasets with paths  
+- basic explanation of how datasets relate to each other  
+
+
+
+### General principle
+
+The most important outcome is that users can:
+
 - understand what the project is about  
 - find the relevant datasets  
 - see how these datasets are connected  
-
-**The goal is not perfection, but usability.**

@@ -72,7 +72,7 @@ What does the data represent?
 - Units of measurement  
 - Structure of rows and columns  
 
-If a code book exists, refer to it here.
+If a code book exists, refer to it here. You may use this template: 
 
 ## Data processing
 
