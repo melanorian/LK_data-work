@@ -168,9 +168,25 @@ Below, you find a second for a **“minimum viable version”** concept for each
 
 #### *[Project-level README](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_project-level.md)
 
+- **Project overview (Description, Purpose, Scope)**  
+  What the project is about, why it exists, and what defines its boundaries (e.g. organism, system, conditions).
+- **Datasets (Data structure and access)**  
+  A clear list of datasets, including their names, types, scopes, and paths to their dataset-level READMEs.
+- **Project folder structure**  
+  How the project is organised (main folders and their purpose).
+
 #### *[Dataset-level README template](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_dataset-level.md)*
 
+- **Dataset overview**: what the data is, why it exists, and what it covers (scope)
+- **File structure**: where the data is and how it is organised
+- **File descriptions**: what the key files contain
+- **Data description**: what the data represents (variables, units, and what one row corresponds to)
+- **Metadata location**: where sample and annotation information can be found
+
+
 #### *[Code book template](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)*
+
+The code book is different from the READMEs: it should be as complete as possible for all included variables. Otherwise it gets hard to really interpret the data. You can leave ontology fields empty if they don’t apply.
 
 ### Additonal advice per document
 
