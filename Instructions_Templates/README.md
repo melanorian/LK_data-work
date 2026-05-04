@@ -157,7 +157,7 @@ A few clear, well-structured sentences per section are usually enough.
 Partial documentation is always better than none.
 If you are pressed for time, it is perfectly fine to leave sections incomplete.
 
----
+I included comments for some sections that I expect to be a bit more challenging to fill in. As I am receiving feedback I will add/expand on these instructions. 
 
 ### Where to find templates and examples
 
@@ -165,26 +165,26 @@ You can find templates and examples here:
 
 **Templates:**
 
-* [Project-level README template] (https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_project-level.md)
-* [Dataset-level README template](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_dataset-level.md)
-* [Code book template](#)
-* [Knowledge transfer template](#)
+*1. [Project-level README template](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_project-level.md)
+*2. [Dataset-level README template](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_dataset-level.md)
+*3. [Code book template](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)
+
+If you are unsure how to complete a section, refer to the examples provided here:
 
 **Examples:**
 
 * [Project-level README example](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/example_README_project-level.md)
-* [Dataset-level README example](#)
-
-If you are unsure how to complete a section, refer to the examples.
-
+* [Dataset-level README example](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/example_README_dataset-level.md)
+* [Code book example](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/example_code_book.csv)
 
 ### General advice when filling in templates
 
-* keep descriptions brief and understandable
-* focus on clarity rather than completeness
-* avoid unnecessary detail
-* use bullet points where helpful
+**Don’t let perfect be the enemy of good**
+
 * prioritise key datasets and core information first
+* prioritise mimimum viable documentation (see below), that already provides a lot of value.
+* use bullet points where helpful
+* let your favourite genAI tool help you
 
 If you are unsure what to include, ask yourself:
 
@@ -194,74 +194,32 @@ Would someone unfamiliar with this project and consortium understand how to use 
 
 Below, you find a second for a **“minimum viable version”** concept for each file.
 
-If time is limited, focus on:
+#### *[Project-level README](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_project-level.md)
+
+#### *[Dataset-level README template](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_dataset-level.md)*
+
+#### *[Code book template](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)*
 
 * what the project/dataset is about
 * where the data is located
 * what do the variables mean
 * how datasets relate to each other
 
-This already provides most of the value.
+### Additonal advice per document
 
-### Need help?
+**3. [Code book template](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)**
 
-If you need further support or tailored input, do not hesitate to get in touch.
+Filling in “meaning” vs “represents”. These serve different but complementary purposes.
 
+'Meaning': describes what the variable is.
+It provides a general definition of the variable or measurement.
 
-### Project-level README.md
+'Represents': describes what each value refers to in reality.
+It clarifies the level or unit of observation (e.g. per sample, per plant, per gene).
 
+Example
 
+Variable: leaf_area
 
-############ OLD ##########
-
-
-As a rule of thum, it should be sufficient information for others (and your future self) to understand and navigate the project and datasets.
-
-### [Project-level README.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_project-level.md)
-
-A template for the project-level README is provided in this repository, together with [a filled-in example](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/example_README_project-level.md) based on a simple, fictional project.
-
-If you are unsure how to complete a section, check out the example.
-
-
-There is no need to write a long text. A few clear sentences per section are usually enough.
-
-
-**The goal is not perfection, but usability.**
-
-## Filling in the provided templates
-
-### General information
-
-
-
-### [Project-level README.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_project-level.md)
-
-A template for the project-level README is provided in this repository, together with [a filled-in example](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/example_README_project-level.md) based on a simple, fictional project.
-
-### Estimated time to complete
-
-The time required depends on how well your project is already documented:
-
-- 30 min minutes: if you already have structured notes, metadata, or dataset descriptions 
-- longer if you need to collect information, then it very much depends on how well you previously documented. Remember, this is work you'' eventually have to do either way for publisng or your thesis.  
-
-
-
-### Minimum viable version
-
-If time is limited, ensure at least the following are completed:
-
-- project purpose and scope  
-- list of datasets with paths  
-- basic explanation of how datasets relate to each other  
-
-
-
-### General principle
-
-The most important outcome is that users can:
-
-- understand what the project is about  
-- find the relevant datasets  
-- see how these datasets are connected  
+meaning: Leaf surface measurement
+represents: Total leaf area per plant
