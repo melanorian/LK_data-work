@@ -1,6 +1,6 @@
 # General Information
 
-**Dataset name:** [Enter dataset name]  
+**Dataset title:** [Enter dataset name]  
 **Date:** [YYYY-MM-DD]  
 **Version:** [e.g. v1.0]  
 
@@ -9,6 +9,7 @@
 **Name:** [First name(s), last name(s)]  
 **ORCID:** [ORCID ID]  
 **Institution:** [Full institution name]  
+**Address** [City, country]
 **Email:** [Email address]
 
 [Add additional contributors if needed]
