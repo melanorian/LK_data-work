@@ -190,7 +190,7 @@ If you are unsure what to include, ask yourself:
 
 Would someone unfamiliar with this project and consortium understand how to use the data?
 
-### Minimum viable documentation
+### Minimum viable documentation per document
 
 Below, you find a second for a **“minimum viable version”** concept for each file.
 
@@ -211,11 +211,9 @@ Below, you find a second for a **“minimum viable version”** concept for each
 
 Filling in “meaning” vs “represents”. These serve different but complementary purposes.
 
-'Meaning': describes what the variable is.
-It provides a general definition of the variable or measurement.
+`Meaning`: What does this variable describe? It provides a general definition of the variable or measurement.
 
-'Represents': describes what each value refers to in reality.
-It clarifies the level or unit of observation (e.g. per sample, per plant, per gene).
+`Represents` : What does one value correspond to? It clarifies the observation (e.g. per sample, per plant, per gene). This is different from `unit`.
 
 Example
 
