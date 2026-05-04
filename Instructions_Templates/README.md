@@ -72,7 +72,6 @@ Of course, ideally you would share all files—but we live in a messy, constrain
 
 Together with your data, these files will help ensure that your work remains understandable, reusable, and therefore valuable and impactful beyond the lifetime of your project. Alternatively, they can help preserve your grandmother’s apple pie recipe for eternity (as it should be).
 
-
 # Step-by-Step Guide
 
 ## File formats
@@ -135,33 +134,6 @@ If you do not want to start from a template:
   - `.csv` for the Code book
 
 ## Filling in the provided templates
-
-## Filling in the provided templates
-
-### General guidance
-
-Don’t let perfection be the enemy of the good.
-
-The goal of these files is simple: make your project understandable and reusable.
-
-The most important outcome is that others (and your future self) can:
-
-* understand what the project is about
-* find the relevant datasets
-* see how these datasets are connected
-* understand the provided data
-
-You do **not** need to write long texts.
-A few clear, well-structured sentences per section are usually enough.
-
-Partial documentation is always better than none.
-If you are pressed for time, it is perfectly fine to leave sections incomplete.
-
-I included comments for some sections that I expect to be a bit more challenging to fill in. As I am receiving feedback I will add/expand on these instructions. 
-
-### Where to find templates and examples
-
-You can find templates and examples here:
 
 **Templates:**
 
