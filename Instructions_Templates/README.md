@@ -6,13 +6,13 @@ Have you ever tried baking a cake without following a proper recipe?
 
 Sometimes it works out fine. But often, small missing details make all the difference, and the result literally falls apart. I once ended up with a crumbly pile that did not hold together at all. There was nothing left to do but throw it away.
 
-Now imagine that instead of a cake, we are talking about your PhD or postdoc project. Years of hard work—and at the end, the results cannot be properly understood, reproduced, or reused because of missing detail.
+Now imagine that instead of a cake, we are talking about your PhD or postdoc project. Years of hard work-and at the end, the results cannot be properly understood, reproduced, or reused because of missing detail.
 
 That is the risk when research data is left without clear instructions: the recipe to your work.
 
 # What’s the problem?
 
-We often assume that publications and manuscripts explain everything—the perfect recipe to understand and reproduce our work. 
+We often assume that publications and manuscripts explain everything-the perfect recipe to understand and reproduce our work. 
 
 In reality, there is rarely enough space to describe datasets, variable names, or processing steps in detail. Exactly those details may be the difference between successfully reproducing or reusing your work - the difference between a perfect piece of cake or a crumbly disaster.
 
@@ -28,7 +28,7 @@ So let’s get started.
 
 # How to do it?
 
-This is when a few documentation files can save your work — or your favourite cake.
+This is when a few documentation files can save your work - or your favourite cake.
 
 ## What is a README file
 
@@ -68,7 +68,7 @@ In the following sections, you will find instructions and templates for creating
 
 (importance: project-level README > dataset-level README > code book > knowledge transfer file). 
 
-Of course, ideally you would share all files—but we live in a messy, constrained reality.
+Of course, ideally you would share all files but we live in a messy, constrained reality.
 
 Together with your data, these files will help ensure that your work remains understandable, reusable, and therefore valuable and impactful beyond the lifetime of your project. Alternatively, they can help preserve your grandmother’s apple pie recipe for eternity (as it should be).
 
