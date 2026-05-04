@@ -200,24 +200,29 @@ Below, you find a second for a **“minimum viable version”** concept for each
 
 #### *[Code book template](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)*
 
-* what the project/dataset is about
-* where the data is located
-* what do the variables mean
-* how datasets relate to each other
-
 ### Additonal advice per document
 
 **3. [Code book template](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)**
 
-Filling in “meaning” vs “represents”. These serve different but complementary purposes.
+Filling in “meaning” vs “represents”
 
-`Meaning`: What does this variable describe? It provides a general definition of the variable or measurement.
+“Meaning” and “represents” may sound similar, but they do slightly different things.
 
-`Represents` : What does one value correspond to? It clarifies the observation (e.g. per sample, per plant, per gene). This is different from `unit`.
+`meaning`: What does this variable describe?  
+This is a simple, general description of what the variable is about.
 
-Example
+`represents`: What does one value correspond to?  
+This explains the level of what you are actually measuring (e.g. per sample, per plant, per gene). This is not the same as the measurement unit.
 
-Variable: leaf_area
+To make this concrete with an example:
 
-meaning: Leaf surface measurement
-represents: Total leaf area per plant
+You have a variable called `leaf_area`.
+
+- In the `meaning` column, you describe what it is, e.g. “leaf surface measurement”.
+- In the `represents` column, you say what one value stands for, e.g. “total leaf area per plant”.
+- In the `unit` column, you describe how it is measured, e.g. “cm²”.
+
+The key idea is:  
+`meaning` = what it is  
+`represents` = what one value refers to  
+`unit` = how it is measured
