@@ -23,8 +23,14 @@
 
 ## Project overview (WHY)
 
-**Purpose, goals, and scope:**  
-This project investigates the molecular and physiological responses of lettuce (Lactuca sativa) to nitrogen limitation. The aim is to identify gene expression changes associated with nitrogen stress and link these to phenotypic traits such as biomass accumulation and growth performance. The project integrates transcriptomic (RNA-seq), targeted gene validation (qPCR), and phenotypic measurements.
+**Purpose:**  
+This project investigates the molecular and physiological responses of lettuce (Lactuca sativa) to nitrogen limitation.
+
+**Goals:**  
+To identify gene expression changes associated with nitrogen stress and to link these changes to phenotypic traits such as biomass accumulation and growth performance.
+
+**Scope:**  
+The project focuses on a single lettuce cultivar grown under controlled greenhouse conditions. Plants were exposed to defined nitrogen treatments and sampled at specific developmental stages. The study includes leaf tissue collected at defined timepoints, together with corresponding phenotypic measurements. The scope does not include multi-cultivar comparisons or field-grown conditions.
 
 ## Data structure and access (WHAT + WHERE)
 
