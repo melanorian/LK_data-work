@@ -23,8 +23,14 @@
 
 ## Project overview (WHY)
 
-**Purpose, goals, and scope:**  
-[Describe the scientific aim and scope of the project]
+**Description:**  
+[Briefly describe the overall project and what types of data it contains across all datasets]
+
+**Purpose:**  
+[Why this project exists. What scientific question(s) does it address? What is the overall aim?]
+
+**Scope:**  
+[What defines the boundaries of this project, e.g. species studied, experimental system, time frame, or biological focus]
 
 ## Data structure and access (WHAT + WHERE)
 
