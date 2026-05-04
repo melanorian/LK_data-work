@@ -1,216 +1,169 @@
-*Estimated reading time: 2-3 minutes*
+*Estimated reading time: 2–3 minutes*
+
+# Index
+
+- [What’s the matter?](#whats-the-matter)  
+- [What’s the problem?](#whats-the-problem)  
+- [What to do about it?](#what-to-do-about-it)  
+- [How to do it?](#how-to-do-it)  
+- [Step-by-step guide](#step-by-step-guide)  
+- [Minimum viable documentation](#minimum-viable-documentation)  
 
 # What's the matter?
 
 Have you ever tried baking a cake without following a proper recipe?
 
-Sometimes it works out fine. But often, small missing details make all the difference, and the result literally falls apart. I once ended up with a crumbly pile that did not hold together at all. There was nothing left to do but throw it away.
+Sometimes it works out fine. But often, small missing details make all the difference, and the result falls apart. I once ended up with a crumbly pile that did not hold together at all. There was nothing left to do but throw it away.
 
-Now imagine that instead of a cake, we are talking about your PhD or postdoc project. Years of hard work—and at the end, the results cannot be properly understood, reproduced, or reused because of missing detail.
+Now imagine that instead of a cake, we are talking about your PhD or postdoc project. Years of work, and at the end the results cannot be properly understood, reproduced, or reused because key details are missing.
 
-That is the risk when research data is left without clear instructions: the recipe to your work.
+That is the risk when research data is left without clear instructions, the recipe to your work.
 
 # What’s the problem?
 
-We often assume that publications and manuscripts explain everything—the perfect recipe to understand and reproduce our work. 
+We often assume that publications and manuscripts explain everything, the perfect recipe to understand and reproduce our work.
 
-In reality, there is rarely enough space to describe datasets, variable names, or processing steps in detail. Exactly those details may be the difference between successfully reproducing or reusing your work - the difference between a perfect piece of cake or a crumbly disaster.
+In reality, there is rarely enough space to describe datasets, variable names, or processing steps in detail. Exactly those details may determine whether data can actually be reused.
 
-This is why journals and funding bodies increasingly require data and code to be shared, which encourages more careful documentation.
+This is why journals and funding bodies increasingly require data and code to be shared, which makes careful documentation essential.
 
 # What to do about it?
 
-We want to ensure that others—and your future selves—can understand, reproduce, and reuse your work, even without you. Just as you would want a friend in New Zealand to be able to bake your grandmother’s favourite apple pie and have it turn out just as perfect.
+We want to ensure that others, and your future self, can understand, reproduce, and reuse your work, even without you.
 
-An added challenge is that we do not always know what future users will need from our data. For this reason, it is better to clearly explain what you do know, without assuming prior knowledge.
+Just like you would want a friend in New Zealand to successfully bake your grandmother’s apple pie and have it turn out just right.
 
-So let’s get started.
+Often we do not know what future users will need. So the goal is simple: clearly explain what you do know, without assuming prior knowledge.
 
 # How to do it?
 
-This is when a few documentation files can save your work — or your favourite cake.
+A few documentation files can make the difference between usable data and lost effort.
 
 ## What is a README file
 
-A README file is like the recipe for your work. It describes what you are making, which ingredients you need, and the main steps to follow.
+A README file is like the recipe for your work. It explains what the data is, what is needed, and how everything fits together.
 
-In practice, there are two levels of README files:
+There are two levels:
 
-A **project-level README** is like the introduction to a baking book. It explains what is being made across the whole “baking book”, how the different recipes (datasets) are related, and how everything fits together.
+A **project-level README** describes the whole project, how datasets relate to each other, and the overall structure.
 
-Your scientific project-level README provides the broader context: how datasets are organised, how they relate to each other, and what the overall project is trying to achieve.
-
-A **dataset-level README** is like a single recipe card. It describes one specific cake: what it contains, how it was made, and how it should be used.
-
-In a research context, the dataset-level README explains at a high level what the dataset contains, how it was created, and how it should be used.
+A **dataset-level README** describes one dataset in detail, what it contains, how it was generated, and how it should be used.
 
 ## What is a Code book
 
-A code book is like a detailed explanation of the ingredients in your recipe. 
+A code book is like a detailed ingredient list.
 
-It specifies exactly what each ingredient is, how it is measured, and how it should be interpreted—for example, what a “cup” means or what type of chocolate is used.
+It defines every variable or column in your dataset so that others can correctly interpret the data.
 
-In a research context, it defines every variable or column in your dataset, including data types and units, to ensure correct interpretation of the data.
+In a research context, it explains variables, units, and structure, so the dataset can be reused without guessing.
 
 ## What is a Knowledge transfer file
 
-A knowledge transfer file is like the notes from the baker who created the recipe. 
+A knowledge transfer file contains the “behind the scenes” knowledge.
 
-It explains why the cake was made in the first place, perhaps for Auntie Stefie’s 80th birthday—and includes the small but important things that were never written down because they were simply known to matter. For example, taking the ingredients out of the fridge in advance.
+It explains why the project exists, what decisions were made, what is not obvious from the data, and what users should be careful about.
 
-In a research context, this includes the scientific motivation, experimental design choices, hidden assumptions, known limitations or biases, and lessons learned during data generation.
-
-# Final note
-
-In the following sections, you will find instructions and templates for creating your own README file, code book, and knowledge transfer file.
-
-**If you are pressed for time, please rather fill the documents in partially or superficially than not at all.** In this case, almost anything is better than nothing. If you need to prioritise, start with a project-level README file and work your way down towards a knowledge transfer file 
-
-(importance: project-level README > dataset-level README > code book > knowledge transfer file). 
-
-Of course, ideally you would share all files—but we live in a messy, constrained reality.
-
-Together with your data, these files will help ensure that your work remains understandable, reusable, and therefore valuable and impactful beyond the lifetime of your project. Alternatively, they can help preserve your grandmother’s apple pie recipe for eternity (as it should be).
-
-# Step-by-Step Guide
+# Step-by-step guide
 
 ## File formats
 
-To make these files as accessible as possible, we use simple and widely compatible file formats.
+We use simple, open formats to keep everything accessible.
 
-### README files and Knowledge Transfer Files (.md format)
+### README files and Knowledge transfer files (.md)
 
-Both README files and Knowledge Transfer Files are written in **Markdown (.md)** format. If you are already familiar with this format, you can skip this section.
+These are written in Markdown (.md).
 
-Why this format?
+Reasons:
+- future proof, not tied to software
+- easy to read and write
+- widely supported
 
-- Future-proof: does not depend on proprietary tools (e.g office suite) while still supporting structure (headings, lists, emphasis)
-- Simple to write: just plain text with lightweight formatting
-- Widely readable: supported across many platforms and tools
-
-A plain text file (.txt) would also work, but **Markdown is preferred** because it allows structure (titles, sections, bullet points), which makes documents easier to navigate and reuse.
-
-### Getting started with Markdown files
-
-If you are not familiar with `.md` files, there are several easy ways to get started.
-
-- Create a normal text file on your computer and simply rename the file extension from `.txt` to `.md`. You can then edit it using any basic text editor that supports plain text, for example Notepad (Windows) or TextEdit (Mac). This is simple and sufficient for most use cases.
-- If you want to see the `.md` formatting rendered in a more visual way, you can use an online editor such as: https://dillinger.io/
-- If you prefer a more powerful setup, you can use Visual Studio Code, which is a versatile and widely used tool for working with text, code, and Markdown files: https://code.visualstudio.com/
+You can create them using:
+- any text editor (rename .txt to .md)
+- https://dillinger.io/
+- https://code.visualstudio.com/
 
 ### Code book (.csv)
 
-The Code book is provided as a **CSV file (.csv)**.
+The code book is a CSV file because it is:
+- simple and widely compatible
+- readable in Excel, R, Python
+- good for structured data
 
-This format is used because it:
-- is simple and widely compatible
-- can be opened in almost any software (Excel, R, Python, etc.)
-- is suitable for structured, tabular (meta)data
-- integrates easily into FAIR workflows and databases
+Alternative formats:
+- .tsv
+- .txt with separators
 
-You can open `.csv` files using:
-- Excel or LibreOffice Calc
-- R or Python (pandas)
-- any text editor (it is also human-readable as plain text)
+Requirements:
+- consistent structure
+- clear columns
+- UTF-8 encoding
 
-If needed, you can also work in Excel and export the file as `.csv`.
+### Creating files
 
-Alternative but equivalent formats include:
-- tab-delimited files (.tsv)
-- text files (.txt) with comma or tab separation
+You can always:
+- start with a plain text file
+- copy a template
+- save with correct extension (.md or .csv)
 
-All of these are acceptable as long as:
-- the structure is consistent
-- the columns remain clearly defined
-- the encoding is preserved (preferably UTF-8)
+## Templates
 
-### Creating files from scratch
+- [Project-level README template](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_project-level.md)  
+- [Dataset-level README template](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_dataset-level.md)  
+- [Code book template](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)  
 
-If you do not want to start from a template:
-- you can create a plain text file
-- copy the template content into it
-- and save it with the correct extension:
-  - `.md` for README and Knowledge Transfer Files
-  - `.csv` for the Code book
+## Examples
 
-## Filling in the provided templates
+- [Project-level README example](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/example_README_project-level.md)  
+- [Dataset-level README example](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/example_README_dataset-level.md)  
+- [Code book example](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/example_code_book.csv)  
 
-**Templates:**
+## General advice
 
-*1. [Project-level README template](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_project-level.md)
-*2. [Dataset-level README template](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_dataset-level.md)
-*3. [Code book template](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)
+Don’t let perfect be the enemy of good.
 
-If you are unsure how to complete a section, refer to the examples provided here:
+Focus on:
+- key datasets first
+- minimum viable documentation first
+- clarity over completeness
+- asking: would someone else understand this data?
 
-**Examples:**
+# Minimum viable documentation
 
-* [Project-level README example](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/example_README_project-level.md)
-* [Dataset-level README example](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/example_README_dataset-level.md)
-* [Code book example](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/example_code_book.csv)
+## Project-level README
 
-### General advice when filling in templates
+- project overview, purpose, scope  
+- list of datasets with paths  
+- basic folder structure  
 
-**Don’t let perfect be the enemy of good**
+## Dataset-level README
 
-* prioritise key datasets and core information first
-* prioritise mimimum viable documentation (see below), that already provides a lot of value.
-* use bullet points where helpful
-* let your favourite genAI tool help you
+- what the dataset is and why it exists  
+- how files are organised  
+- what key files contain  
+- what the data represents (variables, units, rows)  
+- where metadata is stored  
 
-If you are unsure what to include, ask yourself:
+## Code book
 
-Would someone unfamiliar with this project and consortium understand how to use the data?
+The code book should be as complete as possible for all variables.
 
-### Minimum viable documentation per document
+It defines every variable so the dataset can be interpreted correctly.
 
-Below, you find a second for a **“minimum viable version”** concept for each file.
+You may leave ontology fields empty if they do not apply.
 
-#### *[Project-level README](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_project-level.md)
+Key rule:
+- completeness matters more than brevity here
 
-- **Project overview (Description, Purpose, Scope)**  
-  What the project is about, why it exists, and what defines its boundaries (e.g. organism, system, conditions).
-- **Datasets (Data structure and access)**  
-  A clear list of datasets, including their names, types, scopes, and paths to their dataset-level READMEs.
-- **Project folder structure**  
-  How the project is organised (main folders and their purpose).
+## Code book clarification
 
-#### *[Dataset-level README template](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_dataset-level.md)*
+- `meaning`: what the variable describes  
+- `represents`: what one value refers to (unit of observation, e.g. per sample, per plant, per gene)  
+- `unit`: how it is measured  
 
-- **Dataset overview**: what the data is, why it exists, and what it covers (scope)
-- **File structure**: where the data is and how it is organised
-- **File descriptions**: what the key files contain
-- **Data description**: what the data represents (variables, units, and what one row corresponds to)
-- **Metadata location**: where sample and annotation information can be found
+Example:
 
-
-#### *[Code book template](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)*
-
-The code book is different from the READMEs: it should be as complete as possible for all included variables. Otherwise it gets hard to really interpret the data. You can leave ontology fields empty if they don’t apply.
-
-### Additonal advice per document
-
-**3. [Code book template](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)**
-
-Filling in “meaning” vs “represents”
-
-“Meaning” and “represents” may sound similar, but they do slightly different things.
-
-`meaning`: What does this variable describe?  
-This is a simple, general description of what the variable is about.
-
-`represents`: What does one value correspond to?  
-This explains the level of what you are actually measuring (e.g. per sample, per plant, per gene). This is not the same as the measurement unit.
-
-To make this concrete with an example:
-
-You have a variable called `leaf_area`.
-
-- In the `meaning` column, you describe what it is, e.g. “leaf surface measurement”.
-- In the `represents` column, you say what one value stands for, e.g. “total leaf area per plant”.
-- In the `unit` column, you describe how it is measured, e.g. “cm²”.
-
-The key idea is:  
-`meaning` = what it is  
-`represents` = what one value refers to  
-`unit` = how it is measured
+`leaf_area`
+- meaning: leaf surface measurement  
+- represents: total leaf area per plant  
+- unit: cm²  
