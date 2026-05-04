@@ -2,12 +2,12 @@
 
 # Index
 
-- [What’s the matter?](#whats-the-matter)  
-- [What’s the problem?](#whats-the-problem)  
-- [What to do about it?](#what-to-do-about-it)  
-- [How to do it?](#how-to-do-it)  
-- [Step-by-step guide](#step-by-step-guide)  
-- [Minimum viable documentation](#minimum-viable-documentation)  
+[What’s the matter?](#whats-the-matter)  
+[What’s the problem?](#whats-the-problem)  
+[What to do about it?](#what-to-do-about-it)  
+[How to do it?](#how-to-do-it)  
+[Step-by-step guide](#step-by-step-guide)  
+[Minimum viable documentation](#minimum-viable-documentation)  
 
 # What's the matter?
 
@@ -102,6 +102,10 @@ Requirements:
 ### Creating files
 
 You can always:
+- download template and edit
+
+or
+
 - start with a plain text file
 - copy a template
 - save with correct extension (.md or .csv)
@@ -120,9 +124,10 @@ You can always:
 
 ## General advice
 
-Don’t let perfect be the enemy of good.
+**Don’t let perfect be the enemy of good!**
 
 Focus on:
+- If time is limited, prioritise based on importance: project-level README → dataset-level README and code book (they belong together) → knowledge transfer file
 - key datasets first
 - minimum viable documentation first
 - clarity over completeness
