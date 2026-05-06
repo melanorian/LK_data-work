@@ -182,6 +182,8 @@ Ideally, every data package follows the same internal structure that is used acr
 
 Instead, you can simply reference the data you used and focus on documenting it properly in your README files and code book.
 
+## C. Document your data package - write the recipie for your LettuceCake
+
 
 #####################3
 
