@@ -4,13 +4,13 @@ _Estimated reading time: 5–8 minutes_
 
 # Index
 
-- What’s the matter?
-- What’s the problem?
-- What to do about it?
-- How to do it?
-- Folder structure (the baking book)
-- Documentation layers
-- Minimum viable documentation
+- [What’s the matter?](#whats-the-matter)
+- [What’s the problem?](#whats-the-problem)
+- [What to do about it?](#what-to-do-about-it)
+- [How to do it?](#how-to-do-it)
+- [Folder structure (the baking book)](#folder-structure-the-baking-book)
+- [Documentation layers](#documentation-layers)
+- [Minimum viable documentation](#minimum-viable-documentation)
 
 # What’s the matter?
 
