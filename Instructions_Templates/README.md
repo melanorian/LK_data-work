@@ -135,7 +135,7 @@ If your work has already been published, it is still useful to include at least 
 
 In this way, we create a complete Lettuce Know recipe book: a shared collection of well-structured, understandable “recipes” that allow others to retrace how each scientific “cake” was made, even years later.
 
-## A. Create The Folder structure
+## A. Create The Folder structure - Creating the layout for the LettuceKnow baking book
 
 1. Log into YODA with your credentials  
 2. Navigate to:  
@@ -172,7 +172,17 @@ ProjectX_Topic_Name/
 Ideally, every data package follows the same internal structure that is used across the LettuceKnow consortium data releases. This makes it much easier to navigate and reuse data across different projects. Of course, not every project is identical. If your data requires adjustments, that is fine. But try to stay as close as possible to the shared structure so others can easily understand your work without guessing where things are.
 
 
-## B. Populate your folders with data
+## B. Populate your folders with data – getting the ingredients for your cake
+
+1. You should now be able to upload your files to YODA using your preferred method. If needed, you can consult the full guide on working with YODA here:
+
+[https://www.uu.nl/en/research/yoda/guide-to-yoda]
+
+**If you are working with consortium-wide datasets, publicly available data, or data that has already been published**, you do not need to upload everything again. Storing data literally comes with a cost, so we try to avoid unnecessary duplication.
+
+Instead, you can simply reference the data you used and focus on documenting it properly in your README files and code book.
+
+
 #####################3
 
 ## README_project.md
