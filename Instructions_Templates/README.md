@@ -193,7 +193,7 @@ We will fill in the:
 
 5. [Knowledge Transfer File.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_knowledge_transfer_file.md)
 
-Note: If you are wondering about the choice of format for those files or you are unfamiliar with markdown (.md) please navigate to more extensive instructions below: [File formats](##File-formats)
+Note: If you are wondering about the choice of format for those files or you are unfamiliar with markdown (.md) please navigate to more extensive instructions below: [Go to File formats](#file-formats)
 
 ### 1. README_project-level.md
 
