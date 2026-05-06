@@ -183,6 +183,15 @@ Now that you have created a well-structured data packe, the recipie book and all
 
 We will go now over the differnt files by level of imporatance. Of coures, ideally you have everythign documented as suggested in the templates, but, I will also provide some minimal viable verson 
 
+We will fill in the: 
+
+1. [README_project-level.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_project-level.md)
+
+2. [README_processed-data.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_processed-data.md)
+
+3. [README_results-level.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_results-level.md) & [code_book.csv](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)
+
+4. [Knowledge Transfer File.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_knowledge_transfer_file.md)
 
 
 #####################3
