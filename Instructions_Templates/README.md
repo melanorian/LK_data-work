@@ -135,6 +135,30 @@ If your work has already been published, it is still useful to include at least 
 
 In this way, we create a complete Lettuce Know recipe book: a shared collection of well-structured, understandable “recipes” that allow others to retrace how each scientific “cake” was made, even years later.
 
+## A. Create The Folder structure
+
+## A. Create the folder structure
+
+1. Log into YODA with your credentials  
+2. Navigate to:  
+   `~/research-lettuceknow-releases/1_data-releases/data-release_V3_20260630/7_individual-data-packages/`  
+3. Search for the folder matching your project  
+4. Create your project folder and upload your thesis (or a placeholder if not yet available)
+
+If your thesis is not yet finished, create a clearly labelled placeholder such as: `1_empty_Thesis.pdf`or `1_draft_Thesis.pdf` If parts of your thesis already exist, name it accordingly: `1_chapter1-3_Thesis.pdf`
+
+At this stage, your project folder should follow this structure:
+
+```
+ProjectX_Topic_Name/
+├── 1_Thesis.pdf
+├── 2_Data-package-chapter2/
+├── 3_Data-package-chapter3/
+├── N_Data-package-chapterN/
+└── README_project.md
+
+```
+
 #####################3
 
 ## README_project.md
