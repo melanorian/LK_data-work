@@ -1,194 +1,201 @@
+# README.md (project-level)
+
 _Estimated reading time: 5–8 minutes_
 
 # Index
 
-[What’s the matter?](#whats-the-matter)  
-[What’s the problem?](#whats-the-problem)  
-[What to do about it?](#what-to-do-about-it)  
-[How to do it?](#how-to-do-it)  
-[Folder structure (the baking book)](#folder-structure-the-baking-book)  
-[Documentation layers](#documentation-layers)  
-[Minimum viable documentation](#minimum-viable-documentation)  
+- What’s the matter?
+- What’s the problem?
+- What to do about it?
+- How to do it?
+- Folder structure (the baking book)
+- Documentation layers
+- Minimum viable documentation
 
-# What's the matter?
+# What’s the matter?
 
 Have you ever tried baking a cake without following a proper recipe?
 
-Sometimes it works out fine. But often, small missing details make all the difference, and the result falls apart. I once ended up with a crumbly pile that did not hold together at all. There was nothing left to do but throw it away.
+Sometimes it works. Often it doesn’t. And the difference is usually a few small missing details.
 
-Now imagine that instead of a cake, we are talking about your PhD or postdoc project. Years of work, and at the end the results cannot be properly understood, reproduced, or reused because key details are missing.
+Now replace the cake with your research project.
 
-That is the risk when research data is left without clear instructions, the recipe to your work.
+Years of work can become hard to understand, reproduce, or reuse if key details are missing at the end.
+
+That is the risk we are trying to avoid here.
 
 # What’s the problem?
 
-We often assume that publications and manuscripts explain everything, the perfect recipe to understand and reproduce our work.
+We often assume that publications explain everything.
 
-In reality, there is rarely enough space to describe datasets, variables, processing steps, or analysis decisions in detail. These are exactly the details that determine whether data can actually be reused.
+They don’t.
 
-This is why journals and funding bodies increasingly require data and code to be shared. But sharing only works if the underlying structure is clear.
+There is rarely enough space to properly describe datasets, variables, processing steps, or analysis decisions.
+
+These are exactly the things that determine whether your work can actually be reused.
+
+Sharing data only works if the structure around it is clear.
 
 # What to do about it?
 
-We want to ensure that others, and your future self, can understand, reproduce, and reuse your work without needing you.
+The goal is simple:
 
-Just like you would want a friend in New Zealand to successfully bake your grandmother’s apple pie and have it turn out just right.
+Make your work understandable without you.
 
-Often we do not know what future users will need. So the goal is simple: clearly explain what you do know, without assuming prior knowledge.
+For others. And for your future self.
+
+You should not need to be around for someone to figure out what you did.
+
+Think of it like passing a recipe to someone in another country and expecting it to still work.
 
 # How to do it?
 
-A few simple documentation files make the difference between usable data and lost effort.
+We do this with a small set of structured documentation files.
 
-Just as important as the recipes themselves is how they are organised.
+A consistent structure makes everything easier to navigate, reuse, and debug later.
 
-A well-structured cookbook, where every recipe follows the same logic, makes it easy to find what you need and understand it quickly. A messy one slows everything down.
+So we separate:
 
-The same applies to research data: structure first, then documentation inside that structure.
+- structure first
+- documentation inside that structure
 
 # Folder structure (the baking book)
 
-Before describing individual files, we first define how everything is organised.
-
-This is the shared structure for all Lettuce Know projects.
-
-## Thesis-level structure (for reference)
-
-ProjectX_Immunity_Name/
-├── 1_Thesis.pdf
-├── 2_Data-package-chapter2/
-├── 3_Data-package-chapter3/
-├── N_Data-package-chapterN/
-└── README_project.md
-
-
-Each chapter is a self-contained unit.
-
-## Standard LK data structure
+This is the standard structure used across all consortium projects.
 
 project_root/
 ├── 1_raw-data/
-│ ├── dataset_A/
-│ ├── dataset_B/
+│   ├── dataset_A/
+│   ├── dataset_B/
 │
 ├── 2_processed-data/
-│ ├── dataset_A/
-│ │ ├── README_processed-data.md
-│ │ ├── code_book.csv
+│   ├── dataset_A/
+│   │   ├── README_processed-data.md
+│   │   ├── code_book.csv
 │
 ├── 3_results/
-│ ├── dataset_A_or_analysis/
-│ │ ├── README_results.md
+│   ├── dataset_A_or_analysis/
+│   │   ├── README_results-level.md
 │
 ├── 4_metadata-files/
-│ ├── sample_metadata.csv
-│ ├── experimental_design.csv
+│   ├── sample_metadata.csv
+│   ├── experimental_design.csv
 │
 ├── 5_methods-and-protocols/
-└── README_project.md
+├── README.md
 
-
-Raw data is what came in, processed data is what becomes usable, and results are what comes out of analysis.
+Raw data is what came in.  
+Processed data is what becomes usable.  
+Results are what come out.
 
 # Documentation layers
 
-Instead of thinking in “dataset-level README”, it is easier to think in three layers that match the structure above.
+## README.md (project-level)
 
-## Project-level README
+Gives the overall picture:
 
-This gives the overall picture.
+- what the project is about
+- how datasets relate
+- where everything lives
 
-It explains what the project is about, how datasets relate to each other, and where everything lives.
+## README_processed-data.md
 
-## Processed-data README
+Explains:
 
-This is the most important technical layer for reuse.
+- what a dataset represents
+- how it was created from raw data
+- how to interpret variables
+- how it connects to code_book.csv
 
-It explains what a dataset means, how it was created from raw data, and how to interpret the variables together with the code book.
+This is the most important layer for reuse.
 
-## Results README
+## README_results-level.md
 
-This describes how results were generated from processed data and how outputs can be reproduced.
+Explains:
 
-It is about analysis, not data definition.
+- how results were generated
+- analysis steps
+- reproducibility of outputs
 
-# What is a README file?
+This is about analysis, not data definition.
+
+# What is a README?
 
 A README is the recipe of a part of your work.
 
-A simple rule applies: if a decision was made, it needs to be documented.
+Rule of thumb:
 
-The more decisions involved, the more important the README becomes.
+If a decision was made, it should be documented.
 
-## Project-level README
+More decisions means more importance.
 
-Describes the project, dataset list, and overall structure.
-
-## Processed-data README
-
-Describes what the dataset represents, how it was generated, and how to interpret it.
-
-It always connects to the code book.
-
-## Results README
-
-Describes analysis steps and how outputs were generated.
-
-# What is a Code book?
+# What is a code book?
 
 A code book is the dictionary of your dataset.
 
-It defines variables, units, and meanings so that data can be understood without guessing.
+It defines:
 
-It always belongs to the processed-data level.
+- variables
+- units
+- meanings
 
-# What is a Knowledge transfer file?
+It prevents guessing.
 
-A knowledge transfer file contains background information that is not visible in the data itself.
+(File: template_code_book.csv / example_code_book.csv)
 
-It captures decisions, assumptions, and context that would otherwise get lost.
+# What is a knowledge transfer file?
 
-It is optional but useful for complex projects.
+A knowledge transfer file captures things not visible in the data:
 
-# Step-by-step guide
+- why decisions were made
+- assumptions
+- edge cases
+- hidden reasoning
 
-| Layer | What it tells you | Importance |
-|------|------------------|------------|
-| raw data | origin | low to medium |
-| processed data | meaning and structure | critical |
-| results | analysis output | medium |
-| manuscript | narrative | external |
+Optional, but very useful in complex projects.
+
+(File: template_knowledge_transfer_file.md)
 
 # Minimum viable documentation
 
-## Project-level README
+If you are short on time, do this:
 
-- what the project is about  
-- list of datasets  
-- folder structure  
+## README_processed-data.md
 
-## Processed-data README
+- what the dataset represents
+- how it was created
+- code book reference
+- key processing decisions
 
-- what the dataset represents  
-- how it was created  
-- code book reference  
-- key processing decisions  
+(File: template_README_processed-data.md)
 
-## Results README
+## README_results-level.md
 
-- what analysis was done  
-- how outputs were generated  
-- link to processed data  
-- reproducibility information  
+- what analysis was done
+- how outputs were generated
+- link to processed data
+- reproducibility info
+
+(File: template_README_results-level.md)
+
+## README.md
+
+- what the project is about
+- list of datasets
+- folder structure
+
+(File: template_README_project-level.md)
 
 # General advice
 
-Don’t let perfect be the enemy of good.
+Don’t let perfect be the enemy of usable.
 
-If time is limited, prioritise:
+If time is limited:
 
 1. processed data documentation first  
 2. results documentation second  
 3. project overview last  
 
-Focus on clarity over completeness, and on making your work understandable without you.
+The goal is simple:
+
+Make your work understandable without you.

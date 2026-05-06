@@ -1,3 +1,5 @@
+# README_processed-data.md
+
 # General Information
 
 **Dataset title:** [Enter dataset name]  
@@ -9,68 +11,65 @@
 **Name:** [First name(s), last name(s)]  
 **ORCID:** [ORCID ID]  
 **Institution:** [Full institution name]  
-**Address:** [City, country]  
 **Email:** [Email address]
 
-[Add additional contributors if needed]
+(Add more contributors if needed)
 
 ## Dataset overview
 
 **Description:**  
-[Briefly describe what this dataset contains]
+What does this dataset contain?
 
 **Purpose:**  
-[Why was this dataset generated? What question does it address?]
+Why was it generated?
 
 **Scope:**  
-[What defines this dataset, e.g. experiment, assay, timepoint, cohort]
+What defines this dataset (experiment, cohort, timepoint, etc.)
 
 ## Data interpretation (code book)
 
-**Code book:** [code_book.csv or path]
+**Code book:** template_code_book.csv
 
-The code book defines all variables, units, and measurement meanings required to correctly interpret this dataset.  
-It must always be used together with the processed data.
+The code book defines all variables, units, and meanings.
 
-## Data processing and methods
+It must always be used together with this dataset.
 
-This section describes how raw data was transformed into this processed dataset.  
-It includes dataset-specific decisions only.
+## Data processing
+
+This section explains how raw data became this processed dataset.
 
 ### Processing steps
 
 - cleaning steps  
 - filtering criteria  
-- normalisation or transformation  
-- aggregation or summarisation (if applicable)
+- transformations  
+- aggregations  
 
 ### Key methodological choices
 
-- parameter settings  
 - thresholds or cut-offs  
 - inclusion/exclusion criteria  
-
-(These refer to data processing only, not downstream analysis. For analysis see results README.)
+- parameter settings  
 
 ### Pipeline information
 
 **Pipeline / script:** [link or path]  
 **Version:** [commit/tag/version]  
-**Software/tools:** [optional]
+**Software/tools:** [R, Python, etc.]
 
 ## Metadata location
 
-- sample metadata: [file/path]  
-- experimental design: [file/path]  
-- annotations: [file/path]
+- sample metadata: 4_metadata-files/sample_metadata.csv  
+- experimental design: 4_metadata-files/experimental_design.csv  
 
 ## Related outputs
 
-- results folder: [link/path]  
-- results README: [link/path]  
+- results folder: 3_results/  
+- results README: README_results-level.md  
 
 ## Notes / limitations
 
 - known limitations  
-- assumptions made during processing  
-- reuse considerations
+- assumptions  
+- reuse considerations  
+- anything important that is not obvious from the data

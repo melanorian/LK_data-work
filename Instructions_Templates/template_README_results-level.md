@@ -1,3 +1,5 @@
+# README_results-level.md
+
 # General Information
 
 **Output title:** [Enter results name]  
@@ -11,23 +13,23 @@
 **Institution:** [Full institution name]  
 **Email:** [Email address]
 
-[Add additional contributors if needed]
+(Add more contributors if needed)
 
 ## Output overview
 
 **Description:**  
-[Briefly describe outputs such as figures, models, tables, statistical summaries]
+What outputs were generated (figures, tables, models, summaries)
 
 **Purpose:**  
-[What question or analysis does this output address? What was it generated for?]
+What question does this analysis address?
 
 **Context:**  
-[Thesis chapter, manuscript, or broader project context]
+Thesis chapter, manuscript, or project context
 
 ## Data sources (input)
 
 **Processed dataset(s):**  
-- [dataset name + link to processed-data README]
+- link to corresponding README_processed-data.md
 
 **Additional inputs (if applicable):**  
 - external datasets  
@@ -35,9 +37,6 @@
 - reference files  
 
 ## Methods and analysis pipeline
-
-This section describes how results were generated from processed data.  
-For upstream processing see the processed-data README.
 
 ### Analysis approach
 
@@ -53,23 +52,24 @@ For upstream processing see the processed-data README.
 
 ## Output contents
 
-- figures: [description]  
-- tables: [description]  
-- models: [description]  
-- other outputs: [description]
+- figures: [what they show]  
+- tables: [what they contain]  
+- models: [what they represent]  
 
 ## Interpretation reference
 
-Primary interpretation is provided in:  
-[thesis chapter / manuscript / publication link]
+Primary interpretation is provided in:
+
+- manuscript / thesis / publication link
 
 ## Related outputs
 
-- publications: [DOI or citation]  
-- figures used in manuscripts: [links]  
+- DOI / publication links  
+- linked figures or reports  
 
 ## Notes / limitations
 
 - analytical limitations  
 - assumptions  
-- reuse considerations
+- reproducibility caveats  
+- anything that could affect interpretation
