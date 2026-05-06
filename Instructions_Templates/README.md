@@ -197,22 +197,34 @@ Note: If you are wondering about the choice of format for those files or you are
 
 ### 1. README_project-level.md
 
+1.1 Download:  [README_project-level.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_project-level.md)
 
+You will find instructions in the template. Think of this file as the overview of the entire baking book. It does not go into cooking details, but it tells you where everything is.
 
-#####################3
+1.2. Minimum Viable Version
 
+Fill in sections on
+- General information
+- Researcher information
+- Project overview
+- Data structure and access 
+- Project folder structure
 
-## README_project.md
+1.3. Complete Version
+- Fill in the other sections to the best of your knowledge
 
-This is the overview of the entire baking book.
+1.4 Upload as README.md to your project folder 
 
-It tells you:
-- what recipes exist in this project  
-- how different datasets relate to each other  
-- how the overall structure is organised  
+```
+ProjectX_Topic_Name/
+├── 1_Thesis.pdf
+├── 2_Data-package-chapter2/
+├── 3_Data-package-chapter3/
+├── N_Data-package-chapterN/
+└── README_project.md <-- !!!
+```
 
-Think of it as the index of the baking book.  
-It does not go into cooking details, but it tells you where everything is.
+##############
 
 ## README_processed-data.md
 
@@ -367,7 +379,7 @@ These are written in Markdown (.md).
 
 Reasons:
 - future proof, not tied to proprietary software
-- easy to read and write
+- formatting makes it easy to read and write
 - widely supported
 
 You can create them using:
