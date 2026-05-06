@@ -12,47 +12,35 @@ _Estimated reading time: 5–8 minutes_
 - [Documentation layers](#documentation-layers)
 - [Minimum viable documentation](#minimum-viable-documentation)
 
-# What’s the matter?
+# What's the matter?
 
 Have you ever tried baking a cake without following a proper recipe?
 
-Sometimes it works. Often it doesn’t. And the difference is usually a few small missing details.
+Sometimes it works out fine. But often, small missing details make all the difference, and the result falls apart. I once ended up with a crumbly pile that did not hold together at all. There was nothing left to do but throw it away.
 
-Now replace the cake with your research project.
+Now imagine that instead of a cake, we are talking about your PhD or postdoc project. Years of work, and at the end the results cannot be properly understood, reproduced, or reused because key details are missing.
 
-Years of work can become hard to understand, reproduce, or reuse if key details are missing at the end.
-
-That is the risk we are trying to avoid here.
+That is the risk when research data is left without clear instructions, the recipe to your work.
 
 # What’s the problem?
 
-We often assume that publications explain everything.
+We often assume that publications and manuscripts explain everything, the perfect recipe to understand and reproduce our work.
 
-They don’t.
+In reality, there is rarely enough space to describe datasets, variable names, or processing steps in detail. Exactly those details may determine whether data can actually be reused.
 
-There is rarely enough space to properly describe datasets, variables, processing steps, or analysis decisions.
+This is why journals and funding bodies increasingly require data and code to be shared, which makes careful documentation essential.
 
-These are exactly the things that determine whether your work can actually be reused.
-
-Sharing data only works if the structure around it is clear.
+In other words, the final cake might be there, but the recipe is incomplete. You might recognise some ingredients, but you cannot reliably recreate it.
 
 # What to do about it?
 
-The goal is simple:
+We want to ensure that others, and your future self, can understand, reproduce, and reuse your work, even without you.
 
-Make your work understandable without you.
+Just like you would want a friend in New Zealand to successfully bake your grandmother’s apple pie and have it turn out just right.
 
-For others. And for your future self.
+Often we do not know what future users will need. So the goal is simple: clearly explain what you do know, without assuming prior knowledge.
 
-You should not need to be around for someone to figure out what you did.
-
-Think of it like passing a recipe to someone in another country and expecting it to still work.
-
-# How to do it?
-
-We do this with a small set of structured documentation files.
-
-A consistent structure makes everything easier to navigate, reuse, and debug later.
+Not just what the final cake looks like, but how it actually came together.
 
 So we separate:
 
@@ -61,7 +49,7 @@ So we separate:
 
 # Folder structure (the baking book)
 
-This is the standard structure used across all consortium projects.
+This is the suggested standard structure used across the consortium projects.
 
 project_root/
 ├── 1_raw-data/
