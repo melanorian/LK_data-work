@@ -51,11 +51,12 @@ To do so, we separate two steps:
 
 # Folder structure - the baking book
 
-You can think of this as the layout of a baking book. It will be much easier to find your favourite recipe and quickly get started if the layout is well chosen and each recipe is formatted consistently. Without this structure, even well-written recipes become difficult to navigate.
+You can think of this as the layout of a baking book. It is much easier to find your favourite recipe and quickly get started if the structure is well organised and each recipe follows a consistent format. Without this structure, even well-written recipes become difficult to navigate.
 
-In your project, this corresponds to the structure of your folders, where you store the different steps of your work, usually progressing from raw data input via data processing to results.
+In your project, this corresponds to the structure of your folders, where you store the different steps of your work, typically progressing from raw data input, through data processing, to results.
 
-Based on previous instructions shared inthe Lettuce Know consortium, this is the expected standard structure for a Phd thesis: 
+Based on previous instructions shared within the LettuceKnow consortium, the following is the expected standard structure for a PhD thesis, post docs will typically replace thesis chapter with their manuscripts:
+
 
 ```
 ProjectX_Topic_Name/
@@ -67,7 +68,7 @@ ProjectX_Topic_Name/
 
 ```
 
-Based on previous data releases from the LettuceKnow consortium, this is a standard structure for a project.
+Based on previous data releases from the Lettuce Know consortium, the following is the standard structure for a project data package:
 
 ``` 
 2_Data-package-chapter2/
@@ -93,9 +94,115 @@ Based on previous data releases from the LettuceKnow consortium, this is a stand
 
 ```
 
-Raw data is what came in.  
-Processed data is what becomes usable.  
-Results are what come out.
+# Documentation layers - the recipes in your baking book
+
+Once the structure is in place, the next step is to make sure each part of the project can actually be understood.
+
+Think of this as the recipes inside your baking book.
+
+The structure tells you where recipes are.  
+The documentation tells you how the cake was made.
+
+We can use differnt types of documents to make sure our research or cake can be reproduced, typically: 
+
+- README
+- code book
+- knowledge tranfer file
+
+## What is a README file
+
+A README file is like the recipe for your work. It explains what the data is, what is needed, and how everything fits together. 
+
+As a rule of thumb, you should add a README file whenever a decision was introduced. The  more decisions were made, the more the more important it is to explain how the files were produced. 
+
+## What is a Code book
+
+A code book is like a detailed ingredient list. It defines every variable or column in your dataset so that others can correctly interpret the data. In a research context, it explains variables, units, and structure, so the dataset can be reused without guessing.
+
+# What is a knowledge transfer file?
+
+A knowledge transfer file contains the “behind the scenes” knowledge. It explains e.g. what decisions were made, what is not obvious from the data, and what users should be careful about.
+
+Optional, but very useful in complex projects.
+
+
+#####################3
+
+## README_project.md
+
+This is the overview of the entire baking book.
+
+It tells you:
+- what recipes exist in this project  
+- how different datasets relate to each other  
+- how the overall structure is organised  
+
+Think of it as the index of the baking book.  
+It does not go into cooking details, but it tells you where everything is.
+
+## README_processed-data.md
+
+This is where the actual preparation happens.
+
+It explains how raw ingredients were turned into something usable.
+
+It contains:
+- how raw data was cleaned and transformed  
+- what decisions were made during processing  
+- how variables and measurements should be understood  
+- how to use the code_book.csv to interpret the data  
+
+Think of this as preparing the ingredients before baking.  
+You are not baking yet, but everything is being made ready.
+
+## code_book.csv
+
+This is the ingredient list.
+
+It defines every variable in the dataset so nothing is left to guessing.
+
+It tells you:
+- what each column means  
+- what units are used  
+- what each value represents  
+
+Without it, even perfectly prepared ingredients are ambiguous.
+
+## README_results.md
+
+This is the final baking step.
+
+It explains how processed data was turned into outputs such as:
+- figures  
+- tables  
+- statistical results  
+- models  
+
+It focuses on interpretation and reproducibility of results, not data cleaning.
+
+Think of this as the final cake being taken out of the oven.  
+The ingredients are already prepared — now we see what they produce.
+
+# Minimum viable documentation
+
+If time is limited, this is the order of priority:
+
+1. README_project.md  
+2. README_processed-data.md + code_book.csv  
+3. README_results.md  
+
+Raw data is important, but it is mostly provenance.  
+The critical understanding lives in processed data and results.
+
+# File naming (consistency rule)
+
+To keep everything consistent across projects, the following file names are always used:
+
+- Project overview: README_project.md  
+- Processed data documentation: README_processed-data.md  
+- Results documentation: README_results.md  
+- Data interpretation: code_book.csv
+#############
 
 # Documentation layers
 
@@ -128,42 +235,6 @@ Explains:
 
 This is about analysis, not data definition.
 
-# What is a README?
-
-A README is the recipe of a part of your work.
-
-Rule of thumb:
-
-If a decision was made, it should be documented.
-
-More decisions means more importance.
-
-# What is a code book?
-
-A code book is the dictionary of your dataset.
-
-It defines:
-
-- variables
-- units
-- meanings
-
-It prevents guessing.
-
-(File: template_code_book.csv / example_code_book.csv)
-
-# What is a knowledge transfer file?
-
-A knowledge transfer file captures things not visible in the data:
-
-- why decisions were made
-- assumptions
-- edge cases
-- hidden reasoning
-
-Optional, but very useful in complex projects.
-
-(File: template_knowledge_transfer_file.md)
 
 # Minimum viable documentation
 
