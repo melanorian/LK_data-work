@@ -197,7 +197,7 @@ Note: If you are wondering about the choice of format for those files or you are
 
 ### 1. README_project-level.md
 
-1.1 Download:  [README_project-level.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_project-level.md)
+1.1 Download: [README_project-level.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_project-level.md)
 
 You will find instructions in the template. Think of this file as the overview of the entire baking book. It does not go into cooking details, but it tells you where everything is.
 
@@ -223,6 +223,25 @@ ProjectX_Topic_Name/
 ├── N_Data-package-chapterN/
 └── README_project.md <-- !!!
 ```
+
+### 2. README_processed-data.md & code_book.csv
+
+2.1 [README_processed-data.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_processed-data.md) & [code_book.csv](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)
+
+Once more, you will find more detailed instructions in the template. Think of these files as the actual recipe for one part of your cakes. This is where you explain how raw ingredients (raw data) became something usable.
+
+This is the most important documentation file in your data package. If someone understands this, they can actually work with your data. That's why it is worth-while to invest some extra effort in a minimial viable version and best a  complete version. 
+
+2.2 Minimum Viable Version 
+
+Fill in sections on
+- General information  
+- Dataset overview  
+- Data interpretation (code book reference)  
+- Data processing (high-level steps)  
+- Metadata location  
+
+
 
 ##############
 
