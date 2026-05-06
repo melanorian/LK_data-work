@@ -30,7 +30,9 @@ In reality, there is rarely enough space to describe datasets, variable names, o
 
 This is why journals and funding bodies increasingly require data and code to be shared, which makes careful documentation essential.
 
-In other words, the final cake might be there, but the recipe is incomplete. You might recognise some ingredients, but you cannot reliably recreate it.
+In other words, the final cake might be there, but the recipe is incomplete. You might recognise some ingredients, but you cannot reliably recreate it. 
+
+That’s exactly what we want to avoid if we want our work to stay useful and have lasting impact.
 
 # What to do about it?
 
@@ -40,18 +42,35 @@ Just like you would want a friend in New Zealand to successfully bake your grand
 
 Often we do not know what future users will need. So the goal is simple: clearly explain what you do know, without assuming prior knowledge.
 
-Not just what the final cake looks like, but how it actually came together.
+Not just what the final cake looks like, but how it exactly how it came together.
 
-So we separate:
+To do so, we separate two steps:
 
-- structure first
-- documentation inside that structure
+- first, the structure: the layout of your baking book  
+- then, the documentation: the actual recipes inside  
 
-# Folder structure (the baking book)
+# Folder structure - the baking book
 
-This is the suggested standard structure used across the consortium projects.
+You can think of this as the layout of a baking book. It will be much easier to find your favourite recipe and quickly get started if the layout is well chosen and each recipe is formatted consistently. Without this structure, even well-written recipes become difficult to navigate.
 
-project_root/
+In your project, this corresponds to the structure of your folders, where you store the different steps of your work, usually progressing from raw data input via data processing to results.
+
+Based on previous instructions shared inthe Lettuce Know consortium, this is the expected standard structure for a Phd thesis: 
+
+```
+ProjectX_Topic_Name/
+├── 1_Thesis.pdf
+├── 2_Data-package-chapter2/
+├── 3_Data-package-chapter3/
+├── N_Data-package-chapterN/
+└── README_project.md
+
+```
+
+Based on previous data releases from the LettuceKnow consortium, this is a standard structure for a project.
+
+``` 
+2_Data-package-chapter2/
 ├── 1_raw-data/
 │   ├── dataset_A/
 │   ├── dataset_B/
@@ -71,6 +90,8 @@ project_root/
 │
 ├── 5_methods-and-protocols/
 ├── README.md
+
+```
 
 Raw data is what came in.  
 Processed data is what becomes usable.  
