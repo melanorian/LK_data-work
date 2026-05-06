@@ -137,8 +137,6 @@ In this way, we create a complete Lettuce Know recipe book: a shared collection 
 
 ## A. Create The Folder structure
 
-## A. Create the folder structure
-
 1. Log into YODA with your credentials  
 2. Navigate to:  
    `~/research-lettuceknow-releases/1_data-releases/data-release_V3_20260630/7_individual-data-packages/`  
@@ -156,9 +154,25 @@ ProjectX_Topic_Name/
 ├── 3_Data-package-chapter3/
 ├── N_Data-package-chapterN/
 └── README_project.md
-
 ```
 
+5. Now we go one level deeper into your data package. Let’s take `2_Data-package-chapter2/` as an example and open this folder.
+
+6. Inside each data package, you create the following five folders.
+
+```
+2_Data-package-chapter2/
+├── 1_raw-data/
+├── 2_processed-data/
+├── 3_results/
+├── 4_metadata-files/
+├── 5_methods-and-protocols/
+```
+
+Ideally, every data package follows the same internal structure that is used across the LettuceKnow consortium data releases. This makes it much easier to navigate and reuse data across different projects. Of course, not every project is identical. If your data requires adjustments, that is fine. But try to stay as close as possible to the shared structure so others can easily understand your work without guessing where things are.
+
+
+## B. Populate your folders with data
 #####################3
 
 ## README_project.md
