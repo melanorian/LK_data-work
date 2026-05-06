@@ -171,7 +171,6 @@ ProjectX_Topic_Name/
 
 Ideally, every data package follows the same internal structure that is used across the LettuceKnow consortium data releases. This makes it much easier to navigate and reuse data across different projects. Of course, not every project is identical. If your data requires adjustments, that is fine. But try to stay as close as possible to the shared structure so others can easily understand your work without guessing where things are.
 
-
 ## B. Populate your folders with data – getting the ingredients for your cake
 
 1. You should now be able to upload your files to YODA using your preferred method. If needed, you can consult the full guide on working with YODA here:
@@ -183,6 +182,11 @@ Ideally, every data package follows the same internal structure that is used acr
 Instead, you can simply reference the data you used and focus on documenting it properly in your README files and code book.
 
 ## C. Document your data package - write the recipie for your LettuceCake
+
+Now that you have created a well-structured data packe, the recipie book and all the ingredients its time to write the recipe, it is time to add the recipies, add the documentation that allows everyone to reporduce your favoiure LettuceCake. 
+
+We will go now over the differnt files by level of imporatance. Of coures, ideally you have everythign documented as suggested in the templates, but, I will also provide some minimal viable verson 
+
 
 
 #####################3
