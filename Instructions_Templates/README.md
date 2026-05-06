@@ -181,20 +181,26 @@ Instead, you can simply reference the data you used and focus on documenting it 
 
 Now that you have created a well-structured data packe, the recipie book and all the ingredients its time to write the recipe, it is time to add the recipies, add the documentation that allows everyone to reporduce your favoiure LettuceCake. 
 
-We will go now over the differnt files by level of imporatance. Of coures, ideally you have everythign documented as suggested in the templates, but, I will also provide some minimal viable verson 
+We will go now over the differnt files by level of imporatance. Of coures, ideally you have everythign documented as suggested in the templates, but, I will also provide some minimal viable verson.  
 
 We will fill in the: 
 
 1. [README_project-level.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_project-level.md)
 
-2. [README_processed-data.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_processed-data.md)
+2. [README_processed-data.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_processed-data.md) & [code_book.csv](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)
 
-3. [README_results-level.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_results-level.md) & [code_book.csv](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)
+3. [README_results-level.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_results-level.md)
 
-4. [Knowledge Transfer File.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_knowledge_transfer_file.md)
+5. [Knowledge Transfer File.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_knowledge_transfer_file.md)
+
+Note: If you are wondering about the choice of format for those files or you are unfamiliar with markdown (.md) please navigate to more extensive instructions below: [File formats](##File-formats)
+
+### 1. README_project-level.md
+
 
 
 #####################3
+
 
 ## README_project.md
 
@@ -347,3 +353,46 @@ If time is limited:
 The goal is simple:
 
 Make your work understandable without you.
+
+########### KEEP ############
+
+
+## File formats
+
+We use simple, open formats to keep everything accessible for future users.
+
+### README files and Knowledge transfer files (.md)
+
+These are written in Markdown (.md).
+
+Reasons:
+- future proof, not tied to proprietary software
+- easy to read and write
+- widely supported
+
+You can create them using:
+- any text editor (rename .txt to .md)
+- https://dillinger.io/
+- https://code.visualstudio.com/
+
+### Code book (.csv)
+
+The code book is a CSV file because it is:
+- simple and widely compatible
+- readable in Excel, R, Python
+- good for structured data
+
+Alternative formats:
+- .tsv
+- .txt with separators
+
+### Creating files
+
+You can always:
+- download the provided templates and edit
+
+or
+
+- start with a plain text file
+- copy a template
+- save with correct extension (.md or .csv)
