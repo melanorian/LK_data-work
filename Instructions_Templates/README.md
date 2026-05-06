@@ -119,12 +119,21 @@ As a rule of thumb, you should add a README file whenever a decision was introdu
 
 A code book is like a detailed ingredient list. It defines every variable or column in your dataset so that others can correctly interpret the data. In a research context, it explains variables, units, and structure, so the dataset can be reused without guessing.
 
-# What is a knowledge transfer file?
+## What is a knowledge transfer file?
 
 A knowledge transfer file contains the “behind the scenes” knowledge. It explains e.g. what decisions were made, what is not obvious from the data, and what users should be careful about.
 
 Optional, but very useful in complex projects.
 
+# Step-by-step guide to preparing your data package
+
+In the next section, we will walk step by step through preparing your data package for the final data release. Of course, not all steps will always be relevant, and you may need to adapt certain parts to fit your specific data.
+
+Still, it is recommended to stay as close as possible to the shared structure and templates. This makes it much easier to navigate and reuse datasets across the Lettuce Know consortium.
+
+If your work has already been published, it is still useful to include at least a project-level README.md. This should point to the correct locations of your data and code, for example in a public repository or archived dataset. Ideally, you also create the suggested folder structure with README files and code books that clearly link your published outputs back to the underlying research data.
+
+In this way, we create a complete Lettuce Know recipe book: a shared collection of well-structured, understandable “recipes” that allow others to retrace how each scientific “cake” was made, even years later.
 
 #####################3
 
