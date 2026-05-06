@@ -5,7 +5,7 @@ _Estimated reading time: 5–8 minutes_
 # Index
 
 - [Introduction](#whats-the-matter)
-- [Overview](#how-to-do-it)
+- [Overview](#What-to-do-about-it?)
 - [Step-by-step guide to preparing your data package](#Step-by-step-guide-to-preparing-your-data-package)
 
 # What's the matter?
