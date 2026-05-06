@@ -1,4 +1,4 @@
-*Estimated reading time: 5–8 minutes*
+_Estimated reading time: 5–8 minutes_
 
 # Index
 
@@ -6,7 +6,8 @@
 [What’s the problem?](#whats-the-problem)  
 [What to do about it?](#what-to-do-about-it)  
 [How to do it?](#how-to-do-it)  
-[Step-by-step guide](#step-by-step-guide)  
+[Folder structure (the baking book)](#folder-structure-the-baking-book)  
+[Documentation layers](#documentation-layers)  
 [Minimum viable documentation](#minimum-viable-documentation)  
 
 # What's the matter?
@@ -23,13 +24,13 @@ That is the risk when research data is left without clear instructions, the reci
 
 We often assume that publications and manuscripts explain everything, the perfect recipe to understand and reproduce our work.
 
-In reality, there is rarely enough space to describe datasets, variable names, or processing steps in detail. Exactly those details may determine whether data can actually be reused.
+In reality, there is rarely enough space to describe datasets, variables, processing steps, or analysis decisions in detail. These are exactly the details that determine whether data can actually be reused.
 
-This is why journals and funding bodies increasingly require data and code to be shared, which makes careful documentation essential.
+This is why journals and funding bodies increasingly require data and code to be shared. But sharing only works if the underlying structure is clear.
 
 # What to do about it?
 
-We want to ensure that others, and your future self, can understand, reproduce, and reuse your work, even without you.
+We want to ensure that others, and your future self, can understand, reproduce, and reuse your work without needing you.
 
 Just like you would want a friend in New Zealand to successfully bake your grandmother’s apple pie and have it turn out just right.
 
@@ -37,138 +38,157 @@ Often we do not know what future users will need. So the goal is simple: clearly
 
 # How to do it?
 
-A few documentation files can make the difference between usable data and lost effort.
+A few simple documentation files make the difference between usable data and lost effort.
 
-## What is a README file
+Just as important as the recipes themselves is how they are organised.
 
-A README file is like the recipe for your work. It explains what the data is, what is needed, and how everything fits together.
+A well-structured cookbook, where every recipe follows the same logic, makes it easy to find what you need and understand it quickly. A messy one slows everything down.
 
-There are two levels:
+The same applies to research data: structure first, then documentation inside that structure.
 
-A **project-level README** describes the whole project, how datasets relate to each other, and the overall structure.
+# Folder structure (the baking book)
 
-A **dataset-level README** describes one dataset in detail, what it contains, how it was generated, and how it should be used.
+Before describing individual files, we first define how everything is organised.
 
-## What is a Code book
+This is the shared structure for all Lettuce Know projects.
 
-A code book is like a detailed ingredient list.
+## Thesis-level structure (for reference)
 
-It defines every variable or column in your dataset so that others can correctly interpret the data.
+ProjectX_Immunity_Name/
+├── 1_Thesis.pdf
+├── 2_Data-package-chapter2/
+├── 3_Data-package-chapter3/
+├── N_Data-package-chapterN/
+└── README_project.md
 
-In a research context, it explains variables, units, and structure, so the dataset can be reused without guessing.
 
-## What is a Knowledge transfer file
+Each chapter is a self-contained unit.
 
-A knowledge transfer file contains the “behind the scenes” knowledge.
+## Standard LK data structure
 
-It explains why the project exists, what decisions were made, what is not obvious from the data, and what users should be careful about.
+project_root/
+├── 1_raw-data/
+│ ├── dataset_A/
+│ ├── dataset_B/
+│
+├── 2_processed-data/
+│ ├── dataset_A/
+│ │ ├── README_processed-data.md
+│ │ ├── code_book.csv
+│
+├── 3_results/
+│ ├── dataset_A_or_analysis/
+│ │ ├── README_results.md
+│
+├── 4_metadata-files/
+│ ├── sample_metadata.csv
+│ ├── experimental_design.csv
+│
+├── 5_methods-and-protocols/
+└── README_project.md
+
+
+Raw data is what came in, processed data is what becomes usable, and results are what comes out of analysis.
+
+# Documentation layers
+
+Instead of thinking in “dataset-level README”, it is easier to think in three layers that match the structure above.
+
+## Project-level README
+
+This gives the overall picture.
+
+It explains what the project is about, how datasets relate to each other, and where everything lives.
+
+## Processed-data README
+
+This is the most important technical layer for reuse.
+
+It explains what a dataset means, how it was created from raw data, and how to interpret the variables together with the code book.
+
+## Results README
+
+This describes how results were generated from processed data and how outputs can be reproduced.
+
+It is about analysis, not data definition.
+
+# What is a README file?
+
+A README is the recipe of a part of your work.
+
+A simple rule applies: if a decision was made, it needs to be documented.
+
+The more decisions involved, the more important the README becomes.
+
+## Project-level README
+
+Describes the project, dataset list, and overall structure.
+
+## Processed-data README
+
+Describes what the dataset represents, how it was generated, and how to interpret it.
+
+It always connects to the code book.
+
+## Results README
+
+Describes analysis steps and how outputs were generated.
+
+# What is a Code book?
+
+A code book is the dictionary of your dataset.
+
+It defines variables, units, and meanings so that data can be understood without guessing.
+
+It always belongs to the processed-data level.
+
+# What is a Knowledge transfer file?
+
+A knowledge transfer file contains background information that is not visible in the data itself.
+
+It captures decisions, assumptions, and context that would otherwise get lost.
+
+It is optional but useful for complex projects.
 
 # Step-by-step guide
 
-## File formats
-
-We use simple, open formats to keep everything accessible.
-
-### README files and Knowledge transfer files (.md)
-
-These are written in Markdown (.md).
-
-Reasons:
-- future proof, not tied to software
-- easy to read and write
-- widely supported
-
-You can create them using:
-- any text editor (rename .txt to .md)
-- https://dillinger.io/
-- https://code.visualstudio.com/
-
-### Code book (.csv)
-
-The code book is a CSV file because it is:
-- simple and widely compatible
-- readable in Excel, R, Python
-- good for structured data
-
-Alternative formats:
-- .tsv
-- .txt with separators
-
-Requirements:
-- consistent structure
-- clear columns
-- UTF-8 encoding
-
-### Creating files
-
-You can always:
-- download template and edit
-
-or
-
-- start with a plain text file
-- copy a template
-- save with correct extension (.md or .csv)
-
-## Templates
-
-- [Project-level README template](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_project-level.md)  
-- [Dataset-level README template](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_dataset-level.md)  
-- [Code book template](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)  
-
-## Examples
-
-- [Project-level README example](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/example_README_project-level.md)  
-- [Dataset-level README example](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/example_README_dataset-level.md)  
-- [Code book example](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/example_code_book.csv)  
-
-## General advice
-
-**Don’t let perfect be the enemy of good!**
-
-Focus on:
-- If time is limited, prioritise based on importance: project-level README → dataset-level README and code book (they belong together) → knowledge transfer file
-- key datasets first
-- minimum viable documentation first
-- clarity over completeness
-- asking: would someone else understand this data?
+| Layer | What it tells you | Importance |
+|------|------------------|------------|
+| raw data | origin | low to medium |
+| processed data | meaning and structure | critical |
+| results | analysis output | medium |
+| manuscript | narrative | external |
 
 # Minimum viable documentation
 
 ## Project-level README
 
-- project overview, purpose, scope  
-- list of datasets with paths  
-- basic folder structure  
+- what the project is about  
+- list of datasets  
+- folder structure  
 
-## Dataset-level README
+## Processed-data README
 
-- what the dataset is and why it exists  
-- how files are organised  
-- what key files contain  
-- what the data represents (variables, units, rows)  
-- where metadata is stored  
+- what the dataset represents  
+- how it was created  
+- code book reference  
+- key processing decisions  
 
-## Code book
+## Results README
 
-The code book should be as complete as possible for all variables.
+- what analysis was done  
+- how outputs were generated  
+- link to processed data  
+- reproducibility information  
 
-It defines every variable so the dataset can be interpreted correctly.
+# General advice
 
-You may leave ontology fields empty if they do not apply.
+Don’t let perfect be the enemy of good.
 
-Key rule:
-- completeness matters more than brevity here
+If time is limited, prioritise:
 
-## Code book clarification
+1. processed data documentation first  
+2. results documentation second  
+3. project overview last  
 
-- `meaning`: what the variable describes  
-- `represents`: what one value refers to (unit of observation, e.g. per sample, per plant, per gene)  
-- `unit`: how it is measured  
-
-Example:
-
-`leaf_area`
-- meaning: leaf surface measurement  
-- represents: total leaf area per plant  
-- unit: cm²  
+Focus on clarity over completeness, and on making your work understandable without you.

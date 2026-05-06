@@ -11,15 +11,7 @@
 **Address:** [City, country]  
 **Email:** [Email address]
 
-## Co-Researcher(s) Information
-
-**Name:** [First name(s), last name(s)]  
-**ORCID:** [ORCID ID]  
-**Institution:** [Full institution name]  
-**Address:** [City, country]  
-**Email:** [Email address]
-
-[Add additional co-researchers if needed]
+[Add additional researchers if needed]
 
 ## Project overview (WHY)
 
@@ -34,22 +26,20 @@
 
 ## Data structure and access (WHAT + WHERE)
 
-[e.g. each dataset is treated as a self-contained unit with its own README and internal structure.]
+Each dataset in this project is stored as a self-contained unit with its own README.
 
 ### Datasets
 
 **Dataset: [Dataset name]**
 
-**Path:** [Relative path to dataset folder or dataset-level README]  
+**Path:** [Relative path to dataset folder or processed-data README]  
 **Type:** [e.g. Transcriptomics, Phenotyping, Imaging, Metabolomics]  
 **Scope:** [What defines this dataset, e.g. experiment, assay, timepoint, cohort]  
 **Description:** [Brief description of dataset content and purpose]
 
-[Repeat this section for each dataset]
+[Repeat for each dataset]
 
-## Project folder structure (physical organisation)
-
-The following structure shows how datasets and analyses are organised within the project.
+## Project folder structure
 
 ```
 project_root/
@@ -60,63 +50,33 @@ project_root/
 └── project_README.md
 ```
 
-Each dataset folder should ideally contain its own dataset-level README describing its internal structure and content.
 
-## Data organisation
+Each dataset folder contains its own README describing structure and content.
 
-If applicable, describe how data is organised across the project.  
-This helps users understand how different types of data relate to each other.
+## Data organisation across project
 
-Examples include:
+- Raw data: unprocessed experimental or instrument outputs  
+- Processed data: cleaned and structured datasets used for analysis  
+- Metadata: sample and experimental design information  
 
-- Raw data: [e.g. instrument outputs, unprocessed measurements]  
-- Processed data: [e.g. cleaned, normalised, or analysed data]  
-- Metadata: [e.g. sample information, experimental design, annotations]  
+If your structure differs, describe your organisational logic here.
 
-If your project does not follow this structure, describe the organisational logic used instead (e.g. by experiment, timepoint, method, or data type).
+## Methods overview (high level)
 
-## Methods (HOW)
+Methods are described at dataset level.  
+This section only summarises shared or global approaches.
 
-### Overall approach
+**Shared protocols:** [link or description]  
+**Shared tools/pipelines:** [link or description]  
+**Experimental systems:** [e.g. greenhouse, sequencing platform]
 
-[General experimental or analytical strategy used across the project]
+## Project outputs
 
-### Shared methods and standards
-
-**Protocols:**  
-[Shared experimental protocols]  
-Documentation: [Link or path to protocol files]
-
-**Instruments and infrastructure:**  
-[Biological infrastructure and experimental systems, e.g. greenhouse, sequencing platform, growth chambers]  
-Documentation: [Link to facility or instrument documentation]
-
-**Computational tools and pipelines:**  
-[Bioinformatics tools, programming languages, scripts, workflows, statistical pipelines]  
-Repository or path: [GitHub link or /analysis/pipeline/]  
-Version: [Tag, release, or commit hash if applicable]
-
-**Other standardised procedures (if applicable):**  
-[Additional shared methods not covered above]
-
-## Project outputs (WHAT resulted from this work)
-
-### External repositories
-
-- Dataset repository (primary data): [Name + link]  
-- Processed data repository: [Name + DOI or link]  
-
-### Publications
-
-- [Author] ([Year]) [Title]. [Journal]. [DOI]
+**Publications:** [DOI or citation]  
+**Repositories:** [links]
 
 ## Project information
 
-**Limitations:**  
-[Technical or conceptual limitations affecting interpretation]
-
-**Assumptions:**  
-[Explicit assumptions underlying experimental design or analysis]
-
-**Cross-dataset considerations:**  
-[Important considerations for integrating or comparing datasets]
+**Limitations:** [global limitations]  
+**Assumptions:** [global assumptions]  
+**Cross-dataset considerations:** [important integration notes]
