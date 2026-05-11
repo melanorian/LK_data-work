@@ -371,3 +371,344 @@ This Python script analyzes all LettuceKnow inventory CSVs to **detect duplicate
 **Notes**
 - Group IDs are **consistent across all files sharing the same name or checksum**, allowing easy identification of duplicates.
 - Sorting by `dup_both`, `dup_checksum`, `dup_name`, and `dup_group_id` ensures that related duplicates appear together in the CSV for rapid manual inspection.
+
+### Step 7: [Duplicate File Detection](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/7_duplicat_detection.py)
+
+This Python script analyzes all LettuceKnow inventory CSVs to detect potentially duplicate files using both file names and checksums. The goal is not only strict checksum duplication detection, but also identification of files with identical basenames occurring across different storage locations and releases.
+
+Unlike earlier implementations, filename-based and checksum-based duplicate detection are intentionally combined into a shared duplicate grouping system to support large-scale inventory cleanup and release comparison.
+
+**Input Variables**
+
+- `BASE_DIR` – directory containing inventory CSVs (`inventory_<collection>/inventory.csv`)
+- `OUT_DIR` – directory to save the duplicate detection report
+- `IGNORE_PRE` – optional path prefix to remove from file paths
+
+**Output**
+
+- CSV file: `7_duplicate_detection.csv` containing:
+  - `file_path` – full iRODS file path
+  - `basename` – filename only
+  - `DATA_SIZE` – file size in bytes
+  - `DATA_CHECKSUM` – checksum if available
+  - `storage_location` – top-level storage category
+  - `dup_name` – `True` if basename occurs multiple times
+  - `dup_checksum` – `True` if checksum occurs multiple times
+  - `dup_any` – `True` if duplicate by either checksum or basename
+  - `dup_group_id` – shared duplicate group identifier
+  - `duplicate_group_size` – number of rows in the duplicate group
+
+**What it does**
+
+1. **Locate and read inventory CSVs**
+
+2. **Identify file-level rows**
+   - Keeps only rows representing files.
+   - Excludes collection-only entries.
+
+3. **Extract duplicate-relevant metadata**
+   - Creates:
+     - `file_path`
+     - `basename`
+     - normalized checksum field
+
+4. **Duplicate identity and categories**
+   - Uses checksum as primary identity when available.
+   - Falls back to basename when checksum is missing.
+
+5. **Assign duplicate groups**
+   - Files sharing the same checksum or basename receive the same `dup_group_id`.
+   - Group sizes are computed across the full dataset.
+
+6. **Annotate storage location**
+   - Labels rows as:
+     - `research-lettuceknow`
+     - `research-lettuceknow-releases`
+
+**Notes**
+
+- Files without checksums are still grouped by basename.
+- Large duplicate groups may occur for common technical output files generated repeatedly across sequencing runs or QC workflows!
+
+### Step 7b: [Prioritize Duplicate Files for Potential Deletion](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/7b_duplicats_in_release-and-dump.py)
+
+This Python script extends the duplicate detection results from Step 7 by assigning a **storage tier priority** to duplicate groups and marking lower-priority copies as potential deletion candidates.
+
+The script does **not delete any files**.  It only annotates duplicate records with a boolean column indicating whether a file is considered redundant according to release hierarchy rules.
+
+**Priority hierarchy**
+
+Highest-quality / newest copies are preferred:
+
+1. `data-release_V2`
+2. `data-release_V1`
+3. `research-lettuceknow`
+
+Files in lower-priority locations are marked as potential deletion candidates if a higher-priority copy exists within the same duplicate group.
+
+**Input Variables**
+
+- `BASE_DIR` – directory containing duplicate detection output from Step 7  
+- `INPUT_FILE` – `7_duplicate_detection.csv`
+- `OUT_FILE` – annotated duplicate table with deletion recommendations
+
+**Output**
+
+- CSV file: `7b_delete_duplicates.csv` containing:
+  - Original duplicate detection columns from Step 7
+  - `priority` – numeric storage priority:
+    - `3` = DR2
+    - `2` = DR1
+    - `1` = research storage
+  - `max_priority_in_group` – highest priority observed within the duplicate group
+  - `delete_duplicate` – `True` if a higher-priority copy exists elsewhere in the group
+
+**What it does**
+
+1. Loads duplicate detection output from Step 7.
+2. Assigns storage priority levels based on file path patterns.
+3. Computes the highest priority present in each duplicate group.
+4. Marks files as potential deletion candidates if: their priority is lower than the maximum priority within the group.
+
+**Example**
+
+If the same file exists in:
+
+- `research-lettuceknow`
+- `data-release_V1`
+- `data-release_V2`
+
+then:
+
+- DR2 copy → retained (`delete_duplicate = False`)
+- DR1 copy → candidate for deletion (`True`)
+- research copy → candidate for deletion (`True`)
+
+If the file exists only in:
+
+- `research-lettuceknow`
+- `data-release_V1`
+
+then:
+
+- DR1 copy → retained
+- research copy → candidate for deletion
+
+**Notes**
+
+- Duplicate grouping logic from Step 7 is preserved = the same problem applies: large duplicate groups may occur for common technical output files generated repeatedly across sequencing runs or QC workflows!
+- Duplicate groups may still contain biologically distinct files with identical names when checksums are unavailable.
+- Manual validation before any deletion!
+
+### Step 7c: [Visualize Duplicate Storage and Potential Deletion Candidates](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/7c_visualise_duplicates.py)
+
+This Python script visualizes the duplicate analysis results from Step 7b using pie charts. It summarizes the amount of storage occupied by duplicate files and highlights which portions are considered potential deletion candidates.
+
+**Input Variables**
+
+- `BASE_DIR` – directory containing duplicate analysis outputs
+- `INPUT_FILE` – `7b_delete_duplicates.csv`
+- `OUT_DIR` – directory where SVG visualizations are saved
+
+**Output**
+
+SVG figures stored in:
+
+`<BASE_DIR>/visualisation/`
+
+Generated files:
+
+1. `7c_pie_delete_duplicates.svg`
+   - Pie chart showing:
+     - storage potentially deletable
+     - storage retained
+
+2. `7c_pie_delete_duplicates_by_tier.svg`
+   - Pie chart showing deletable duplicate storage split by storage tier:
+     - `research-lettuceknow`
+     - `research-lettuceknow-release_V1`
+     - `research-lettuceknow-release_V2`
+
+**What it does**
+
+1. Loads duplicate annotation output from Step 7b.
+2. Creates a global duplicate-storage summary:
+   - total deletable storage
+   - total retained storage
+3. Generates a pie chart visualizing:
+   - percentage of deletable duplicate storage
+   - percentage of retained storage
+4. Generates a second pie chart showing the distribution of deletable storage across:
+   - DR2
+   - DR1
+   - research storage
+
+### Step 8: [Integrate Duplicate Statistics into Collection-Level Inventory](https://github.com/melanorian/LK_data-work/blob/main/8_summarized_inventory_with_duplicates.py](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/8_merge_duplicates_add_costs.py)
+
+This Python script integrates duplicate-file statistics from Step 7 into the summarized collection-level inventory produced in Step 6. The resulting table allows duplicate burden to be analyzed at collection level.
+
+
+**Input Variables**
+
+- `BASE_DIR` – directory containing summarized inventory and duplicate detection outputs
+- `MAX_LEVEL` – collection aggregation depth used in previous steps
+- `SUMMARY_FILE` – `summarized_inventory_L<MAX_LEVEL>.csv`
+- `DUP_FILE` – duplicate detection output from Step 7
+- `OUT_FILE` – merged collection-level inventory with duplicate statistics
+
+---
+
+**Output**
+
+- CSV file:
+  `8_summarized_inventory_with_duplicates_L<MAX_LEVEL>.csv`
+
+Additional duplicate-related columns include:
+
+- `num_dup_checksum`
+- `num_dup_name`
+- `num_dup_any`
+- `num_files_in_dup_check`
+- `collection_dup_size_bytes_checksum`
+- `collection_dup_size_bytes_name`
+- `collection_dup_size_bytes_any`
+- Corresponding GB and TB columns
+
+**What it does**
+
+1. Loads:
+   - summarized collection inventory from Step 6
+   - duplicate detection output from Step 7
+2. Maps each file to its deepest matching summarized collection.
+3. Removes files that cannot be mapped to a summarized collection.
+4. Ensures file sizes are numeric.
+5. Aggregates duplicate statistics per collection:
+   - duplicate counts by checksum
+   - duplicate counts by basename
+   - duplicate counts by combined duplicate identity
+   - cumulative duplicate storage sizes
+6. Converts duplicate storage sizes to:
+   - GB
+   - TB
+7. Merges duplicate summaries into the collection-level inventory.
+8. Fills missing duplicate statistics with zero.
+9. Saves the merged collection inventory.
+
+**Notes**
+
+- Duplicate statistics reflect file-level duplicate detection from Step 7.
+- Collection sizes themselves are not modified.
+
+### Step 9: [Classify Collections by Processing Level, Domain, and Release Status](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/9_classify_files.py)
+
+This Python script classifies summarized LettuceKnow collections into broad biological and processing-related categories. The classification provides higher-level semantic annotation for downstream reporting and visualization.
+
+**Input Variables**
+
+- `BASE_DIR` – directory containing summarized inventory with duplicate information
+- `MAX_LEVEL` – collection aggregation depth
+- `SUMMARY_FILE` – `8_summarized_inventory_with_duplicates_L<MAX_LEVEL>.csv`
+- `OUT_FILE` – classified inventory output
+
+**Output**
+
+- CSV file:
+  `9_summarized_inventory_classified_L<MAX_LEVEL>.csv`
+
+Additional annotation columns include:
+
+- `processing_level`
+- `data_domain`
+- `special_category`
+- `released`
+- `release_version`
+
+**What it does**
+
+1. Loads summarized inventory with duplicate annotations from Step 8.
+2. Parses JSON-formatted file type summaries.
+3. Classifies collections into processing levels:
+   - `raw_data`
+   - `processed_data`
+   - `results_data`
+   - `release_data`
+   - `mixed_or_unknown`
+4. Classifies collections into scientific domains:
+   - `RNA`
+   - `DNA`
+   - `phenotyping`
+   - `unknown`
+5. Detects special categories such as:
+   - transfer tests
+   - third-party data
+   - manually marked deletion folders
+6. Determines release status:
+   - non-release
+   - DR1
+   - DR2
+7. Prints overview statistics for quick inspection.
+8. Saves the classified inventory table.
+
+**Notes**
+
+- Classification is rule-based and path-driven.
+- File-type information is used as supplementary evidence.
+- Categories are intentionally broad to support high-level reporting.
+- Collections may still contain heterogeneous data types despite classification.
+
+### Step 10: [Visualize Storage Distribution Across Releases, Domains, and Processing Levels](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/10_overview_visualisation_inventory.py)
+
+This Python script generates summary visualizations for the classified LettuceKnow inventory produced in Step 9. The figures provide an overview of storage distribution across release status, scientific domains, and processing stages.
+
+**Input Variables**
+
+- `base_dir` – directory containing classified inventory outputs
+- `input_file` – `9_summarized_inventory_classified_L5.csv`
+- `out_dir` – directory where SVG figures are saved
+
+**Output**
+
+SVG figures saved to:
+
+`<base_dir>/visualisation/`
+
+Generated figures:
+
+1. `pie_release_status.svg`
+   - Storage distribution by:
+     - non-release
+     - DR1
+     - DR2
+
+2. `pie_domain_all.svg`
+   - Storage distribution across scientific domains
+
+3. `pie_processing_level.svg`
+   - Storage distribution across processing stages
+
+4. `stacked_processing_by_domain.svg`
+   - Stacked bar chart showing processing level per scientific domain
+
+**What it does**
+
+1. Loads classified inventory from Step 9.
+2. Normalizes missing values in:
+   - release annotations
+   - domain annotations
+   - processing-level annotations
+3. Generates helper labels containing:
+   - approximate TB values
+   - percentages
+4. Creates a pie chart summarizing release storage distribution.
+5. Creates a pie chart summarizing scientific domains.
+6. Creates a pie chart summarizing processing levels.
+7. Creates a stacked bar chart comparing:
+   - processing level
+   - scientific domain
+8. Saves all visualizations as SVG files.
+
+**Notes**
+
+- Storage sizes are based on cumulative collection sizes.
+- Percentages are calculated from total summarized storage.
+- Visualizations are intended for high-level reporting and exploratory analysis.
