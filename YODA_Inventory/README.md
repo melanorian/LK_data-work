@@ -14,17 +14,15 @@ Basic explanations of iRODS, relevant iCommands, and the setup of a virtual mach
 
 [Step 1: Generate Full YODA Collection Inventory](#step-1-generate-full-yoda-collection-inventory)
 
-[Step 2: Processing Inventory CSVs & Generating Subcollection Summaries](#step-2-processing-inventory-csvs-generating-subcollection-summaries)
+[Step 2: Processing Inventory CSVs & Generating Subcollection Summaries](#step-2-processing-inventory-csvs--generating-subcollection-summaries)
 
-[Step 2 Test](#step-2-processing-inventory-csvs-and-generating-subcollection-summaries)
-
-[Step 3: Processing Inventory CSVs & Generating File Type Summaries](#step-3-processing-inventory-csvs-generating-file-type-summaries)
+[Step 3: Processing Inventory CSVs & Generating File Type Summaries](#step-3-processing-inventory-csvs--generating-file-type-summaries)
 
 [Step 4: Generate CSV file with Inventory Size and File Types](#step-4-generate-csv-file-with-inventory-size-and-file-types)
 
-[Step 5: Enrich Inventory with Documentation & Informative Files](#step-5-enrich-inventory-with-documentation-and-informative-files)
+[Step 5: Enrich Inventory with Documentation & Informative Files](#step-5-enrich-inventory-with-documentation--informative-files)
 
-[Step 5a: Optional – Extract File-Level Inventory for a Specific Collection](#step-5a-optional-extract-file-level-inventory-for-a-specific-collection)
+[Step 5a: Optional – Extract File-Level Inventory for a Specific Collection](#step-5a-optional--extract-file-level-inventory-for-a-specific-collection)
 
 [Step 6: Summarize Inventory to Nearest Sub-Collection Level](#step-6-summarize-inventory-to-nearest-sub-collection-level)
 
@@ -42,7 +40,8 @@ Basic explanations of iRODS, relevant iCommands, and the setup of a virtual mach
 
 ## Workstream A: Inventory of Data on YODA 
 
-### Step 1: [Generatefull YODA Collection Inventory](https://github.com/melanorian/LK_data-work/blob/main/inventory_yoda.sh)
+### Step 1: Generate Full YODA Collection Inventory
+[Script: Generatefull YODA Collection Inventory](https://github.com/melanorian/LK_data-work/blob/main/inventory_yoda.sh)
 
 This script creates a **CSV inventory** of files in a Yoda/iRODS collection using `iquest`. It queries the iCAT catalog directly, making it efficient for large datasets.
 
