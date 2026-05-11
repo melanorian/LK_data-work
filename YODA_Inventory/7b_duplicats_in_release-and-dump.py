@@ -1,68 +1,51 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import pandas as pd
 from pathlib import Path
 
-# ---------------- CONFIGURATION ----------------
 BASE_DIR = Path("/home/melanie/Documents/LK_data/LK_inventory_report")
 
-INPUT_FILE = BASE_DIR / "duplicate_detection.csv"
-OUT_FILE = BASE_DIR / "7b_files_in_both_release_and_dump.csv"
-# ----------------------------------------------
+INPUT_FILE = BASE_DIR / "7_duplicate_detection.csv"
+OUT_FILE = BASE_DIR / "7b_delete_duplicates.csv"
 
-
-# Step 1 — LOAD (DO NOT CLEAN EARLY, as requested)
 df = pd.read_csv(INPUT_FILE)
 
-# Step 2 — FLAG LOCATION
-df["is_release"] = df["file_name"].str.contains("research-lettuceknow-releases/", na=False)
-df["is_dump"] = df["file_name"].str.contains("research-lettuceknow/", na=False)
+# ---------------- SAFETY CHECK ----------------
+required_cols = {"file_path", "dup_group_id", "storage_location"}
+missing = required_cols - set(df.columns)
 
-# Step 3 — DEFINE DUPLICATES (UPDATED CORRECTLY)
-df["is_duplicate"] = (
-    (df["dup_name"] == True) |
-    (df["dup_both"] == True) |
-    (df["dup_checksum"] == True)
+if missing:
+    raise ValueError(f"Missing required columns: {missing}")
+
+# ---------------- PRIORITY RULE ----------------
+def priority(path):
+    if "data-release_V2" in path:
+        return 3
+    elif "data-release_V1" in path:
+        return 2
+    else:
+        return 1
+
+df["priority"] = df["file_path"].astype(str).apply(priority)
+
+# ---------------- GROUP MAX PRIORITY ----------------
+df["max_priority_in_group"] = df.groupby("dup_group_id")["priority"].transform("max")
+
+# ---------------- DELETE RULE ----------------
+df["delete_duplicate"] = df["priority"] < df["max_priority_in_group"]
+
+breakpoint()
+
+# ---------------- OUTPUT ----------------
+output_df = df.copy()
+
+output_df = output_df.sort_values(
+    by=["dup_group_id", "priority", "file_path"],
+    ascending=[True, False, True]
 )
 
-dup_df = df[df["is_duplicate"]].copy()
+output_df.to_csv(OUT_FILE, index=False)
 
-# =========================================================
-# STEP 4 — GROUP BY TRUE ID (dup_group_id)
-# =========================================================
-
-# Global duplicate size per group ID (from FULL dataset, not filtered)
-group_sizes = (
-    df.groupby("dup_group_id")
-      .size()
-      .rename("duplicate_group_size")
-      .reset_index()
-)
-
-dup_df = dup_df.merge(group_sizes, on="dup_group_id", how="left")
-
-# Step 5 — CROSS LOCATION SUMMARY per group ID
-summary = dup_df.groupby("dup_group_id").agg(
-    in_release=("is_release", "max"),
-    in_dump=("is_dump", "max"),
-    count=("file_name", "count")
-).reset_index()
-
-# Step 6 — KEEP ONLY CROSS-LOCATION GROUPS
-valid_groups = summary[
-    (summary["in_release"] == True) &
-    (summary["in_dump"] == True)
-]["dup_group_id"]
-
-# Step 7 — KEEP ONLY DUMP SIDE ROWS (your requirement)
-result = dup_df[
-    (dup_df["dup_group_id"].isin(valid_groups)) &
-    (dup_df["is_dump"] == True)
-].copy()
-
-# Step 8 — SAVE FULL DETAIL (no loss of metadata)
-result.to_csv(OUT_FILE, index=False)
-
-print(f"Cross-location duplicate groups: {len(valid_groups)}")
-print(f"Dump-side rows written: {len(result)}")
-print(f"Output: {OUT_FILE}")
+print(f"Saved to: {OUT_FILE}")
+print(f"Total rows: {len(output_df)}")
+print(f"Marked for deletion: {output_df['delete_duplicate'].sum()}")
