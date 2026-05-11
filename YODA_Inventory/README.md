@@ -257,7 +257,7 @@ This Python script annotates the merged LettuceKnow inventory with the presence 
 **Notes**
 - Only informative files with recognized patterns/extensions are counted.
 
-### Step 5a: [Optional – Extract File-Level Inventory for a Specific Collection](https://github.com/melanorian/LK_data-work/blob/main/5a_optional_files_in_target_collection.py)
+### Step 5a: [Optional – Extract File-Level Inventory for a Specific Collection](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/5a_optional_files_in_target_collection.py)
 
 This Python script generates a **file-level inventory CSV** for a specific subcollection of interest within the LettuceKnow data, e.g., RNA-seq data.
 
