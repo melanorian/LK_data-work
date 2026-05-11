@@ -24,6 +24,18 @@ df["processing_level"] = df["processing_level"].fillna("unknown")
 
 
 # =========================================================
+# HELPER: labels with rounded TB + %
+# =========================================================
+def make_labels(series):
+    total = series.sum()
+    labels = [
+        f"{idx}\n{round(val / 1e12)} TB ({val / total * 100:.1f}%)"
+        for idx, val in series.items()
+    ]
+    return labels
+
+
+# =========================================================
 # 1. PIE: release status
 # =========================================================
 df_release = df.copy()
@@ -39,7 +51,7 @@ df_release["release_group"] = df_release.apply(
 release_sum = df_release.groupby("release_group")["collection_size_bytes"].sum()
 
 plt.figure()
-plt.pie(release_sum, labels=release_sum.index, autopct="%1.1f%%")
+plt.pie(release_sum, labels=make_labels(release_sum))
 plt.title("Storage by release status")
 plt.savefig(out_dir / "pie_release_status.svg")
 plt.close()
@@ -51,7 +63,7 @@ plt.close()
 domain_sum = df.groupby("data_domain")["collection_size_bytes"].sum()
 
 plt.figure()
-plt.pie(domain_sum, labels=domain_sum.index, autopct="%1.1f%%")
+plt.pie(domain_sum, labels=make_labels(domain_sum))
 plt.title("Storage by data domain")
 plt.savefig(out_dir / "pie_domain_all.svg")
 plt.close()
@@ -63,7 +75,7 @@ plt.close()
 proc_sum = df.groupby("processing_level")["collection_size_bytes"].sum()
 
 plt.figure()
-plt.pie(proc_sum, labels=proc_sum.index, autopct="%1.1f%%")
+plt.pie(proc_sum, labels=make_labels(proc_sum))
 plt.title("Storage by processing level")
 plt.savefig(out_dir / "pie_processing_level.svg")
 plt.close()
@@ -74,7 +86,7 @@ plt.close()
 # =========================================================
 bar_df = df.groupby(["data_domain", "processing_level"])["collection_size_bytes"].sum().unstack(fill_value=0)
 
-bar_df.plot(kind="bar", stacked=True, figsize=(10,6))
+bar_df.plot(kind="bar", stacked=True, figsize=(10, 6))
 
 plt.title("Processing level per data domain")
 plt.xlabel("Data domain")
