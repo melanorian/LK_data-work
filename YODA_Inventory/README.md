@@ -9,15 +9,35 @@ Basic explanations of iRODS, relevant iCommands, and the setup of a virtual mach
 2. [iRODS & iCommands](https://github.com/melanorian/bio_methods/blob/main/iCommands-for-YODA_iRODS.md)
 
 ## Index
-1. [Workstream A: Inventory of Data on YODA](#workstream-a-inventory-of-data-on-yoda)
-2. [Step 1: Generate full YODA Collection Inventory](#step-1-generatefull-yoda-collection-inventory)
-3. [Step 2: Processing Inventory CSVs & Generating Subcollection Summaries](#step-2-processing-inventory-csvs--generating-subcollection-summaries)
-4. [Step 3: Processing Inventory CSVs & Generating File Type Summaries](#step-3-processing-inventory-csvs--generating-file-type-summaries)
-5. [Step 4: Generate CSV file with Inventory Size and File Types](#step-4-generate-csv-file-with-inventory-size-and-file-types)
-6. [Step 5a Optional – Extract File-Level Inventory for a Specific Collection](https://github.com/melanorian/LK_data-work/blob/main/5a_optional_files_in_target_collection.py)
-7. [Step 5: Document File Detection and Aggregation](#step-5-processing-inventory-with-documentation-indicators)
-8. [Step 6: Summarize Inventory Across Deepest Collections](#step-6-summarized-inventory)
-9. [Step 7: Duplicate File Detection](#step-7-duplicate-file-detection)
+## Index
+
+- [Workstream A: Inventory of Data on YODA](#workstream-a-inventory-of-data-on-yoda)
+
+- [Step 1: Generate Full YODA Collection Inventory](#step-1-generate-full-yoda-collection-inventory)
+
+- [Step 2: Processing Inventory CSVs & Generating Subcollection Summaries](#step-2-processing-inventory-csvs--generating-subcollection-summaries)
+
+- [Step 3: Processing Inventory CSVs & Generating File Type Summaries](#step-3-processing-inventory-csvs--generating-file-type-summaries)
+
+- [Step 4: Generate CSV File with Inventory Size and File Types](#step-4-generate-csv-file-with-inventory-size-and-file-types)
+
+- [Step 5: Enrich Inventory with Documentation & Informative Files](#step-5-enrich-inventory-with-documentation--informative-files)
+
+- [Step 5a: Optional – Extract File-Level Inventory for a Specific Collection](#step-5a-optional--extract-file-level-inventory-for-a-specific-collection)
+
+- [Step 6: Summarize Inventory to Nearest Sub-Collection Level](#step-6-summarize-inventory-to-nearest-sub-collection-level)
+
+- [Step 7: Duplicate File Detection](#step-7-duplicate-file-detection)
+
+- [Step 7b: Prioritize Duplicate Storage & Mark Potential Deletion Candidates](#step-7b-prioritize-duplicate-storage--mark-potential-deletion-candidates)
+
+- [Step 7c: Visualize Duplicate Storage & Potential Deletion Candidates](#step-7c-visualize-duplicate-storage--potential-deletion-candidates)
+
+- [Step 8: Merge Duplicate Information into Collection-Level Inventory](#step-8-merge-duplicate-information-into-collection-level-inventory)
+
+- [Step 9: Classify Collections by Processing Level, Domain & Release Status](#step-9-classify-collections-by-processing-level-domain--release-status)
+
+- [Step 10: Visualize Storage Distribution Across Domains, Releases & Processing Levels](#step-10-visualize-storage-distribution-across-domains-releases--processing-levels)
 
 ## Workstream A: Inventory of Data on YODA 
 
