@@ -265,7 +265,7 @@ This Python script annotates the merged LettuceKnow inventory with the presence 
 - Only informative files with recognized patterns/extensions are counted.
 
 ### Step 5b: Optional – Extract File-Level Inventory for a Specific Collection
-(https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/5b_optional_files_in_target_collection.py)
+[Script:Extract File-Level Inventory for a Specific Collection](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/5b_optional_files_in_target_collection.py)
 
 This Python script generates a **file-level inventory CSV** for a specific subcollection of interest within the LettuceKnow data, e.g., RNA-seq data.
 
@@ -299,7 +299,9 @@ This Python script generates a **file-level inventory CSV** for a specific subco
 - Works at **file-level granularity**, not aggregated collections.
 - Optional: can be run multiple times for different target collections.
 
-### Step 6: [Summarize Inventory to nearest sub-collection level](https://github.com/melanorian/LK_data-work/blob/main/6_summarise_to_subcollection.py)
+### Step 6: Summarize Inventory to Nearest Sub-Collection Level
+
+[Scrip: Summarize Inventory to Nearest Sub-Collection Level](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/6_summarise_to_subcollection.py)
 
 This Python script takes the enriched merged inventory from Step 5 and **aggregates file-level to collection-level information** to produce a summarized view of the data. This is neccesary because the depth of sub-collections is very uneven and some sub-collections list all the files. Here, we computes cumulative sizes, file counts, documentation indicators, and file type distributions to the defined collection levels.
  
@@ -350,7 +352,8 @@ This Python script takes the enriched merged inventory from Step 5 and **aggrega
 **Notes**
 - JSON-formatted `file_types` allow flexible parsing and querying of file compositions per collection.
 
-### Step 7: [Duplicate File Detection](https://github.com/melanorian/LK_data-work/blob/main/7_duplicat_detection.py)
+### Step 7: Duplicate File Detection
+[Script: Duplicate File Detection](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/7_duplicat_detection.py)
 
 This Python script analyzes all LettuceKnow inventory CSVs to **detect duplicate files** based on file names and checksums. It assigns consistent group IDs to files that are identical or share the same name, enabling downstream auditing and quality control.
 
@@ -399,7 +402,8 @@ This Python script analyzes all LettuceKnow inventory CSVs to **detect duplicate
 - Group IDs are **consistent across all files sharing the same name or checksum**, allowing easy identification of duplicates.
 - Sorting by `dup_both`, `dup_checksum`, `dup_name`, and `dup_group_id` ensures that related duplicates appear together in the CSV for rapid manual inspection.
 
-### Step 7: [Duplicate File Detection](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/7_duplicat_detection.py)
+### Step 7b: Prioritize Duplicate Files for Potential Deletion
+[Script: Prioritize Duplicate Files for Potential Deletion](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/7b_duplicats_in_release-and-dump.py)
 
 This Python script analyzes all LettuceKnow inventory CSVs to detect potentially duplicate files using both file names and checksums. The goal is not only strict checksum duplication detection, but also identification of files with identical basenames occurring across different storage locations and releases.
 
@@ -457,77 +461,9 @@ Unlike earlier implementations, filename-based and checksum-based duplicate dete
 - Files without checksums are still grouped by basename.
 - Large duplicate groups may occur for common technical output files generated repeatedly across sequencing runs or QC workflows!
 
-### Step 7b: [Prioritize Duplicate Files for Potential Deletion](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/7b_duplicats_in_release-and-dump.py)
+### Step 7c: Visualize Duplicate Storage and Potential Deletion Candidates
 
-This Python script extends the duplicate detection results from Step 7 by assigning a **storage tier priority** to duplicate groups and marking lower-priority copies as potential deletion candidates.
-
-The script does **not delete any files**.  It only annotates duplicate records with a boolean column indicating whether a file is considered redundant according to release hierarchy rules.
-
-**Priority hierarchy**
-
-Highest-quality / newest copies are preferred:
-
-1. `data-release_V2`
-2. `data-release_V1`
-3. `research-lettuceknow`
-
-Files in lower-priority locations are marked as potential deletion candidates if a higher-priority copy exists within the same duplicate group.
-
-**Input Variables**
-
-- `BASE_DIR` – directory containing duplicate detection output from Step 7  
-- `INPUT_FILE` – `7_duplicate_detection.csv`
-- `OUT_FILE` – annotated duplicate table with deletion recommendations
-
-**Output**
-
-- CSV file: `7b_delete_duplicates.csv` containing:
-  - Original duplicate detection columns from Step 7
-  - `priority` – numeric storage priority:
-    - `3` = DR2
-    - `2` = DR1
-    - `1` = research storage
-  - `max_priority_in_group` – highest priority observed within the duplicate group
-  - `delete_duplicate` – `True` if a higher-priority copy exists elsewhere in the group
-
-**What it does**
-
-1. Loads duplicate detection output from Step 7.
-2. Assigns storage priority levels based on file path patterns.
-3. Computes the highest priority present in each duplicate group.
-4. Marks files as potential deletion candidates if: their priority is lower than the maximum priority within the group.
-
-**Example**
-
-If the same file exists in:
-
-- `research-lettuceknow`
-- `data-release_V1`
-- `data-release_V2`
-
-then:
-
-- DR2 copy → retained (`delete_duplicate = False`)
-- DR1 copy → candidate for deletion (`True`)
-- research copy → candidate for deletion (`True`)
-
-If the file exists only in:
-
-- `research-lettuceknow`
-- `data-release_V1`
-
-then:
-
-- DR1 copy → retained
-- research copy → candidate for deletion
-
-**Notes**
-
-- Duplicate grouping logic from Step 7 is preserved = the same problem applies: large duplicate groups may occur for common technical output files generated repeatedly across sequencing runs or QC workflows!
-- Duplicate groups may still contain biologically distinct files with identical names when checksums are unavailable.
-- Manual validation before any deletion!
-
-### Step 7c: [Visualize Duplicate Storage and Potential Deletion Candidates](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/7c_visualise_duplicates.py)
+[Step 7c: Visualize Duplicate Storage and Potential Deletion Candidates](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/7c_visualise_duplicates.py)
 
 This Python script visualizes the duplicate analysis results from Step 7b using pie charts. It summarizes the amount of storage occupied by duplicate files and highlights which portions are considered potential deletion candidates.
 
@@ -570,10 +506,10 @@ Generated files:
    - DR1
    - research storage
 
-### Step 8: [Integrate Duplicate Statistics into Collection-Level Inventory](https://github.com/melanorian/LK_data-work/blob/main/8_summarized_inventory_with_duplicates.py](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/8_merge_duplicates_add_costs.py)
+### Step 8: Integrate Duplicate Statistics into Collection-Level Inventory
+[Script: Integrate Duplicate Statistics into Collection-Level Inventory](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/8_merge_duplicates_add_costs.py)
 
 This Python script integrates duplicate-file statistics from Step 7 into the summarized collection-level inventory produced in Step 6. The resulting table allows duplicate burden to be analyzed at collection level.
-
 
 **Input Variables**
 
@@ -582,8 +518,6 @@ This Python script integrates duplicate-file statistics from Step 7 into the sum
 - `SUMMARY_FILE` – `summarized_inventory_L<MAX_LEVEL>.csv`
 - `DUP_FILE` – duplicate detection output from Step 7
 - `OUT_FILE` – merged collection-level inventory with duplicate statistics
-
----
 
 **Output**
 
@@ -626,7 +560,8 @@ Additional duplicate-related columns include:
 - Duplicate statistics reflect file-level duplicate detection from Step 7.
 - Collection sizes themselves are not modified.
 
-### Step 9: [Classify Collections by Processing Level, Domain, and Release Status](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/9_classify_files.py)
+### Step 9: Classify Collections by Processing Level Domain and Release Status
+[Step 9: Classify Collections by Processing Level Domain and Release Status](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/9_classify_files.py)
 
 This Python script classifies summarized LettuceKnow collections into broad biological and processing-related categories. The classification provides higher-level semantic annotation for downstream reporting and visualization.
 
@@ -683,7 +618,8 @@ Additional annotation columns include:
 - Categories are intentionally broad to support high-level reporting.
 - Collections may still contain heterogeneous data types despite classification.
 
-### Step 10: [Visualize Storage Distribution Across Releases, Domains, and Processing Levels](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/10_overview_visualisation_inventory.py)
+### Step 10: Visualize Storage Distribution Across Releases Domains and Processing Levels
+[Script: Visualize Storage Distribution Across Releases Domains and Processing Levels](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/10_overview_visualisation_inventory.py)
 
 This Python script generates summary visualizations for the classified LettuceKnow inventory produced in Step 9. The figures provide an overview of storage distribution across release status, scientific domains, and processing stages.
 
