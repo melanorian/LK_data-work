@@ -15,6 +15,7 @@ Basic explanations of iRODS, relevant iCommands, and the setup of a virtual mach
 [Step 1: Generate Full YODA Collection Inventory](#step-1-generate-full-yoda-collection-inventory)
 
 [Step 2: Processing Inventory CSVs & Generating Subcollection Summaries](#step-2-processing-inventory-csvs-generating-subcollection-summaries)
+[Step 2 Test](#step-2-processing-inventory-csvs-and-generating-subcollection-summaries)
 
 [Step 3: Processing Inventory CSVs & Generating File Type Summaries](#step-3-processing-inventory-csvs-generating-file-type-summaries)
 
@@ -74,7 +75,7 @@ This script creates a **CSV inventory** of files in a Yoda/iRODS collection usin
 - File sizes are reported in **bytes**  
 - Only accessible files can be included
 
-### Step 2: [Processing Inventory CSVs & Generating Subcollection Summaries](https://github.com/melanorian/LK_data-work/blob/main/2_process_inventory_csv.py)
+### Step 2: [Processing Inventory CSVs & Generating Subcollection Summaries](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/2_process_inventory_csv.py)
 
 This Python script summarizes LettuceKnow inventory CSVs into subcollection table with aggregated file sizes up to a manually defined maximum depth of sub-collections. 
 
