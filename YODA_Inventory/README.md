@@ -119,7 +119,7 @@ This Python script summarizes LettuceKnow inventory CSVs into subcollection tabl
    - Save the resulting summary CSV to `OUT_DIR` with filename `subcollection_summary_L<MAX_LEVEL>.csv`.
 
 ### Step 3: Processing Inventory CSVs & Generating File Type Summaries
-[Script: Processing Inventory CSVs & Generating File Type Summaries](https://github.com/melanorian/LK_data-work/blob/main/3_inventory_data-type.py)
+[Script: Processing Inventory CSVs & Generating File Type Summaries](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/3_inventory_data-type.py)
 
 This Python script analyzes LettuceKnow inventory CSVs to summarize **file type distributions** across subcollections and globally. It provides insight into the composition of data (e.g. sequencing files, reports, archives) within the Yoda environment.
 
