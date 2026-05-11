@@ -1,5 +1,3 @@
-# README.md (project-level)
-
 _Estimated reading time: 5–8 minutes_
 
 # Index
