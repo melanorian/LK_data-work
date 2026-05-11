@@ -15,6 +15,7 @@ Basic explanations of iRODS, relevant iCommands, and the setup of a virtual mach
 [Step 1: Generate Full YODA Collection Inventory](#step-1-generate-full-yoda-collection-inventory)
 
 [Step 2: Processing Inventory CSVs & Generating Subcollection Summaries](#step-2-processing-inventory-csvs-generating-subcollection-summaries)
+
 [Step 2 Test](#step-2-processing-inventory-csvs-and-generating-subcollection-summaries)
 
 [Step 3: Processing Inventory CSVs & Generating File Type Summaries](#step-3-processing-inventory-csvs-generating-file-type-summaries)
