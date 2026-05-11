@@ -22,7 +22,7 @@ Basic explanations of iRODS, relevant iCommands, and the setup of a virtual mach
 
 [Step 5: Enrich Inventory with Documentation & Informative Files](#step-5-enrich-inventory-with-documentation--informative-files)
 
-[Step 5a: Optional – Extract File-Level Inventory for a Specific Collection](#step-5a-optional--extract-file-level-inventory-for-a-specific-collection)
+[Step 5b: Optional – Extract File-Level Inventory for a Specific Collection](#step-5b-optional--extract-file-level-inventory-for-a-specific-collection)
 
 [Step 6: Summarize Inventory to Nearest Sub-Collection Level](#step-6-summarize-inventory-to-nearest-sub-collection-level)
 
@@ -118,7 +118,8 @@ This Python script summarizes LettuceKnow inventory CSVs into subcollection tabl
    - Compute total size and file count per subcollection, including cumulative sizes for parent directories.  
    - Save the resulting summary CSV to `OUT_DIR` with filename `subcollection_summary_L<MAX_LEVEL>.csv`.
 
-### Step 3: [Processing Inventory CSVs & Generating File Type Summaries](https://github.com/melanorian/LK_data-work/blob/main/3_inventory_data-type.py)
+### Step 3: Processing Inventory CSVs & Generating File Type Summaries
+[Script: Processing Inventory CSVs & Generating File Type Summaries](https://github.com/melanorian/LK_data-work/blob/main/3_inventory_data-type.py)
 
 This Python script analyzes LettuceKnow inventory CSVs to summarize **file type distributions** across subcollections and globally. It provides insight into the composition of data (e.g. sequencing files, reports, archives) within the Yoda environment.
 
@@ -174,7 +175,8 @@ This Python script analyzes LettuceKnow inventory CSVs to summarize **file type 
 - The branch-level JSON structure enables flexible downstream parsing and categorization.  
 - The global summary is useful for identifying dominant file types for further data classification.
 
-### Step 4: [Generate CSV file with Inventory Size and File Types](https://github.com/melanorian/LK_data-work/blob/main/4_merge_inventory_outputs.py)
+### Step 4: Generate CSV file with Inventory Size and File Types
+[Step 4: Generate CSV file with Inventory Size and File Types](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/4_merge_inventory_outputs.py)
 
 Branch-level file type summaries and subcollection summaries Steps 2 & 3, are merged to provide a combined view of size and file type composition per branch.
 
@@ -216,7 +218,9 @@ Branch-level file type summaries and subcollection summaries Steps 2 & 3, are me
 - The merge allows quick inspection of both storage footprint and data composition per branch.  
 - If descriptions for some file types are missing, `"NA"` will be shown.
 
-### Step 5: [Enrich Inventory with Documentation & Informative Files](https://github.com/melanorian/LK_data-work/blob/main/5_documentation_quality.py) 
+### Step 5: Enrich Inventory with Documentation & Informative Files
+
+[Script: Enrich Inventory with Documentation & Informative Files](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/5_documentation_quality.py) 
 
 This Python script annotates the merged LettuceKnow inventory with the presence of **informative files** such as README, log, configuration, and metadata files at the collection level. It combines collection-level summaries with file-level classifications to provide insight into available documentation and supporting files.
 
@@ -260,7 +264,8 @@ This Python script annotates the merged LettuceKnow inventory with the presence 
 **Notes**
 - Only informative files with recognized patterns/extensions are counted.
 
-### Step 5a: [Optional – Extract File-Level Inventory for a Specific Collection](https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/5a_optional_files_in_target_collection.py)
+### Step 5b: Optional – Extract File-Level Inventory for a Specific Collection
+(https://github.com/melanorian/LK_data-work/blob/main/YODA_Inventory/5b_optional_files_in_target_collection.py)
 
 This Python script generates a **file-level inventory CSV** for a specific subcollection of interest within the LettuceKnow data, e.g., RNA-seq data.
 
