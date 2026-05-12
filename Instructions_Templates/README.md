@@ -196,208 +196,57 @@ We will go now over the differnt files by level of imporatance. Of coures, ideal
 
 We will fill in the: 
 
-1. [README.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_processed-data.md)
+1. [README.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_LK.md)
 
 2.  [code_book.csv](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)
 
-3.   [Knowledge Transfer File.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_knowledge_transfer_file.md)
-
 Note: If you are wondering about the choice of format for those files or you are unfamiliar with markdown (.md) please navigate to more extensive instructions below: [Go to File formats](#file-formats)
 
-### 1. README.md
+### General advice
 
-1.1 Download: [README.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_processed-data.md)
-
-CONSTRUCTION STIE
-
-You will find instructions in the template. Think of this file as the overview of the entire baking book. It does not go into cooking details, but it tells you where everything is.
-
-1.2. Minimum Viable Version
-
-Fill in sections on
-- General information
-- Researcher information
-- Project overview
-- Data structure and access 
-- Project folder structure
-
-1.3. Complete Version
-- Fill in the other sections to the best of your knowledge
-
-1.4 Upload as README.md to your project folder 
-
-```
-ProjectX_Topic_Name/
-├── 1_Thesis.pdf
-├── 2_Data-package-chapter2/
-├── 3_Data-package-chapter3/
-├── N_Data-package-chapterN/
-└── README_project.md <-- !!!
-```
-
-### 2. README_processed-data.md & code_book.csv
-
-2.1 [README_processed-data.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_processed-data.md) & [code_book.csv](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)
-
-Once more, you will find more detailed instructions in the template. Think of these files as the actual recipe for one part of your cakes. This is where you explain how raw ingredients (raw data) became something usable.
-
-This is the most important documentation file in your data package. If someone understands this, they can actually work with your data. That's why it is worth-while to invest some extra effort in a minimial viable version and best a  complete version. 
-
-2.2 Minimum Viable Version 
-
-Fill in sections on
-- General information  
-- Dataset overview  
-- Data interpretation (code book reference)  
-- Data processing (high-level steps)  
-- Metadata location  
-
-
-
-##############
-
-## README_processed-data.md
-
-This is where the actual preparation happens.
-
-It explains how raw ingredients were turned into something usable.
-
-It contains:
-- how raw data was cleaned and transformed  
-- what decisions were made during processing  
-- how variables and measurements should be understood  
-- how to use the code_book.csv to interpret the data  
-
-Think of this as preparing the ingredients before baking.  
-You are not baking yet, but everything is being made ready.
-
-## code_book.csv
-
-This is the ingredient list.
-
-It defines every variable in the dataset so nothing is left to guessing.
-
-It tells you:
-- what each column means  
-- what units are used  
-- what each value represents  
-
-Without it, even perfectly prepared ingredients are ambiguous.
-
-## README_results.md
-
-This is the final baking step.
-
-It explains how processed data was turned into outputs such as:
-- figures  
-- tables  
-- statistical results  
-- models  
-
-It focuses on interpretation and reproducibility of results, not data cleaning.
-
-Think of this as the final cake being taken out of the oven.  
-The ingredients are already prepared — now we see what they produce.
-
-# Minimum viable documentation
-
-If time is limited, this is the order of priority:
-
-1. README_project.md  
-2. README_processed-data.md + code_book.csv  
-3. README_results.md  
-
-Raw data is important, but it is mostly provenance.  
-The critical understanding lives in processed data and results.
-
-# File naming (consistency rule)
-
-To keep everything consistent across projects, the following file names are always used:
-
-- Project overview: README_project.md  
-- Processed data documentation: README_processed-data.md  
-- Results documentation: README_results.md  
-- Data interpretation: code_book.csv
-#############
-
-# Documentation layers
-
-## README.md (project-level)
-
-Gives the overall picture:
-
-- what the project is about
-- how datasets relate
-- where everything lives
-
-## README_processed-data.md
-
-Explains:
-
-- what a dataset represents
-- how it was created from raw data
-- how to interpret variables
-- how it connects to code_book.csv
-
-This is the most important layer for reuse.
-
-## README_results-level.md
-
-Explains:
-
-- how results were generated
-- analysis steps
-- reproducibility of outputs
-
-This is about analysis, not data definition.
-
-
-# Minimum viable documentation
-
-If you are short on time, do this:
-
-## README_processed-data.md
-
-- what the dataset represents
-- how it was created
-- code book reference
-- key processing decisions
-
-(File: template_README_processed-data.md)
-
-## README_results-level.md
-
-- what analysis was done
-- how outputs were generated
-- link to processed data
-- reproducibility info
-
-(File: template_README_results-level.md)
-
-## README.md
-
-- what the project is about
-- list of datasets
-- folder structure
-
-(File: template_README_project-level.md)
-
-# General advice
-
-Don’t let perfect be the enemy of usable.
+Don’t let perfect be the enemy of good.
 
 If time is limited:
 
-1. processed data documentation first  
-2. results documentation second  
-3. project overview last  
+1. Start with a minimal version of `README.md` for each chapter / publication / project + `code_book.csv`  
+2. Then improve to a more complete `README.md` over time  
 
 The goal is simple:
 
 Make your work understandable without you.
 
-########### KEEP ############
+### 1. README.md
 
+1.1 Download: [README.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_LK.md)
+
+Think of the README files as the actual recipe for one part of your LettuceCakes. This is where you explain how raw ingredients (raw data) became something usable (processed data, results).
+
+This is the most important documentation file in your data package. If someone understands this, they can actually work with your data. That's why it is worth-while to invest some extra effort in a minimial viable version and best a  complete version. 
+
+1.2. Minimum Viable Version
+
+- General Information  
+- Overview  
+- Input data  
+- Code book (see below)  
+- Processing and analysis summary  
+    - key processing steps: [brief bullets]  
+    - key analysis steps: [brief bullets]  
+
+- Outputs (most important results generated)  
+    - figures: [location or description]  
+    - tables: [location or description]  
+    - models / results: [location or description]  
+
+1.3 Follow the instructions in the template to generate a more complete version
+
+### 2. code_book
+
+2.1 Download: [code_book.csv](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)
+
+!!!!!!!!!!!!!!
+GIVE INSTRUCTIONS HOW TO FILL IN  + MINIMAL VERSION
+########### KEEP ############
 
 ## File formats
 
