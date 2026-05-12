@@ -57,34 +57,45 @@ ProjectX_Topic_Name/
 ├── 1_Thesis.pdf
 ├── 2_Data-package-chapter2/
 ├── 3_Data-package-chapter3/
-├── N_Data-package-chapterN/
-└── README_project.md
+└── N_Data-package-chapterN/
 
 ```
 
-Based on previous data releases from the Lettuce Know consortium, the following is the standard structure for a project data package:
+Oriented on the previous data releases from the Lettuce Know consortium, the following is the standard structure for a project data package:
 
 ``` 
 2_Data-package-chapter2/
 ├── 1_raw-data/
 │   ├── dataset_A/
 │   ├── dataset_B/
+│   ├── dataset_N/
 │
 ├── 2_processed-data/
 │   ├── dataset_A/
-│   │   ├── README_processed-data.md
-│   │   ├── code_book.csv
-│
+|   ├── dataset_B/
+|   ├── dataset_N/
+|
 ├── 3_results/
-│   ├── dataset_A_or_analysis/
-│   │   ├── README_results-level.md
+│   ├── dataset_A/
+│   ├── dataset_B/
+│   ├── dataset_N/
+│   ├── Figure_1/
+│   ├── Figure_2/
+│   ├── Figure_N/
 │
 ├── 4_metadata-files/
-│   ├── sample_metadata.csv
-│   ├── experimental_design.csv
+│   │── README.md
+│   │── code_book.csv
+│   ├── other_metadata.csv
+│   ├── knowledge_transfer_file.md (optional) 
 │
 ├── 5_methods-and-protocols/
-├── README.md
+|   ├── protocols_A/
+|   ├── protocols_B/
+|   ├── protocols_N/
+|   ├── scripts_A/
+|   ├── scripts_B/
+|   ├── scripts_N/
 
 ```
 
@@ -107,27 +118,27 @@ We can use differnt types of documents to make sure our research or cake can be 
 
 A README file is like the recipe for your work. It explains what the data is, what is needed, and how everything fits together. 
 
-As a rule of thumb, you should add a README file whenever a decision was introduced. The  more decisions were made, the more the more important it is to explain how the files were produced. 
+As a rule of thumb, your README file should explain which important decision you made, expecially those not immediatly apparent. The  more decisions were made, the more important it is to explain how a document was produced. 
 
 ## What is a Code book
 
-A code book is like a detailed ingredient list. It defines every variable or column in your dataset so that others can correctly interpret the data. In a research context, it explains variables, units, and structure, so the dataset can be reused without guessing.
+A code book is like a detailed ingredient list that give details on the ingredients. It should define every variable or column in your dataset so that others can correctly interpret the data. In a research context, it explains variables, units, and structure, so the dataset can be reused without guessing.
 
 ## What is a knowledge transfer file?
 
 A knowledge transfer file contains the “behind the scenes” knowledge. It explains e.g. what decisions were made, what is not obvious from the data, and what users should be careful about.
 
-Optional, but very useful in complex projects.
+Optional, but very useful in complex projects with loads of implicit knowledge.
 
 # Step-by-step guide to preparing your data package
 
-In the next section, we will walk step by step through preparing your data package for the final data release. Of course, not all steps will always be relevant, and you may need to adapt certain parts to fit your specific data.
+In the next section, we will walk step by step through preparing your data package for the final data release. Not all steps might be relevant, and you may need to adapt certain parts to fit your specific data.
 
 Still, it is recommended to stay as close as possible to the shared structure and templates. This makes it much easier to navigate and reuse datasets across the Lettuce Know consortium.
 
-If your work has already been published, it is still useful to include at least a project-level README.md. This should point to the correct locations of your data and code, for example in a public repository or archived dataset. Ideally, you also create the suggested folder structure with README files and code books that clearly link your published outputs back to the underlying research data.
+If your work has already been published, it is still useful to include the metadata files in  `4_metadata-files/`. The metadat files can point the user to the correct locations of your data and code, for example in a public repository or archived dataset and guid the user in how to make use and interpret your data.
 
-In this way, we create a complete Lettuce Know recipe book: a shared collection of well-structured, understandable “recipes” that allow others to retrace how each scientific “cake” was made, even years later.
+In this way, together we create a complete LettuceKnow recipe book: a shared collection of well-structured, understandable “LettuceCake recipes” that allow others to retrace how each scientific “LettuceCake” was made, even years later.
 
 ## A. Create The Folder structure - Creating the layout for the LettuceKnow baking book
 
@@ -163,7 +174,9 @@ ProjectX_Topic_Name/
 ├── 5_methods-and-protocols/
 ```
 
-Ideally, every data package follows the same internal structure that is used across the LettuceKnow consortium data releases. This makes it much easier to navigate and reuse data across different projects. Of course, not every project is identical. If your data requires adjustments, that is fine. But try to stay as close as possible to the shared structure so others can easily understand your work without guessing where things are.
+Ideally, every data package follows the same internal structure which is also used across the LettuceKnow consortium data releases. This makes it much easier to navigate and reuse data across different projects. 
+
+Of course, not every project is identical. If your data requires adjustments, that is fine. But try to stay as close as possible to the shared structure so others can easily understand your work without guessing where things are.
 
 ## B. Populate your folders with data – getting the ingredients for your cake
 
@@ -173,7 +186,7 @@ Ideally, every data package follows the same internal structure that is used acr
 
 **If you are working with consortium-wide datasets, publicly available data, or data that has already been published**, you do not need to upload everything again. Storing data literally comes with a cost, so we try to avoid unnecessary duplication.
 
-Instead, you can simply reference the data you used and focus on documenting it properly in your README files and code book.
+Instead, you can simply reference the data you used and focus on documenting it properly in your README files and code book and other metadata files.
 
 ## C. Document your data package - write the recipie for your LettuceCake
 
@@ -183,19 +196,19 @@ We will go now over the differnt files by level of imporatance. Of coures, ideal
 
 We will fill in the: 
 
-1. [README_project-level.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_project-level.md)
+1. [README.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_processed-data.md)
 
-2. [README_processed-data.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_processed-data.md) & [code_book.csv](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)
+2.  [code_book.csv](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)
 
-3. [README_results-level.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_results-level.md)
-
-5. [Knowledge Transfer File.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_knowledge_transfer_file.md)
+3.   [Knowledge Transfer File.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_knowledge_transfer_file.md)
 
 Note: If you are wondering about the choice of format for those files or you are unfamiliar with markdown (.md) please navigate to more extensive instructions below: [Go to File formats](#file-formats)
 
-### 1. README_project-level.md
+### 1. README.md
 
-1.1 Download: [README_project-level.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_project-level.md)
+1.1 Download: [README.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_processed-data.md)
+
+CONSTRUCTION STIE
 
 You will find instructions in the template. Think of this file as the overview of the entire baking book. It does not go into cooking details, but it tells you where everything is.
 
