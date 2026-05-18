@@ -36,14 +36,14 @@ Just like you would want a friend in New Zealand to successfully bake your grand
 
 Often we do not know what future users will need. So the goal is simple: clearly explain what you do know, without assuming prior knowledge.
 
-Not just what the final cake looks like, but how it exactly how it came together.
+Not just what the final cake looks like, but how exactly it came together.
 
 To do so, we separate two steps:
 
 - first, the structure: the layout of your baking book  
 - then, the documentation: the actual recipes inside  
 
-# Folder structure - the baking book
+# Folder structure - layout of the baking book
 
 You can think of this as the layout of a baking book. It is much easier to find your favourite recipe and quickly get started if the structure is well organised and each recipe follows a consistent format. Without this structure, even well-written recipes become difficult to navigate.
 
@@ -68,12 +68,12 @@ Oriented on the previous data releases from the Lettuce Know consortium, the fol
 ├── 1_raw-data/
 │   ├── dataset_A/
 │   ├── dataset_B/
-│   ├── dataset_N/
+│   └── dataset_N/
 │
 ├── 2_processed-data/
 │   ├── dataset_A/
 |   ├── dataset_B/
-|   ├── dataset_N/
+|   └── dataset_N/
 |
 ├── 3_results/
 │   ├── dataset_A/
@@ -81,22 +81,22 @@ Oriented on the previous data releases from the Lettuce Know consortium, the fol
 │   ├── dataset_N/
 │   ├── Figure_1/
 │   ├── Figure_2/
-│   ├── Figure_N/
+│   └── Figure_N/
 │
 ├── 4_metadata-files/
 │   │── README.md
 │   │── code_book.csv
 │   ├── other_metadata.csv
-│   ├── knowledge_transfer_file.md (optional) 
+│   └── knowledge_transfer_file.md (optional) 
 │
-├── 5_methods-and-protocols/
+└── 5_methods-and-protocols/
 |   ├── protocols_A/
 |   ├── protocols_B/
 |   ├── protocols_N/
 |   ├── scripts_A/
 |   ├── scripts_B/
-|   ├── scripts_N/
-
+|   └── scripts_N/
+ 
 ```
 
 # Documentation layers - the recipes in your baking book
@@ -116,13 +116,11 @@ We can use differnt types of documents to make sure our research or cake can be 
 
 ## What is a README file
 
-A README file is like the recipe for your work. It explains what the data is, what is needed, and how everything fits together. 
-
-As a rule of thumb, your README file should explain which important decision you made, expecially those not immediatly apparent. The  more decisions were made, the more important it is to explain how a document was produced. 
+A README file is like the recipe for your work. It explains what the data is, what is needed, and how everything fits together.
 
 ## What is a Code book
 
-A code book is like a detailed ingredient list that give details on the ingredients. It should define every variable or column in your dataset so that others can correctly interpret the data. In a research context, it explains variables, units, and structure, so the dataset can be reused without guessing.
+A code book is like a detailed ingredient list that includes details on each ingredients. It should define every variable or column in your dataset so that others can correctly interpret your data. In a research context, it explains variables, units, so the dataset can be reused without guessing.
 
 ## What is a knowledge transfer file?
 
@@ -148,7 +146,7 @@ In this way, together we create a complete LettuceKnow recipe book: a shared col
 3. Search for the folder matching your project  
 4. Create your project folder and upload your thesis (or a placeholder if not yet available)
 
-If your thesis is not yet finished, create a clearly labelled placeholder such as: `1_empty_Thesis.pdf`or `1_draft_Thesis.pdf` If parts of your thesis already exist, name it accordingly: `1_chapter1-3_Thesis.pdf`
+If your thesis or manuscript is not yet finished, create a clearly labelled placeholder such as: `1_empty_Thesis.pdf`or `1_draft_Thesis.pdf` If parts of your thesis already exist, name it accordingly: `1_chapter1-3_Thesis.pdf`
 
 At this stage, your project folder should follow this structure:
 
@@ -157,8 +155,7 @@ ProjectX_Topic_Name/
 ├── 1_Thesis.pdf
 ├── 2_Data-package-chapter2/
 ├── 3_Data-package-chapter3/
-├── N_Data-package-chapterN/
-└── README_project.md
+└── N_Data-package-chapterN/
 ```
 
 5. Now we go one level deeper into your data package. Let’s take `2_Data-package-chapter2/` as an example and open this folder.
@@ -171,7 +168,7 @@ ProjectX_Topic_Name/
 ├── 2_processed-data/
 ├── 3_results/
 ├── 4_metadata-files/
-├── 5_methods-and-protocols/
+└── 5_methods-and-protocols/
 ```
 
 Ideally, every data package follows the same internal structure which is also used across the LettuceKnow consortium data releases. This makes it much easier to navigate and reuse data across different projects. 
@@ -180,7 +177,7 @@ Of course, not every project is identical. If your data requires adjustments, th
 
 ## B. Populate your folders with data – getting the ingredients for your cake
 
-1. You should now be able to upload your files to YODA using your preferred method. If needed, you can consult the full guide on working with YODA here:
+1. You should now be able to upload your files to YODA using your preferred method. If needed, you can consult the full guide on working with YODA here or reach out for help:
 
 [https://www.uu.nl/en/research/yoda/guide-to-yoda]
 
@@ -198,7 +195,7 @@ We will fill in the:
 
 1. [README.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_LK.md)
 
-2.  [code_book.csv](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)
+2. [code_book.csv](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)
 
 Note: If you are wondering about the choice of format for those files or you are unfamiliar with markdown (.md) please navigate to more extensive instructions below: [Go to File formats](#file-formats)
 
@@ -217,13 +214,13 @@ Make your work understandable without you.
 
 ### 1. README.md
 
-1.1 Download: [README.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_LK.md)
-
-Think of the README files as the actual recipe for one part of your LettuceCakes. This is where you explain how raw ingredients (raw data) became something usable (processed data, results).
+Think of the README files as the actual recipe for one of your LettuceCakes. This is where you explain how raw ingredients (raw data) became something usable (processed data, results).
 
 This is the most important documentation file in your data package. If someone understands this, they can actually work with your data. That's why it is worth-while to invest some extra effort in a minimial viable version and best a  complete version. 
 
-1.2. Minimum Viable Version
+1.1 Download: [README.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_LK.md)
+
+1.2. Fill in a minimum viable version
 
 - General Information  
 - Overview  
@@ -242,11 +239,44 @@ This is the most important documentation file in your data package. If someone u
 
 ### 2. code_book
 
+In case of the code book we want to ensure the user can correctly interpret the variables and column names in your dataset to ensure a clear understanding of the provided data. It is the document where you explain each ingredient of your LettuceCake in detail so that it turns out just right. 
+
 2.1 Download: [code_book.csv](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)
 
-!!!!!!!!!!!!!!
-GIVE INSTRUCTIONS HOW TO FILL IN  + MINIMAL VERSION
-########### KEEP ############
+2.2 Understanding & filling in the differnt columns in the code_book.csv
+
+`index`: A simple numbering column used to keep the code book organised. This field is mainly for readability and reference.
+
+`code`: The exact variable or column name used in the dataset. This should match the column name exactly as it appears in the data file. Think of this as the ingredient name in your recipe.
+
+Example: `leaf_area`, `sample_id`, `treatment_group`
+
+`meaning`: A human-readable explanation of what the variable describes. This explains the biological or experimental meaning of the variable in plain language.
+
+Example:`Leaf surface area measurement`, `Unique identifier for each plant sample`, `Nitrogen treatment applied to the plant`
+
+`represents`: Describes what a single value refers to, also called the unit of observation. This is important because the same variable can represent different things depending on the level of measurement.
+
+Example:
+`per plant`, `per leaf`, `per sample`, `mean value per treatment group`
+
+`unit`: The measurement unit used for the variable.
+
+Example: `cm²`, `mg`, `days`, `°C`, `%`
+
+If no physical unit exists, you can use: `categorical`, `text`, `boolean`, `ID`,...
+
+`ontology`: Optional field linking the variable to a standardised ontology or controlled vocabulary.This improves the connection with other datasets (interoperability) and helps datasets integrate across projects and repositories.
+
+Examples used in LettuceKnow can be found following this link: 
+
+https://planteome.org/node/1 
+
+- Plant Ontology (PO; example: `PO:0025034`)
+- Plant Experimental Conditions Ontology (PECO; example: `PECO:0001062`)
+- Plant Trait Ontology (TO; example: `TO:0000063`)
+
+If no ontology applies, this field can be left empty.
 
 ## File formats
 
