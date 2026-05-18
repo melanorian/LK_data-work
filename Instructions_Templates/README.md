@@ -2,9 +2,8 @@ _Estimated reading time: 5–8 minutes_
 
 # Index
 
-- [Introduction](#whats-the-matter)
-- [Overview](#What-to-do-about-it?)
-- [Step-by-step guide to preparing your data package](#Step-by-step-guide-to-preparing-your-data-package)
+[Introduction](#whats-the-matter)
+[Step-by-step guide to preparing your data package](#Step-by-step-guide-to-preparing-your-data-package)
 
 # What's the matter?
 
@@ -51,14 +50,12 @@ In your project, this corresponds to the structure of your folders, where you st
 
 Based on previous instructions shared within the LettuceKnow consortium, the following is the expected standard structure for a PhD thesis, post docs will typically replace thesis chapter with their manuscripts:
 
-
 ```
 ProjectX_Topic_Name/
 ├── 1_Thesis.pdf
 ├── 2_Data-package-chapter2/
 ├── 3_Data-package-chapter3/
 └── N_Data-package-chapterN/
-
 ```
 
 Oriented on the previous data releases from the Lettuce Know consortium, the following is the standard structure for a project data package:
@@ -96,7 +93,7 @@ Oriented on the previous data releases from the Lettuce Know consortium, the fol
 |   ├── scripts_A/
 |   ├── scripts_B/
 |   └── scripts_N/
- 
+
 ```
 
 # Documentation layers - the recipes in your baking book
