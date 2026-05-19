@@ -2,54 +2,52 @@ _Estimated reading time: 5–8 minutes_
 
 # Index
 
-[Introduction](#whats-the-matter)
+[Introduction](#Introduction)
 
 [Step-by-step guide to preparing your data package](#Step-by-step-guide-to-preparing-your-data-package)
 
-# What's the matter?
+# Introduction
 
 Have you ever tried baking a cake without following a proper recipe?
 
-Sometimes it works out fine. But often, small missing details make all the difference, and the result falls apart. I once ended up with a crumbly pile that did not hold together at all. There was nothing left to do but throw it away.
+Sometimes it works out fine. But more often than not, small missing details make all the difference, and the result literally falls apart. I once ended up with a crumbly pile that did not hold together at all. There was nothing left to do but throw it away.
 
-Now imagine that instead of a cake, we are talking about your PhD or postdoc project. Years of work, and at the end the results cannot be properly understood, reproduced, or reused because key details are missing.
+Now imagine that instead of a cake, we are talking about your PhD or postdoc project. Years of work, only for the final results to not be properly understood, reproduced, or reused because key details are missing.
 
-That is the risk when research data is left without clear instructions, the recipe to your work.
+That is the risk when research data is left without clear instructions: the recipe to your work.
 
-# What’s the problem?
+## What’s the problem?
 
-We often assume that publications and manuscripts explain everything, the perfect recipe to understand and reproduce our work.
+We often assume that publications and manuscripts explain everything: the perfect recipe to understand and reproduce our work. In reality, there is rarely enough space to describe datasets, variable names, or processing steps in detail. Yet exactly those details may determine whether data can actually be reused. This is why journals and funding bodies increasingly require data and code to be shared, which makes careful documentation essential.
 
-In reality, there is rarely enough space to describe datasets, variable names, or processing steps in detail. Exactly those details may determine whether data can actually be reused.
+In other words, the final cake might be there, but the recipe is incomplete. You might recognise some ingredients, but you cannot reliably recreate it.
 
-This is why journals and funding bodies increasingly require data and code to be shared, which makes careful documentation essential.
+That is exactly what we want to avoid if we want our work to remain useful and have lasting impact.
 
-In other words, the final cake might be there, but the recipe is incomplete. You might recognise some ingredients, but you cannot reliably recreate it. 
+## What to do about it?
 
-That’s exactly what we want to avoid if we want our work to stay useful and have lasting impact.
+We want to ensure that others, and our future selves, can reliably understand, reproduce, and reuse our work, even without us.
 
-# What to do about it?
+Just like we would want a friend in New Zealand to successfully bake our grandmother’s apple pie and have it turn out just right.
 
-We want to ensure that others, and your future self, can understand, reproduce, and reuse your work, even without you.
+Often, we do not know what future users will need. So the goal is simple: clearly explain what we do know, without assuming prior knowledge.
 
-Just like you would want a friend in New Zealand to successfully bake your grandmother’s apple pie and have it turn out just right.
+We do not just share what the final cake looks like, but also how exactly it came together.
 
-Often we do not know what future users will need. So the goal is simple: clearly explain what you do know, without assuming prior knowledge.
+To do so, we can follow two steps:
 
-Not just what the final cake looks like, but how exactly it came together.
+first, the structure — the layout of your baking book
+second, the documentation — the actual recipes inside
 
-To do so, we separate two steps:
+## The folder structure - layout of the baking book
 
-- first, the structure: the layout of your baking book  
-- then, the documentation: the actual recipes inside  
+You can think of the folder structure as the layout of a baking book. It is much easier to find your favourite recipe and quickly get started if the structure is well organised and each recipe follows a consistent format. Without this structure, even a well-written recipe book becomes difficult to navigate.
 
-# Folder structure - layout of the baking book
+In your project, this corresponds to the organisation of your folders, where you structure your data and outputs in a consistent way. Typically, the processing of your data moves from raw data input, through data processing, to results.
 
-You can think of this as the layout of a baking book. It is much easier to find your favourite recipe and quickly get started if the structure is well organised and each recipe follows a consistent format. Without this structure, even well-written recipes become difficult to navigate.
+This structure is not just about keeping things tidy. It is what allows others (and your future self) to understand what was done, how data flows through the project, and how results were produced without having to guess or reconstruct missing steps.
 
-In your project, this corresponds to the structure of your folders, where you store the different steps of your work, typically progressing from raw data input, through data processing, to results.
-
-Based on previous instructions shared within the LettuceKnow consortium, the following is the expected standard structure for a PhD thesis, post docs will typically replace thesis chapter with their manuscripts:
+Therefore, within the LettuceKnow consortium we suggest the following folder structure for your individual data package as the standard for a PhD thesis. Postdocs will typically replace the thesis chapter with their manuscripts.
 
 ```
 ProjectX_Topic_Name/
@@ -59,7 +57,7 @@ ProjectX_Topic_Name/
 └── N_Data-package-chapterN/
 ```
 
-Oriented on the previous data releases from the Lettuce Know consortium, the following is the standard structure for a project data package:
+Building on previous data releases from the LettuceKnow consortium, the following is the standard structure for a project data package:
 
 ``` 
 2_Data-package-chapter2/
@@ -94,47 +92,50 @@ Oriented on the previous data releases from the Lettuce Know consortium, the fol
 |   ├── scripts_A/
 |   ├── scripts_B/
 |   └── scripts_N/
-
 ```
 
-# Documentation layers - the recipes in your baking book
+## Documentation - the recipes in your baking book
 
-Once the structure is in place, the next step is to make sure each part of the project can actually be understood.
+Once the structure is in place, the next step is to make sure each part of the project can be clearly understood and reproduced.
 
-Think of this as the recipes inside your baking book.
-
-The structure tells you where recipes are.  
+The structure tells you where the recipes are.
 The documentation tells you how the cake was made.
 
-We can use differnt types of documents to make sure our research or cake can be reproduced, typically: 
+Think of this as the recipes inside your baking book. We can use different types of documents to make sure our research (or cake) can be reproduced. Typically:
 
 - README
 - code book
-- knowledge tranfer file
+- knowledge tranfer file (optional)
 
-## What is a README file
+### What is a README file
 
-A README file is like the recipe for your work. It explains what the data is, what is needed, and how everything fits together.
+A README file is like the recipe for our research output.
 
-## What is a Code book
+It explains what data we used, how different datasets fit together, how they were processed, and what is needed to reproduce the workflow.
 
-A code book is like a detailed ingredient list that includes details on each ingredients. It should define every variable or column in your dataset so that others can correctly interpret your data. In a research context, it explains variables, units, so the dataset can be reused without guessing.
+### What is a Code book
 
-## What is a knowledge transfer file?
+A code book is like a detailed ingredient list, including explanations and necessary details for each ingredient.
 
-A knowledge transfer file contains the “behind the scenes” knowledge. It explains e.g. what decisions were made, what is not obvious from the data, and what users should be careful about.
+It defines every variable or column in our dataset so that others can correctly interpret the data. It explains variables and units, so the dataset can be reused without guessing and our work can be reproduced.
 
-Optional, but very useful in complex projects with loads of implicit knowledge.
+This is an essential layer of documentation because it allows to link between documentation and actual data files.
+
+### What is a knowledge transfer file?
+
+A knowledge transfer file is like the author’s personal notes or recommendations in a baking book.
+
+It contains the “behind the scenes” knowledge, explaining, for example, what decisions were made, what is not obvious from the data, and what users should be careful about. It is an optional part of the LettuceKnow documentation, but can be very useful in complex projects with a lot of implicit knowledge.
 
 # Step-by-step guide to preparing your data package
 
-In the next section, we will walk step by step through preparing your data package for the final data release. Not all steps might be relevant, and you may need to adapt certain parts to fit your specific data.
+n the next section, we will walk step by step through preparing your data package for the final data release. Not all steps will be relevant for every project, and you may need to adapt certain parts to fit your specific data.
 
 Still, it is recommended to stay as close as possible to the shared structure and templates. This makes it much easier to navigate and reuse datasets across the Lettuce Know consortium.
 
-If your work has already been published, it is still useful to include the metadata files in  `4_metadata-files/`. The metadat files can point the user to the correct locations of your data and code, for example in a public repository or archived dataset and guid the user in how to make use and interpret your data.
+If your work has already been published, it is still useful to include the metadata files in `4_metadata-files/`. These metadata files can point to the correct locations of your data and code, for example in a public repository or archived dataset, and guide users in how to access and interpret your work.
 
-In this way, together we create a complete LettuceKnow recipe book: a shared collection of well-structured, understandable “LettuceCake recipes” that allow others to retrace how each scientific “LettuceCake” was made, even years later.
+In this way, we create a complete LettuceKnow recipe book: a shared collection of well-structured, understandable “LettuceCake recipes” that allow others to retrace how each scientific “LettuceCake” was made.
 
 ## A. Create The Folder structure - Creating the layout for the LettuceKnow baking book
 
@@ -144,7 +145,8 @@ In this way, together we create a complete LettuceKnow recipe book: a shared col
 3. Search for the folder matching your project  
 4. Create your project folder and upload your thesis (or a placeholder if not yet available)
 
-If your thesis or manuscript is not yet finished, create a clearly labelled placeholder such as: `1_empty_Thesis.pdf`or `1_draft_Thesis.pdf` If parts of your thesis already exist, name it accordingly: `1_chapter1-3_Thesis.pdf`
+If your thesis or manuscript is not yet finished, create a clearly labelled placeholder such as `1_empty_Thesis.pdf` or `1_draft_Thesis.pdf`.  
+If parts of your thesis already exist, name it accordingly, for example: `1_chapter1-3_Thesis.pdf`.
 
 At this stage, your project folder should follow this structure:
 
@@ -158,7 +160,7 @@ ProjectX_Topic_Name/
 
 5. Now we go one level deeper into your data package. Let’s take `2_Data-package-chapter2/` as an example and open this folder.
 
-6. Inside each data package, you create the following five folders.
+6. Inside each data package, we create the following five folders:
 
 ```
 2_Data-package-chapter2/
