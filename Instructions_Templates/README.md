@@ -1,4 +1,4 @@
-_Estimated reading time: 5–8 minutes_
+_Estimated reading time: 10-12 minutes_
 
 # Index
 
