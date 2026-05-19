@@ -131,7 +131,7 @@ It contains the “behind the scenes” knowledge, explaining, for example, what
 
 In the next section, we will walk step by step through preparing your data package for the final data release. Not all steps will be relevant for every project, and you may need to adapt certain parts to fit your specific data.
 
-Still, it is recommended to stay as close as possible to the shared structure and templates. This makes it much easier to navigate and reuse datasets across the Lettuce Know consortium.
+Still, it is recommended to stay as close as possible to the shared structure and templates. This makes it much easier to navigate and reuse datasets across the LettuceKnow consortium.
 
 If your work has already been published, it is still useful to include the metadata files in `4_metadata-files/`. These metadata files can point to the correct locations of your data and code, for example in a public repository or archived dataset, and guide users in how to access and interpret your work.
 
@@ -186,13 +186,13 @@ Note:
 
 **File and folder naming**
 
-To ensure everything is machine-readable, consistent, and interoperable, we follow a few simple naming guidlines:
+To ensure everything is machine-readable, consistent, and interoperable, we follow a few simple naming guidelines:
 
 - use numbers if needed  
 - avoid spaces
 - use `_` or `-` to separate words   
 - avoid special characters (e.g. !, @, #, $, %, &, *)
-- avoid using dots (.) except for file extensions
+- avoid using dots (.) except for file extensions or versioning
 - if possible, try using one naming style consistently within a project  
 
 Example:  
