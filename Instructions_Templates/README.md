@@ -175,7 +175,7 @@ ProjectX_Topic_Name/
 
 1. You can now upload your files to YODA using your preferred method. If needed, you can consult the full guide on working with YODA here or reach out for help:
 
-(YODA guide)[https://www.uu.nl/en/research/yoda/guide-to-yoda]
+[YODA guide](https://www.uu.nl/en/research/yoda/guide-to-yoda)
 
 If you are working with consortium-wide datasets, publicly available data, or data that has already been published, you do not need to upload everything again. Storing data comes with a cost, so we try to avoid unnecessary duplication.
 
