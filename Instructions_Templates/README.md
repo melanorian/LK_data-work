@@ -36,9 +36,9 @@ We do not just share what the final cake looks like, but also how exactly it cam
 
 To do so, we can follow two steps:
 
-first, the structure — the layout of your baking book
+1. The structure — the layout of your baking book
 
-second, the documentation — the actual recipes inside
+2. The documentation — the actual recipes inside
 
 ## The folder structure - layout of the baking book
 
