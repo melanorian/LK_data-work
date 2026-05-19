@@ -37,6 +37,7 @@ We do not just share what the final cake looks like, but also how exactly it cam
 To do so, we can follow two steps:
 
 first, the structure — the layout of your baking book
+
 second, the documentation — the actual recipes inside
 
 ## The folder structure - layout of the baking book
@@ -174,7 +175,7 @@ ProjectX_Topic_Name/
 
 1. You can now upload your files to YODA using your preferred method. If needed, you can consult the full guide on working with YODA here or reach out for help:
 
-[https://www.uu.nl/en/research/yoda/guide-to-yoda]
+(YODA guide)[https://www.uu.nl/en/research/yoda/guide-to-yoda]
 
 If you are working with consortium-wide datasets, publicly available data, or data that has already been published, you do not need to upload everything again. Storing data comes with a cost, so we try to avoid unnecessary duplication.
 
