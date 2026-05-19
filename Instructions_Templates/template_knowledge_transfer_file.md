@@ -1,9 +1,9 @@
 # Knowledge Transfer File
 
-Name: [First name(s), last name(s)]
-ORCID: [ORCID ID]
-Institution: [Full institution name]
-Address [City, country] Email: [Email address]
+**Name:** [First name(s), last name(s)]  
+**ORCID:** [ORCID ID]  
+**Institution:** [Institution name]  
+**Email:** [Email address]
 
 [Add additional contributors if needed]
 
