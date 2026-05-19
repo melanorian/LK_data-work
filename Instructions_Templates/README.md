@@ -40,7 +40,7 @@ To do so, we can follow two steps:
 
 2. The documentation — the actual recipes inside
 
-## The folder structure - layout of the baking book
+## 1. The folder structure - layout of the baking book
 
 You can think of the folder structure as the layout of a baking book. It is much easier to find your favourite recipe and quickly get started if the structure is well organised and each recipe follows a consistent format. Without this structure, even a well-written recipe book becomes difficult to navigate.
 
@@ -94,7 +94,7 @@ Building on previous data releases from the LettuceKnow consortium, the followin
 |   ├── scripts_B/
 |   └── scripts_N/
 ```
-## Documentation - the recipes in your baking book
+## 2. Documentation - the recipes in your baking book
 
 Once the structure is in place, the next step is to make sure each part of the project can be clearly understood and reproduced.
 
