@@ -173,7 +173,7 @@ ProjectX_Topic_Name/
 ```
 ## B. Populate your folders with data – getting the ingredients for your cake
 
-1. You can now upload your files to YODA using your preferred method. If needed, you can consult the full guide on working with YODA here or reach out for help:
+You can now upload your files to YODA using your preferred method. If needed, you can consult the full guide on working with YODA here or reach out for help:
 
 [YODA guide](https://www.uu.nl/en/research/yoda/guide-to-yoda)
 
@@ -238,6 +238,8 @@ This is the most important documentation file in the data package. If someone un
 
 1.3 Follow the instructions in the template to generate a more complete version
 
+1.4 Upload your minimum viable version or completed form to your project's `4_metadata-files/` folder.
+
 ### 2. code_book
 
 The code book ensures that anyone can correctly interpret the variables and column names in our dataset. It is the document where we explain each ingredient of our LettuceCake in detail so that it turns out just right.
@@ -279,6 +281,10 @@ https://planteome.org/node/1
 - Plant Trait Ontology (TO; example: `TO:0000063`)  
 
 If no ontology applies, this field can be left empty.
+
+2.3 Upload your `code_book.csv` to your project's `4_metadata-files/` folder.
+
+2.4 Be happy and celebrate a well-documented data package, best enjoyed with a piece of cake!
 
 ### 3. knowledge_transfer_file.md (optional)
 
