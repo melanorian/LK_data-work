@@ -170,32 +170,31 @@ ProjectX_Topic_Name/
 ├── 4_metadata-files/
 └── 5_methods-and-protocols/
 ```
-
-Ideally, every data package follows the same internal structure which is also used across the LettuceKnow consortium data releases. This makes it much easier to navigate and reuse data across different projects. 
-
-Of course, not every project is identical. If your data requires adjustments, that is fine. But try to stay as close as possible to the shared structure so others can easily understand your work without guessing where things are.
-
 ## B. Populate your folders with data – getting the ingredients for your cake
 
-1. You should now be able to upload your files to YODA using your preferred method. If needed, you can consult the full guide on working with YODA here or reach out for help:
+1. You can now upload your files to YODA using your preferred method. If needed, you can consult the full guide on working with YODA here or reach out for help:
 
 [https://www.uu.nl/en/research/yoda/guide-to-yoda]
 
-**If you are working with consortium-wide datasets, publicly available data, or data that has already been published**, you do not need to upload everything again. Storing data literally comes with a cost, so we try to avoid unnecessary duplication.
+If you are working with consortium-wide datasets, publicly available data, or data that has already been published, you do not need to upload everything again. Storing data comes with a cost, so we try to avoid unnecessary duplication.
 
-Instead, you can simply reference the data you used and focus on documenting it properly in your README files and code book and other metadata files.
+Instead, you can simply reference the data you used and focus on documenting it properly in your README files, code book, and other metadata files.
+
+Instead, you can simply reference the data you used and focus on documenting it properly in your README files and code book and other metadata files. 
 
 ## C. Document your data package - write the recipie for your LettuceCake
 
-Now that you have created a well-structured data packe, the recipie book and all the ingredients its time to write the recipe, it is time to add the recipies, add the documentation that allows everyone to reporduce your favoiure LettuceCake. 
+Now that we have created a well-structured data package (the recipe book and all the ingredients), it is time to write the recipe itself: the documentation that allows everyone to reproduce your favourite LettuceCake.
 
-We will go now over the differnt files by level of imporatance. Of coures, ideally you have everythign documented as suggested in the templates, but, I will also provide some minimal viable verson.  
+We now move from the structure of the project to the documentation files inside each folder.
 
-We will fill in the: 
+We will go over the different files by level of importance. Of course, ideally everything is documented as suggested in the templates, but we will also provide a minimal viable version.
 
-1. [README.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_LK.md)
+We will fill in:
 
-2. [code_book.csv](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)
+1. README.md  
+2. code_book.csv  
+3. knowledge transfer file (optional)  
 
 Note: If you are wondering about the choice of format for those files or you are unfamiliar with markdown (.md) please navigate to more extensive instructions below: [Go to File formats](#file-formats)
 
@@ -206,7 +205,8 @@ Don’t let perfect be the enemy of good.
 If time is limited:
 
 1. Start with a minimal version of `README.md` for each chapter / publication / project + `code_book.csv`  
-2. Then improve to a more complete `README.md` over time  
+2. Then improve to a more complete `README.md` over time
+3. Fill in the optional knowledge transfer file 
 
 The goal is simple:
 
@@ -214,69 +214,78 @@ Make your work understandable without you.
 
 ### 1. README.md
 
-Think of the README files as the actual recipe for one of your LettuceCakes. This is where you explain how raw ingredients (raw data) became something usable (processed data, results).
+Think of the README files as the actual recipe for one of our LettuceCakes. This is where we explain how raw ingredients (raw data) became something usable (processed data and results).
 
-This is the most important documentation file in your data package. If someone understands this, they can actually work with your data. That's why it is worth-while to invest some extra effort in a minimial viable version and best a  complete version. 
+This is the most important documentation file in the data package. If someone understands this, they can actually work with the data. That is why it is worth investing some extra effort in a minimal viable version, and ideally a complete version.
 
 1.1 Download: [README.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_README_LK.md)
 
-1.2. Fill in a minimum viable version
+1.2 Fill in a minimum viable version:
 
 - General Information  
 - Overview  
 - Input data  
 - Code book (see below)  
 - Processing and analysis summary  
-    - key processing steps: [brief bullets]  
-    - key analysis steps: [brief bullets]  
+  - key processing steps: [brief bullets]  
+  - key analysis steps: [brief bullets]  
 
 - Outputs (most important results generated)  
-    - figures: [location or description]  
-    - tables: [location or description]  
-    - models / results: [location or description]  
+  - figures: [location or description]  
+  - tables: [location or description]  
+  - models / results: [location or description]  
 
 1.3 Follow the instructions in the template to generate a more complete version
 
 ### 2. code_book
 
-In case of the code book we want to ensure the user can correctly interpret the variables and column names in your dataset to ensure a clear understanding of the provided data. It is the document where you explain each ingredient of your LettuceCake in detail so that it turns out just right. 
+The code book ensures that anyone can correctly interpret the variables and column names in our dataset. It is the document where we explain each ingredient of our LettuceCake in detail so that it turns out just right.
+
+This is an essential layer of documentation because it provides the link between documentation and the actual data files.
 
 2.1 Download: [code_book.csv](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_code_book.csv)
 
-2.2 Understanding & filling in the differnt columns in the code_book.csv
+2.2 Understanding and filling in the different columns in `code_book.csv`
 
 `index`: A simple numbering column used to keep the code book organised. This field is mainly for readability and reference.
 
-`code`: The exact variable or column name used in the dataset. This should match the column name exactly as it appears in the data file. Think of this as the ingredient name in your recipe.
+`code`: The exact variable or column name used in the dataset. This must match the column name exactly as it appears in the data file. Think of this as the ingredient name in our recipe.
 
 Example: `leaf_area`, `sample_id`, `treatment_group`
 
 `meaning`: A human-readable explanation of what the variable describes. This explains the biological or experimental meaning of the variable in plain language.
 
-Example:`Leaf surface area measurement`, `Unique identifier for each plant sample`, `Nitrogen treatment applied to the plant`
+Example: `Leaf surface area measurement`, `Unique identifier for each plant sample`, `Nitrogen treatment applied to the plant`
 
-`represents`: Describes what a single value refers to, also called the unit of observation. This is important because the same variable can represent different things depending on the level of measurement.
+`represents`: Describes what a single value refers to (unit of observation). This is important because the same variable can represent different things depending on the level of measurement.
 
-Example:
-`per plant`, `per leaf`, `per sample`, `mean value per treatment group`
+Example: `per plant`, `per leaf`, `per sample`, `mean value per treatment group`
 
 `unit`: The measurement unit used for the variable.
 
 Example: `cm²`, `mg`, `days`, `°C`, `%`
 
-If no physical unit exists, you can use: `categorical`, `text`, `boolean`, `ID`,...
+If no physical unit exists, you can use: `categorical`, `text`, `boolean`, `ID`, …
 
-`ontology`: Optional field linking the variable to a standardised ontology or controlled vocabulary.This improves the connection with other datasets (interoperability) and helps datasets integrate across projects and repositories.
+`ontology`: Optional field linking the variable to a standardised ontology or controlled vocabulary. This improves interoperability and helps datasets integrate across projects and repositories.
 
-Examples used in LettuceKnow can be found following this link: 
+Examples used in LettuceKnow can be found here:
 
-https://planteome.org/node/1 
+https://planteome.org/node/1  
 
-- Plant Ontology (PO; example: `PO:0025034`)
-- Plant Experimental Conditions Ontology (PECO; example: `PECO:0001062`)
-- Plant Trait Ontology (TO; example: `TO:0000063`)
+- Plant Ontology (PO; example: `PO:0025034`)  
+- Plant Experimental Conditions Ontology (PECO; example: `PECO:0001062`)  
+- Plant Trait Ontology (TO; example: `TO:0000063`)  
 
 If no ontology applies, this field can be left empty.
+
+### 3. knowledge_transfer_file.md (optional)
+
+A knowledge transfer file summarises the “behind the scenes” knowledge. It explains, for example, what decisions were made, what is not obvious from the data, and what users should be careful about.
+
+3.1 Download: [knowledge_transfer_file.md](https://github.com/melanorian/LK_data-work/blob/main/Instructions_Templates/template_knowledge_transfer_file.md)
+
+3.2 Follow the instructions in the file.
 
 ## File formats
 
