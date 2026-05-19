@@ -94,7 +94,6 @@ Building on previous data releases from the LettuceKnow consortium, the followin
 |   ├── scripts_B/
 |   └── scripts_N/
 ```
-
 ## Documentation - the recipes in your baking book
 
 Once the structure is in place, the next step is to make sure each part of the project can be clearly understood and reproduced.
@@ -130,7 +129,7 @@ It contains the “behind the scenes” knowledge, explaining, for example, what
 
 # Step-by-step guide to preparing your data package
 
-n the next section, we will walk step by step through preparing your data package for the final data release. Not all steps will be relevant for every project, and you may need to adapt certain parts to fit your specific data.
+In the next section, we will walk step by step through preparing your data package for the final data release. Not all steps will be relevant for every project, and you may need to adapt certain parts to fit your specific data.
 
 Still, it is recommended to stay as close as possible to the shared structure and templates. This makes it much easier to navigate and reuse datasets across the Lettuce Know consortium.
 
@@ -182,6 +181,22 @@ If you are working with consortium-wide datasets, publicly available data, or da
 Instead, you can simply reference the data you used and focus on documenting it properly in your README files, code book, and other metadata files.
 
 Instead, you can simply reference the data you used and focus on documenting it properly in your README files and code book and other metadata files. 
+
+Note: 
+
+**File and folder naming**
+
+To ensure everything is machine-readable, consistent, and interoperable, we follow a few simple naming guidlines:
+
+- use numbers if needed  
+- avoid spaces
+- use `_` or `-` to separate words   
+- avoid special characters (e.g. !, @, #, $, %, &, *)
+- avoid using dots (.) except for file extensions
+- if possible, try using one naming style consistently within a project  
+
+Example:  
+`rna_seq_lettuce_low_nitrogen_t1_v1`
 
 ## C. Document your data package - write the recipie for your LettuceCake
 
