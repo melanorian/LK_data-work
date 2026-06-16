@@ -1,0 +1,172 @@
+# Basic set-up
+
+## Load Libraries
+library(readxl)
+library(readr)
+library(dplyr)
+library(purrr)
+library(stringr)
+
+## Set working directory to location with metadata
+wd <- "~/Documents/LK_data/RNAseq/YODA_Metadata_files"
+setwd(wd)
+
+# Load Files
+
+## Define file content
+metadata_master_file <- "seq_metadata_all_releases_V9_20250821.tsv"
+release_grouping_file <- "20260612_suggested_RNAseq_groups_SRA_submission.xlsx"
+raw_location_file <- "10_paths-to-all-raw-seq-data.tsv"   
+
+## Load files
+meta_master <- read_tsv(metadata_master_file)
+grouping <- excel_sheets(release_grouping_file)
+raw_location <- read_tsv(raw_location_file)
+
+exp_tabs <- c(
+  "ExpAH001",
+  "ExpMA002",
+  "ExpMA003",
+  "ExpMA011",
+  "ExpMA011_updated",
+  "ExpMA012",
+  "ExpMA013",
+  "ExpMA015",
+  "ExpMA016",
+  "LKAtlasRNAseq001",
+  "LKAtlasRNAseq002",
+  "LKAtlasRNAseq003",
+  "LKAtlasRNAseq004"
+)
+
+exp_grouping <- setNames(
+  lapply(exp_tabs, function(sh) {
+    read_excel(release_grouping_file, sheet = sh)
+  }),
+  exp_tabs
+)
+
+# Build a table that contains only essential sample information/submission
+
+# columns expected
+expected_cols <- c(
+  "Unique_SampleID_in_metadata",
+  "SampleID_submission",
+  "Other_sampleID",
+  "expID_plant",
+  "SRA_submission",
+  "on_SRA",
+  "SRA_ID"
+)
+
+# check each sheet
+col_check <- lapply(names(exp_grouping), function(sh) {
+  
+  df <- exp_grouping[[sh]]
+  
+  data.frame(
+    sheet = sh,
+    missing_cols = paste(setdiff(expected_cols, names(df)), collapse = ", "),
+    n_cols = length(names(df))
+  )
+})
+
+col_check <- bind_rows(col_check)
+
+# show only sheets with missing columns
+col_check %>%
+  filter(missing_cols != "")
+
+
+# create table with sample groups
+sample_groups <- lapply(names(exp_grouping), function(sh) {
+  
+  df <- exp_grouping[[sh]]
+  
+  df %>%
+    mutate(exp_tab = sh) %>%
+    select(any_of(c(expected_cols, "exp_tab")))
+})
+
+sample_groups <- bind_rows(sample_groups)
+
+# Create a file with merged information 
+## A) merge metadata with grouping
+meta_master_SRA <- meta_master %>%
+  left_join(sample_groups, by = "Unique_SampleID_in_metadata")
+
+## B) merge with file location
+## B1 Extract substring from file path to match with sample submission ID
+
+raw_location2 <- raw_location %>%
+  mutate(
+    full_name = basename(file_path),
+    sample_core = str_extract(
+    full_name,
+    "^[^_]+"
+  )
+)
+
+# Add column to indicate match of extracted sample name in meta_master_SRA
+meta_master_SRA <- meta_master_SRA %>%
+  mutate(
+    SampleID_submission_match_file_path =
+      SampleID_submission.x %in% raw_location2$sample_core
+  )
+
+table(meta_master_SRA$SampleID_submission_match_file_path, useNA = "ifany")
+
+
+# Join
+meta_master_SRA_long <- meta_base %>%
+  left_join(
+    raw_location2,
+    by = c("SampleID_submission.x" = "sample_core"),
+    relationship = "many-to-many"
+  )
+
+# sanity check
+
+meta_master_SRA_long <- meta_master_SRA_long %>%
+  mutate(
+    folder_from_path = str_extract(file_path, "(?<=/)ALD[^/]+(?=/)"),
+    
+    check_FolderID = folder_from_path == Seqdata_FolderID
+  )
+
+meta_master_SRA_long <- meta_master_SRA_long %>%
+  mutate(
+    folder_from_path = str_match(file_path, ".*/([^/]+)/[^/]+$")[,2],
+    check_FolderID = folder_from_path == Seqdata_FolderID
+  )
+
+folder_check_summary <- meta_master_SRA_long %>%
+  summarise(
+    TRUE_count = sum(check_FolderID, na.rm = TRUE),
+    FALSE_count = sum(!check_FolderID, na.rm = TRUE),
+    NA_count = sum(is.na(check_FolderID))
+  )
+
+folder_check_summary
+
+meta_master_SRA_long_TRUE <- meta_master_SRA_long %>%
+  filter(check_FolderID == TRUE)
+
+meta_master_SRA_long_FALSE <- meta_master_SRA_long %>%
+  filter(check_FolderID == FALSE)
+
+meta_master_SRA_long_NA <- meta_master_SRA_long %>%
+  filter(is.na(check_FolderID))
+
+#### CHECK OUTPUT if correct continue
+
+# Load excel sheet with SRA for sample information and metadata information 
+
+a <- "~/Documents/LK_data/RNAseq/Metadata_sheets_SRA/SRA_metadata_Plant.xlsx"
+b <- "~/Documents/LK_data/RNAseq/Metadata_sheets_SRA/SRA_Sample_plant_template.xlsx"
+
+# is there a way to preserve the layout
+
+
+# safe for each submission block a seperate sample and metadata file here ~/Documents/LK_data/RNAseq/Metadata_sheets_SRA/
+
