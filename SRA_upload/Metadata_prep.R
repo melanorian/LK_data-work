@@ -54,6 +54,7 @@ expected_cols <- c(
   "Other_sampleID",
   "expID_plant",
   "SRA_submission",
+  "SRA_submission_unique",
   "on_SRA",
   "SRA_ID"
 )
@@ -182,13 +183,54 @@ meta_master_SRA_long_NA <- meta_master_SRA_long %>%
 
 #### CHECK OUTPUT if correct continue
 
-# Load excel sheet with SRA for sample information and metadata information 
+# Split into individual overview sheets/submission package
 
-a <- "~/Documents/LK_data/RNAseq/Metadata_sheets_SRA/SRA_metadata_Plant.xlsx"
-b <- "~/Documents/LK_data/RNAseq/Metadata_sheets_SRA/SRA_Sample_plant_template.xlsx"
+# 1. Filter for specific experiment ID expID_plant.y == exp_tabs
+# 2. Filter for on_SRA == FALSE
+# 3. Check for nrow of resulting df. If ==0 print exp_tabs selection length is zero , If >0 proceed with 4.
+# 4. create df of the selection
+# 5. ensure the name of the data frame is the matching exp_tabs element
 
-# is there a way to preserve the layout
+# Create one data frame per experiment containing only samples not yet on SRA
+experiment_dfs <- lapply(exp_tabs, function(exp_id) {
+  # Filter for current experiment and samples not yet submitted
+  df <- meta_master_SRA_long %>%
+    filter(
+      expID_plant.y == exp_id,
+      on_SRA == FALSE
+    )
+  # Check if any rows were found
+  if (nrow(df) == 0) {
+    message(exp_id, ": selection length is zero")
+    return(NULL)
+  } else {
+    message(exp_id, ": ", nrow(df), " rows selected")
+    return(df)
+  }
+})
 
+# Assign experiment names to list elements
+names(experiment_dfs) <- exp_tabs
+# Remove empty entries
+experiment_dfs <- experiment_dfs[!sapply(experiment_dfs, is.null)]
+# Create individual data frames in the global environment
+list2env(experiment_dfs, envir = .GlobalEnv)
 
-# safe for each submission block a seperate sample and metadata file here ~/Documents/LK_data/RNAseq/Metadata_sheets_SRA/
+# safe overview output for manual inspection
+output_dir <- file.path("~/Documents/LK_data/RNAseq/Metadata_sheets_SRA/", "SRA_trial_exports")
+dir.create(output_dir, showWarnings = FALSE)
 
+lapply(names(experiment_dfs), function(exp_id) {
+  
+  df <- experiment_dfs[[exp_id]]
+  
+  write.csv(
+    df,
+    file = file.path(output_dir, paste0(exp_id, ".csv")),
+    row.names = FALSE
+  )
+})
+
+a <- unique(ExpMA011$Unique_SampleID_in_metadata)
+b <- meta_master$Unique_SampleID_in_metadata[meta_master$expID_plant == "ExpMA011"]
+sum(a == b)
