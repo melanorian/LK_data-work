@@ -15,7 +15,7 @@ setwd(wd)
 
 ## Define file content
 metadata_master_file <- "seq_metadata_all_releases_V9_20250821.tsv"
-release_grouping_file <- "20260612_suggested_RNAseq_groups_SRA_submission.xlsx"
+release_grouping_file <- "20260617_suggested_RNAseq_groups_SRA_submission.xlsx"
 raw_location_file <- "10_paths-to-all-raw-seq-data.tsv"   
 
 ## Load files
@@ -28,7 +28,6 @@ exp_tabs <- c(
   "ExpMA002",
   "ExpMA003",
   "ExpMA011",
-  "ExpMA011_updated",
   "ExpMA012",
   "ExpMA013",
   "ExpMA015",
@@ -88,7 +87,30 @@ sample_groups <- lapply(names(exp_grouping), function(sh) {
     select(any_of(c(expected_cols, "exp_tab")))
 })
 
+clean_on_sra <- function(x) {
+  case_when(
+    x %in% c(TRUE, "TRUE", "T", "t", 1, "1", "yes", "YES") ~ TRUE,
+    x %in% c(FALSE, "FALSE", "F", "f", 0, "0", "no", "NO") ~ FALSE,
+    TRUE ~ NA
+  )
+}
+
+sample_groups <- lapply(names(exp_grouping), function(sh) {
+  
+  df <- exp_grouping[[sh]]
+  
+  # force column types BEFORE selecting
+  if ("on_SRA" %in% names(df)) {
+    df$on_SRA <- clean_on_sra(df$on_SRA)
+  }
+  
+  df %>%
+    mutate(exp_tab = sh) %>%
+    select(any_of(c(expected_cols, "exp_tab")))
+})
+
 sample_groups <- bind_rows(sample_groups)
+#write.csv(sample_groups, paste0(wd, "/", "sample_grouping_long.csv"))
 
 # Create a file with merged information 
 ## A) merge metadata with grouping
@@ -118,7 +140,7 @@ table(meta_master_SRA$SampleID_submission_match_file_path, useNA = "ifany")
 
 
 # Join
-meta_master_SRA_long <- meta_base %>%
+meta_master_SRA_long <- meta_master_SRA %>%
   left_join(
     raw_location2,
     by = c("SampleID_submission.x" = "sample_core"),
