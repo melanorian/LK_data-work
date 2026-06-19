@@ -123,12 +123,13 @@ meta_master_SRA <- meta_master %>%
 
 raw_location2 <- raw_location %>%
   mutate(
+    # 1. get filename only
     full_name = basename(file_path),
-    sample_core = str_extract(
-    full_name,
-    "^[^_]+"
+    # 2. remove known extensions (.fastq.gz OR .tar OR other single extensions)
+    name_no_ext = str_remove(full_name, "\\.fastq\\.gz$|\\.tar$|\\.[^.]+$"),
+    # 3. extract sample core = before first underscore
+    sample_core = str_extract(name_no_ext, "^[^_]+")
   )
-)
 
 # Add column to indicate match of extracted sample name in meta_master_SRA
 meta_master_SRA <- meta_master_SRA %>%
@@ -140,6 +141,8 @@ meta_master_SRA <- meta_master_SRA %>%
 table(meta_master_SRA$SampleID_submission_match_file_path, useNA = "ifany")
 
 
+############## CONSTRUCTION STARTS ####################################
+
 # Join
 meta_master_SRA_long <- meta_master_SRA %>%
   left_join(
@@ -147,6 +150,11 @@ meta_master_SRA_long <- meta_master_SRA %>%
     by = c("SampleID_submission.x" = "sample_core"),
     relationship = "many-to-many"
   )
+
+
+
+############## CONSTRUCTION ENDS ####################################
+
 
 # sanity check
 
@@ -217,7 +225,7 @@ experiment_dfs <- experiment_dfs[!sapply(experiment_dfs, is.null)]
 list2env(experiment_dfs, envir = .GlobalEnv)
 
 # safe overview output for manual inspection
-output_dir <- file.path("~/Documents/LK_data/RNAseq/Metadata_sheets_SRA/", "SRA_trial_exports")
+output_dir <- file.path("~/Documents/LK_data/RNAseq/Metadata_sheets_SRA/", "1_Metadata_pre-processing")
 dir.create(output_dir, showWarnings = FALSE)
 
 lapply(names(experiment_dfs), function(exp_id) {
@@ -231,6 +239,7 @@ lapply(names(experiment_dfs), function(exp_id) {
   )
 })
 
-a <- unique(ExpMA011$Unique_SampleID_in_metadata)
-b <- meta_master$Unique_SampleID_in_metadata[meta_master$expID_plant == "ExpMA011"]
-sum(a == b)
+
+sum(unique(ExpMA016$Unique_SampleID_in_metadata) == unique(meta_master$Unique_SampleID_in_metadata[meta_master$expID_RNA == "ExpMA016"]))
+
+
