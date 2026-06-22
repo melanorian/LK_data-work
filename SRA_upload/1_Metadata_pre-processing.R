@@ -1,4 +1,5 @@
 # Basic set-up
+rm(list = ls())
 
 ## Load Libraries
 library(readxl)
