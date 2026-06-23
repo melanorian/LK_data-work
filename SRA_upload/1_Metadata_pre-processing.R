@@ -240,7 +240,76 @@ lapply(names(experiment_dfs), function(exp_id) {
   )
 })
 
+## Additonal processing for incorrect ones
+# ExpMA012
+# A) Filter for experiments in question
+exp_grouping_12 <- exp_grouping$ExpMA012
+sample_groups_12 <- sample_groups[sample_groups$expID_plant == "ExpMA012",]
+meta_mater_12 <- meta_master[meta_master$expID_RNA == "ExpMA012",]
 
-sum(unique(ExpMA016$Unique_SampleID_in_metadata) == unique(meta_master$Unique_SampleID_in_metadata[meta_master$expID_RNA == "ExpMA016"]))
+# B) merge with metadata info 
+meta_master_SRA_12 <- meta_mater_12 %>%
+  left_join(sample_groups_12, by = "Unique_SampleID_in_metadata")
+
+colnames(meta_master_SRA_12) <- colnames(meta_master_SRA) # make sure columnames are the same
+
+# C) Extract corresponding file paths
+# Extract run ID from metadata
+run_ID <- str_extract(meta_master_SRA_12$Unique_SampleID_in_metadata, "[^_]+$")
+run_IDs <- unique(run_ID)  # adjust column name if needed
+
+# Filter raw_location rows where file_path contains any of the run IDs
+run_ID  <- str_extract(meta_master_SRA_12$Unique_SampleID_in_metadata, "[^_]+$")
+run_IDs <- unique(run_ID)
+
+file_path_exp12 <- raw_location %>%
+  filter(str_detect(file_path, paste(run_IDs, collapse = "|"))) %>%
+  mutate(run_ID = str_extract(file_path, paste(run_IDs, collapse = "|")))
+
+file_path_exp12 <- file_path_exp12 %>%
+  mutate(SampleID_Seq = str_extract(basename(file_path), "^[^_]+"))
+
+meta_master_SRA_12_v2 <- meta_master_SRA_12 %>%
+  left_join(
+    file_path_exp12 %>% select(file_path, sha2, run_ID, SampleID_Seq),
+    by = c("Seqdata_FolderID" = "run_ID",
+           "SampleID_Seq"     = "SampleID_Seq")
+  )
+
+# Add column to indicate match of extracted sample name in meta_master_SRA
+meta_master_SRA_12_v2 <- meta_master_SRA_12_v2 %>%
+  mutate(
+    SampleID_submission_match_file_path =
+      SampleID_submission.x %in% raw_location2$sample_core
+  )
+
+table(meta_master_SRA_12_v2$SampleID_submission_match_file_path, useNA = "ifany")
 
 
+raw_location2_12 <- meta_master_SRA_12_v2 %>%
+  mutate(
+    # 1. get filename only
+    full_name = basename(file_path),
+    # 2. remove known extensions (.fastq.gz OR .tar OR other single extensions)
+    name_no_ext = str_remove(full_name, "\\.fastq\\.gz$|\\.tar$|\\.[^.]+$"),
+    # 3. extract sample core = before first underscore
+    sample_core = str_extract(name_no_ext, "^[^_]+")
+  )
+
+# add the columns still missing compared to the other df and same order
+raw_location2_12$folder_from_path <- rep(NA,nrow(raw_location2_12))
+raw_location2_12 <- raw_location2_12 %>% mutate(check_FolderID = folder_from_path == Seqdata_FolderID)
+raw_location2_12 <- raw_location2_12 %>% select(all_of(colnames(experiment_dfs$ExpAH001)))
+
+# Safe
+write.csv(raw_location2_12, 
+          file = file.path(output_dir, paste0("ExpMA012", ".csv")), 
+          row.names = FALSE
+          )
+
+# 1. check for runin exp12  
+# 2. merge metadata with groupoing
+# 3.find wile pahts by 1. run, 2. SampleID_Seq 
+# merge with file location by
+
+meta
