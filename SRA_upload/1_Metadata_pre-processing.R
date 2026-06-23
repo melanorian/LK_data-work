@@ -267,13 +267,55 @@ file_path_exp12 <- raw_location %>%
   mutate(run_ID = str_extract(file_path, paste(run_IDs, collapse = "|")))
 
 file_path_exp12 <- file_path_exp12 %>%
+  mutate(SampleID_Seq = str_extract(basename(file_path), "^[^_]+")) %>%
+  # Remove rows originating from undetermined reads
+  filter(SampleID_Seq != "Undetermined") %>%
+  # If SampleID_Seq ends in .tar, remove the extension
+  mutate(
+    SampleID_Seq = str_remove(SampleID_Seq, "\\.tar$")
+  )
+
+####################### CONSTRUCTION SITE START ############################
+############################################################################
+
+# Add run_ID from Unique_SampleID_in_metadata to meta_master_SRA_12 first
+meta_master_SRA_12 <- meta_master_SRA_12 %>%
+  mutate(run_ID = str_extract(Unique_SampleID_in_metadata, "[^_]+$"))
+
+
+# Split by file type
+file_path_exp12_fastq <- file_path_exp12 %>%
+  filter(str_detect(file_path, "\\.fastq\\.gz$")) %>%
   mutate(SampleID_Seq = str_extract(basename(file_path), "^[^_]+"))
+
+file_path_exp12_tar <- file_path_exp12 %>%
+  filter(str_detect(file_path, "\\.tar$")) %>%
+  mutate(SampleID_submission_match = str_remove(basename(file_path), "\\.tar$"))
+
+# Join fastq files on SampleID_Seq
+meta_master_SRA_12_fastq <- meta_master_SRA_12 %>%
+  left_join(
+    file_path_exp12_fastq %>% select(file_path, sha2, run_ID, SampleID_Seq),
+    by = c("SampleID_Seq"     = "SampleID_Seq")
+  )
+
+
+# Then join on SampleID_submission_match
+meta_master_SRA_12_tar <- meta_master_SRA_12 %>%
+  left_join(
+    file_path_exp12_tar %>% select(file_path, sha2, SampleID_submission_match),
+    by = c("SampleID_submission.x" = "SampleID_submission_match")
+  )
+
+files_all <- bind_rows(
+  file_path_exp12_fastq %>% mutate(type = "fastq"),
+  file_path_exp12_tar %>% mutate(type = "tar")
+)
 
 meta_master_SRA_12_v2 <- meta_master_SRA_12 %>%
   left_join(
-    file_path_exp12 %>% select(file_path, sha2, run_ID, SampleID_Seq),
-    by = c("Seqdata_FolderID" = "run_ID",
-           "SampleID_Seq"     = "SampleID_Seq")
+    files_all,
+    by = c("SampleID_Seq" = "SampleID_Seq") # or corrected key
   )
 
 # Add column to indicate match of extracted sample name in meta_master_SRA
