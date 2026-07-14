@@ -128,7 +128,7 @@ build_sra_df <- function(sra_df, csv_list_element) {
   sra_df %>%
     left_join(other_id_lookup, by = c("file_path1" = "file_path")) %>%
     transmute(
-      biosample_accession= sample_name,
+      sample_name        = sample_name,
       library_ID         = str_replace(library_ID, "_R1_.*?(_add-seq)?$", "\\1"),
       title              = paste0("RNA-seq", " ", Other_sampleID.x),
       library_strategy   = "ssRNA-seq",
