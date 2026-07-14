@@ -1,6 +1,5 @@
-# ============================================================
 # SRA Submission Prep Script — batch version
-# ============================================================
+# Basic set-up
 rm(list = ls())
 
 # ---- Load libraries -----------------------------------------
@@ -33,7 +32,7 @@ for (csv_file in csv_files) {
   exp_name <- str_remove(csv_file, "\\.csv$")
   cat("Processing:", exp_name, "\n")
   
-  # -- Load & filter I1/I2 index reads 
+  # Load & filter I1/I2 index reads 
   meta <- read_csv(paste0(in_dir, csv_file), show_col_types = FALSE)
   
   meta_filtered <- meta %>%
@@ -63,7 +62,8 @@ for (csv_file in csv_files) {
     sample_name = meta_filtered$SampleID_submission.x,
     library_ID  = meta_filtered$name_no_ext,
     full_name   = meta_filtered$full_name,
-    file_path   = meta_filtered$file_path
+    file_path   = meta_filtered$file_path, 
+    sra_submission = meta_filtered$SRA_submission_unique
   )
 }
 
@@ -107,32 +107,40 @@ rsplit_r1_r2 <- function(sra_df) {
     select(sample_name, library_ID, filename1, file_path1, filename2, file_path2)
 }
 
-
 # Build SRA df 
-
 build_sra_df <- function(sra_df, csv_list_element) {
   
   # Look up Other_sampleID.x from full metadata using file_path1 as key
   other_id_lookup <- csv_list_element %>%
-    select(file_path, Other_sampleID.x) %>%
+    select(file_path, Other_sampleID.x, Sequencing_platform) %>%
     distinct()
+  
+  # Helper to ensure filename ends in .fastq.gz
+  fix_extension <- function(x) {
+    case_when(
+      is.na(x)                  ~ NA_character_,
+      str_detect(x, "\\.tar$")  ~ str_replace(x, "\\.tar$", ".fastq.gz"),
+      str_detect(x, "\\.fastq\\.gz$") ~ x,
+      TRUE                      ~ paste0(x, ".fastq.gz")
+    )
+  }
   
   sra_df %>%
     left_join(other_id_lookup, by = c("file_path1" = "file_path")) %>%
     transmute(
-      sample_name        = sample_name,
-      library_ID         = library_ID,
-      title              = paste0("RNA-seq", Other_sampleID.x),
+      biosample_accession= sample_name,
+      library_ID         = str_replace(library_ID, "_R1_.*?(_add-seq)?$", "\\1"),
+      title              = paste0("RNA-seq", " ", Other_sampleID.x),
       library_strategy   = "ssRNA-seq",
       library_source     = "TRANSCRIPTOMIC",
       library_selection  = "PolyA",
-      library_layout     = "paired",
-      platform           = "ILLUMINA",
-      instrument_model   = "NextSeq 2000",
+      library_layout     = "paired",         # ADJUST MANUALLY
+      platform           = "ILLUMINA",       # ADJUST MANUALLY
+      instrument_model   = Sequencing_platform,
       design_description = "NA",
       filetype           = "fastq",
-      filename           = filename1,
-      filename2          = filename2,
+      filename           = fix_extension(filename1),
+      filename2          = fix_extension(filename2),
       filename3          = NA,
       filename4          = NA,
       assembly           = NA,
@@ -147,7 +155,6 @@ for (exp_name in names(meta_list)) {
   sra_results[[exp_name]] <- build_sra_df(paired, csv_list[[exp_name]])
 }
 
-
 for (exp_name in names(sra_results)) {
   
   wb_sra <- loadWorkbook(sra_template)
@@ -155,8 +162,8 @@ for (exp_name in names(sra_results)) {
   
   writeData(wb_sra,
             sheet    = sheet_name,
-            x        = sra_results[[exp_name]],   # index into list with [[exp_name]]
-            startRow = 3,
+            x        = sra_results[[exp_name]],
+            startRow = 2,
             startCol = 1,
             colNames = FALSE)
   
@@ -167,107 +174,57 @@ for (exp_name in names(sra_results)) {
   cat("Saved:", paste0(exp_name, "_SRA_metadata.xlsx"), "\n")
 }
 
-
-
-
-# -- 3.5 Save into SRA template -----------------------------
-wb_sra <- loadWorkbook(sra_template)
-sheet_name <- sheets(wb_sra)[2]  # check with sheets(wb_sra) if unsure
-writeData(wb_sra,
-          sheet    = sheet_name,
-          x        = sra_results,
-          startRow = 3,           
-          startCol = 1,
-          colNames = FALSE)
-saveWorkbook(wb_sra,
-             file      = paste0(out_dir, exp_name, "_SRA_metadata.xlsx"),
-             overwrite = TRUE)
-
-
-
-############################
-############################
-
-pair_reads <- function(df, library_id_suffix = "") {
+# Save meta_list elements as csv
+for (exp_name in names(meta_list)) {
   
-  # Return empty df if input is empty (e.g. no additional-sequencing files)
-  if (nrow(df) == 0) return(data.frame())
+  write_csv(meta_list[[exp_name]],
+            file = paste0(out_dir, exp_name, "_SRA_paths.csv"))
   
-  sra <- data.frame(
-    sample_name        = df$SampleID_submission.x,
-    library_ID         = paste0(str_remove(df$name_no_ext, "_(R1|R2).*$"), library_id_suffix),
-    title              = str_remove(df$name_no_ext, "_(R1|R2).*$"),
-    library_strategy   = "ssRNA-seq",
-    library_source     = "TRANSCRIPTOMIC",
-    library_selection  = "PolyA",
-    library_layout     = "paired",
-    platform           = "ILLUMINA",
-    instrument_model   = "NextSeq 2000",       # adjust if needed
-    design_description = "NA",                 # adjust if needed
-    filetype           = "fastq",
-    filename           = df$full_name,
-    assembly           = NA,
-    fasta_file         = NA
-  )
-  
-  r1 <- sra %>%
-    filter(str_detect(filename, "_R1_")) %>%
-    mutate(pair_key = str_remove(filename, "_R1_.*$"))
-  
-  r2 <- sra %>%
-    filter(str_detect(filename, "_R2_")) %>%
-    select(filename) %>%
-    rename(filename2 = filename) %>%
-    mutate(pair_key = str_remove(filename2, "_R2_.*$"))
-  
-  r1 %>%
-    left_join(r2, by = "pair_key", relationship = "one-to-one") %>%
-    select(-pair_key) %>%
-    mutate(filename3 = NA, filename4 = NA) %>%
-    select(sample_name, library_ID, title, library_strategy, library_source,
-           library_selection, library_layout, platform, instrument_model,
-           design_description, filetype, filename, filename2, filename3,
-           filename4, assembly, fasta_file)
+  cat("Saved:", paste0(exp_name, "_SRA_paths.csv"),
+      "—", nrow(meta_list[[exp_name]]), "rows\n")
 }
 
-# ---- 3. BATCH LOOP ------------------------------------------
-csv_files <- list.files(in_dir, pattern = "\\.csv$", full.names = FALSE)
 
-for (csv_file in csv_files) {
+### CHECK
+
+library(readxl)
+release_grouping_file <- "~/Documents/LK_data/RNAseq/YODA_Metadata_files/20260617_suggested_RNAseq_groups_SRA_submission.xlsx"
+grouping <- excel_sheets(release_grouping_file)
+
+exp_grouping <- setNames(
+  lapply(names(csv_list), function(sh) {
+    read_excel(release_grouping_file, sheet = sh)
+  }),
+  names(csv_list)
+)
+
+# For all experiments: find missing samples and save as csv
+for (exp_name in names(exp_grouping)) {
   
-  exp_name <- str_remove(csv_file, "\\.csv$")  # e.g. "ExpMA002"
-  cat("Processing:", exp_name, "\n")
+  # Get SampleIDs in grouping file not found in sra_results
+  missing <- unique(exp_grouping[[exp_name]]$SampleID_submission)[
+    !unique(exp_grouping[[exp_name]]$SampleID_submission) %in% unique(sra_results[[exp_name]]$sample_name)
+  ]
   
-  # -- 3.1 Load & filter I1/I2 index reads --------------------
-  meta <- read_csv(paste0(in_dir, csv_file), show_col_types = FALSE)
+  # Extract missing rows from grouping
+  missing_gr <- exp_grouping[[exp_name]] %>%
+    filter(SampleID_submission %in% missing)
   
-  meta_filtered <- meta %>%
-    filter(!str_detect(basename(name_no_ext), "_(I1|I2)_"))
+  cat(exp_name, "— missing:", length(missing), "samples\n")
   
-  # -- 3.2 Split original and additional-sequencing runs ------
-  meta_original   <- meta_filtered %>% filter(!str_detect(file_path, "additional-sequencing_"))
-  meta_additional <- meta_filtered %>% filter( str_detect(file_path, "additional-sequencing_"))
-  
-  cat("  Original rows:", nrow(meta_original),
-      "| Additional rows:", nrow(meta_additional), "\n")
-  
-  # -- 3.3 Pair R1/R2 and bind; additional rows get _add-seq suffix
-  paired_original   <- pair_reads(meta_original,   library_id_suffix = "")
-  paired_additional <- pair_reads(meta_additional, library_id_suffix = "_add-seq")
-  
-  cat("  Original pairs:", nrow(paired_original),
-      "| Additional pairs:", nrow(paired_additional), "\n")
-  
-  sra_df_v2 <- bind_rows(paired_original, paired_additional) %>%
-    arrange(sample_name)
-  
-  cat("  Total paired samples (incl. add-seq):", nrow(sra_df_v2), "\n")
-  
-  # -- 3.4 Build file path data frame -------------------------
-  df_path <- data.frame(
-    sample_name = meta_filtered$SampleID_submission.x,
-    library_ID  = meta_filtered$name_no_ext,
-    full_name   = meta_filtered$full_name,
-    file_path   = meta_filtered$file_path
-  )
-  
+  # Save only if there are missing samples
+  if (nrow(missing_gr) > 0) {
+    write_csv(missing_gr,
+              file = paste0(out_dir, exp_name, "_missing_samples.csv"))
+    cat("  Saved:", paste0(exp_name, "_missing_samples.csv"), "\n")
+  }
+}
+
+
+### Additional processing if needed
+
+## ExpMA011
+
+csv_11 <- csv_list$ExpMA011
+exp_group_11 <- exp_grouping$ExpMA011
+meta_list_11 <- meta_list$ExpMA011
