@@ -6,7 +6,7 @@
 #
 # Usage:
 #
-# bash D_upload_retry_ascp.sh \
+# bash C_upload_retry_ascp.sh \
 #     /path/to/aspera_key \
 #     /path/to/local_upload_directory \
 #     subasp@upload.ncbi.nlm.nih.gov:upload_destination
@@ -42,7 +42,7 @@ if [[ -z "$ASPERA_KEY" || -z "$UPLOAD_DIR" || -z "$NCBI_DEST" ]]; then
     echo ""
     echo "  $0 ~/keys/aspera.openssh \\"
     echo "     data_files/LKAtlasRNAseq001_A \\"
-    echo "     subasp@upload.ncbi.nlm.nih.gov:uploads/your_folder"
+    echo "     subasp@upload.ncbi.nlm.nih.gov"
     echo ""
 
     exit 1
@@ -63,6 +63,7 @@ if [[ ! -d "$UPLOAD_DIR" ]]; then
 fi
 
 
+
 # ---------------------- LOG SETUP ----------------------
 
 BASE_DIR="$(dirname "$UPLOAD_DIR")"
@@ -78,12 +79,13 @@ touch "$ERR_FILE"
 
 echo "====================================" | tee -a "$LOG_FILE"
 echo "Aspera upload retry started" | tee -a "$LOG_FILE"
-echo "Upload directory:"
+echo "" | tee -a "$LOG_FILE"
+echo "Upload directory:" | tee -a "$LOG_FILE"
 echo "$UPLOAD_DIR" | tee -a "$LOG_FILE"
-echo ""
-echo "NCBI destination:"
+echo "" | tee -a "$LOG_FILE"
+echo "NCBI destination:" | tee -a "$LOG_FILE"
 echo "$NCBI_DEST" | tee -a "$LOG_FILE"
-echo ""
+echo "" | tee -a "$LOG_FILE"
 echo "Maximum attempts: $MAX_RETRIES" | tee -a "$LOG_FILE"
 echo "Started: $(date)" | tee -a "$LOG_FILE"
 echo "====================================" | tee -a "$LOG_FILE"
@@ -111,6 +113,7 @@ run_ascp_upload() {
 
 attempt=1
 
+
 while [[ $attempt -le $MAX_RETRIES ]]
 do
 
@@ -121,9 +124,20 @@ do
     echo "------------------------------------" | tee -a "$LOG_FILE"
 
 
-    run_ascp_upload >>"$LOG_FILE" 2>>"$ERR_FILE"
+    #
+    # Run Aspera:
+    # - show output live
+    # - save output to log
+    # - save errors separately
+    #
 
-    EXIT_CODE=$?
+    stdbuf -oL run_ascp_upload \
+        2> >(tee -a "$ERR_FILE" >&2) \
+        | tee -a "$LOG_FILE"
+
+
+    EXIT_CODE=${PIPESTATUS[0]}
+
 
 
     if [[ $EXIT_CODE -eq 0 ]]; then
@@ -140,10 +154,14 @@ do
     fi
 
 
+
+    echo "" | tee -a "$LOG_FILE"
     echo "Upload failed with exit code $EXIT_CODE" | tee -a "$LOG_FILE"
 
 
-    # Stop immediately on configuration/authentication problems
+
+    # ---------------- Permanent error detection ----------------
+
     if grep -Ei \
         "permission denied|authentication failed|invalid|not found|no such file|access denied|authorization" \
         "$ERR_FILE" >/dev/null
@@ -151,7 +169,7 @@ do
 
         echo "" | tee -a "$LOG_FILE"
         echo "Permanent error detected." | tee -a "$LOG_FILE"
-        echo "Stopping retries." | tee -a "$LOG_FILE"
+        echo "Stopping retry loop." | tee -a "$LOG_FILE"
         echo "See:"
         echo "$ERR_FILE"
 
@@ -161,9 +179,12 @@ do
 
 
 
+    # ---------------- Retry wait ----------------
+
     if [[ $attempt -lt $MAX_RETRIES ]]; then
 
-        echo "Temporary failure." | tee -a "$LOG_FILE"
+        echo "" | tee -a "$LOG_FILE"
+        echo "Temporary failure detected." | tee -a "$LOG_FILE"
         echo "Retrying in $WAIT_SECONDS seconds..." | tee -a "$LOG_FILE"
 
         sleep "$WAIT_SECONDS"
@@ -183,11 +204,11 @@ echo "" | tee -a "$LOG_FILE"
 echo "====================================" | tee -a "$LOG_FILE"
 echo "UPLOAD FAILED AFTER $MAX_RETRIES ATTEMPTS" | tee -a "$LOG_FILE"
 echo "Finished: $(date)" | tee -a "$LOG_FILE"
-echo ""
-echo "Log:"
+echo "" | tee -a "$LOG_FILE"
+echo "Log file:"
 echo "$LOG_FILE"
 echo ""
-echo "Errors:"
+echo "Error file:"
 echo "$ERR_FILE"
 echo "====================================" | tee -a "$LOG_FILE"
 
