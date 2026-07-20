@@ -5,9 +5,11 @@
 # Retry an Aspera upload up to MAX_RETRIES times.
 #
 # Usage:
-#   ./C_upload_retry_ascp.sh /path/to/local/upload_directory
 #
-# The NCBI destination and ascp command are defined below.
+# bash C_upload_retry_ascp.sh \
+#     /path/to/aspera_key \
+#     /path/to/local_upload_directory \
+#     subasp@upload.ncbi.nlm.nih.gov:upload_destination
 #
 # --------------------------------------------------------------------
 
@@ -22,30 +24,40 @@ MAX_RETRIES=100
 WAIT_SECONDS=60
 
 
-# --------------------------------------------------------------------
-# UPDATE YOUR EXACT WORKING ASCP COMMAND BELOW
-#
-
-run_ascp_upload() {
-
-     ~/.aspera/connect/bin/ascp -i ~/keys/aspera.openssh -QT -l100m -k1 -d ./data_files/LKAtlasRNAseq001_A/ subasp@upload.ncbi.nlm.nih.gov
-
-}
-
-
 # ---------------------- ARGUMENT CHECK ----------------------
 
-UPLOAD_DIR="${1:-}"
+ASPERA_KEY="${1:-}"
+UPLOAD_DIR="${2:-}"
+NCBI_DEST="${3:-}"
 
-if [[ -z "$UPLOAD_DIR" ]]; then
+
+if [[ -z "$ASPERA_KEY" || -z "$UPLOAD_DIR" || -z "$NCBI_DEST" ]]; then
+
+    echo ""
     echo "Usage:"
-    echo "  $0 /path/to/local/upload_directory"
+    echo ""
+    echo "  $0 <aspera_key> <local_upload_directory> <ncbi_destination>"
+    echo ""
+    echo "Example:"
+    echo ""
+    echo "  $0 ~/keys/aspera.openssh \\"
+    echo "     data_files/LKAtlasRNAseq001_A \\"
+    echo "     subasp@upload.ncbi.nlm.nih.gov:uploads/your_folder"
+    echo ""
+
+    exit 1
+fi
+
+
+if [[ ! -f "$ASPERA_KEY" ]]; then
+    echo "ERROR: Aspera key not found:"
+    echo "$ASPERA_KEY"
     exit 1
 fi
 
 
 if [[ ! -d "$UPLOAD_DIR" ]]; then
-    echo "ERROR: Directory does not exist:"
+    echo "ERROR: Upload directory not found:"
     echo "$UPLOAD_DIR"
     exit 1
 fi
@@ -59,16 +71,40 @@ UPLOAD_NAME="$(basename "$UPLOAD_DIR")"
 LOG_FILE="$BASE_DIR/upload_retry_${UPLOAD_NAME}.log"
 ERR_FILE="$BASE_DIR/upload_retry_${UPLOAD_NAME}.stderr"
 
+
 touch "$LOG_FILE"
 touch "$ERR_FILE"
 
 
 echo "====================================" | tee -a "$LOG_FILE"
 echo "Aspera upload retry started" | tee -a "$LOG_FILE"
-echo "Directory: $UPLOAD_DIR" | tee -a "$LOG_FILE"
+echo "Upload directory:"
+echo "$UPLOAD_DIR" | tee -a "$LOG_FILE"
+echo ""
+echo "NCBI destination:"
+echo "$NCBI_DEST" | tee -a "$LOG_FILE"
+echo ""
 echo "Maximum attempts: $MAX_RETRIES" | tee -a "$LOG_FILE"
 echo "Started: $(date)" | tee -a "$LOG_FILE"
 echo "====================================" | tee -a "$LOG_FILE"
+
+
+
+# ---------------------- ASCP FUNCTION ----------------------
+
+run_ascp_upload() {
+
+    ~/.aspera/connect/bin/ascp \
+        -i "$ASPERA_KEY" \
+        -QT \
+        -l100m \
+        -k1 \
+        -d \
+        "$UPLOAD_DIR" \
+        "$NCBI_DEST"
+
+}
+
 
 
 # ---------------------- RETRY LOOP ----------------------
@@ -85,7 +121,6 @@ do
     echo "------------------------------------" | tee -a "$LOG_FILE"
 
 
-    # Run upload
     run_ascp_upload >>"$LOG_FILE" 2>>"$ERR_FILE"
 
     EXIT_CODE=$?
@@ -108,25 +143,29 @@ do
     echo "Upload failed with exit code $EXIT_CODE" | tee -a "$LOG_FILE"
 
 
-    # Basic detection of likely permanent failures
+    # Stop immediately on configuration/authentication problems
     if grep -Ei \
-        "permission denied|authentication failed|invalid|not found|no such file|access denied" \
+        "permission denied|authentication failed|invalid|not found|no such file|access denied|authorization" \
         "$ERR_FILE" >/dev/null
     then
 
         echo "" | tee -a "$LOG_FILE"
-        echo "Permanent error detected. Stopping retry loop." | tee -a "$LOG_FILE"
-        echo "Check:"
+        echo "Permanent error detected." | tee -a "$LOG_FILE"
+        echo "Stopping retries." | tee -a "$LOG_FILE"
+        echo "See:"
         echo "$ERR_FILE"
 
-        exit $EXIT_CODE
+        exit "$EXIT_CODE"
 
     fi
 
 
+
     if [[ $attempt -lt $MAX_RETRIES ]]; then
 
+        echo "Temporary failure." | tee -a "$LOG_FILE"
         echo "Retrying in $WAIT_SECONDS seconds..." | tee -a "$LOG_FILE"
+
         sleep "$WAIT_SECONDS"
 
     fi
@@ -137,14 +176,18 @@ do
 done
 
 
+
 # ---------------------- FINAL FAILURE ----------------------
 
 echo "" | tee -a "$LOG_FILE"
 echo "====================================" | tee -a "$LOG_FILE"
 echo "UPLOAD FAILED AFTER $MAX_RETRIES ATTEMPTS" | tee -a "$LOG_FILE"
 echo "Finished: $(date)" | tee -a "$LOG_FILE"
-echo "See:"
+echo ""
+echo "Log:"
 echo "$LOG_FILE"
+echo ""
+echo "Errors:"
 echo "$ERR_FILE"
 echo "====================================" | tee -a "$LOG_FILE"
 
