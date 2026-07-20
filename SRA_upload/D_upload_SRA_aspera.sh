@@ -23,34 +23,12 @@ WAIT_SECONDS=60
 
 
 # --------------------------------------------------------------------
-# PASTE YOUR EXACT WORKING ASCP COMMAND BELOW
+# UPDATE YOUR EXACT WORKING ASCP COMMAND BELOW
 #
-# Replace LOCAL_DIR with the variable "$UPLOAD_DIR"
-#
-# Example structure:
-#
-# ascp -i /path/to/key \
-#      -QT \
-#      -l100m \
-#      -k1 \
-#      -d \
-#      "$UPLOAD_DIR" \
-#      subascp@upload.ncbi.nlm.nih.gov:your_upload_destination
-#
-# --------------------------------------------------------------------
 
 run_ascp_upload() {
 
-    # >>> PASTE YOUR ASCP COMMAND HERE <<<
-    
-    ascp \
-    -i /PATH/TO/YOUR/ASPERA_KEY \
-    -QT \
-    -l100m \
-    -k1 \
-    -d \
-    "$UPLOAD_DIR" \
-    subascp@upload.ncbi.nlm.nih.gov:YOUR_NCBI_UPLOAD_FOLDER
+     ~/.aspera/connect/bin/ascp -i ~/keys/aspera.openssh -QT -l100m -k1 -d ./data_files/LKAtlasRNAseq001_A/ subasp@upload.ncbi.nlm.nih.gov
 
 }
 
