@@ -24,6 +24,7 @@ MAX_RETRIES=100
 WAIT_SECONDS=60
 
 
+
 # ---------------------- ARGUMENT CHECK ----------------------
 
 ASPERA_KEY="${1:-}"
@@ -124,14 +125,15 @@ do
     echo "------------------------------------" | tee -a "$LOG_FILE"
 
 
+
     #
     # Run Aspera:
-    # - show output live
-    # - save output to log
-    # - save errors separately
+    # - show output live in terminal
+    # - append output to log
+    # - append errors separately
     #
 
-    stdbuf -oL run_ascp_upload \
+    run_ascp_upload \
         2> >(tee -a "$ERR_FILE" >&2) \
         | tee -a "$LOG_FILE"
 
