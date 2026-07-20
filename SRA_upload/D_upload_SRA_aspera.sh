@@ -6,7 +6,7 @@
 #
 # Usage:
 #
-# bash C_upload_retry_ascp.sh \
+# bash D_upload_retry_ascp.sh \
 #     /path/to/aspera_key \
 #     /path/to/local_upload_directory \
 #     subasp@upload.ncbi.nlm.nih.gov:upload_destination
